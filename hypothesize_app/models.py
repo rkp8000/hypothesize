@@ -24,6 +24,16 @@ class Setting(models.Model):
     def __unicode__(self):
         return self.name
 
+    @property
+    def value(self):
+        value_dict = {
+            'bool': self.bool_value,
+            'int': self.int_value,
+            'float': self.float_value,
+            'str': self.str_value,
+        }
+        return value_dict[self.type]
+
 
 class Document(models.Model):
     """Article class."""
@@ -105,7 +115,7 @@ class Node(models.Model):
     documents = models.ManyToManyField(Document, blank=True)
 
     def save(self, *args, **kwargs):
-        node_save_directory = Setting.objects.get(pk='node_save_directory')
+        node_save_directory = Setting.objects.get(pk='node_save_directory').value
         node_text_file_handling.update_text_file(self, node_save_directory)
         super(Node, self).save(*args, **kwargs)
 
