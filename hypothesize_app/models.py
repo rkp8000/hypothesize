@@ -17,7 +17,7 @@ class Setting(models.Model):
     str_value = models.CharField(max_length=1000, null=True, blank=True)
 
     def save(self, *args, **kwargs):
-        if self.id == 'node_save_directory_root':
+        if self.id == 'node_save_directory':
             node_text_file_handling.make_directory_if_not_exist(path=self.str_value)
         super(Setting, self).save(*args, **kwargs)
 
@@ -105,8 +105,8 @@ class Node(models.Model):
     documents = models.ManyToManyField(Document, blank=True)
 
     def save(self, *args, **kwargs):
-        node_save_directory_root = Setting.objects.get(pk='node_save_directory_root')
-        print('save function overridden')
+        node_save_directory = Setting.objects.get(pk='node_save_directory')
+        node_text_file_handling.update_text_file(self, node_save_directory)
         super(Node, self).save(*args, **kwargs)
 
     def __unicode__(self):
