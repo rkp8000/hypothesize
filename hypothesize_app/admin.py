@@ -1,9 +1,10 @@
 from django.contrib import admin
 
-from .models import Author, Document, Supplement, NodeType, Node
+import models
 
-admin.site.register(Author)
-admin.site.register(Document)
-admin.site.register(Supplement)
-admin.site.register(NodeType)
-admin.site.register(Node)
+admin.site.register(models.Setting)
+admin.site.register(models.Author)
+admin.site.register(models.Document)
+admin.site.register(models.Supplement)
+admin.site.register(models.NodeType)
+admin.site.register(models.Node)
