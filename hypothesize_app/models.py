@@ -1,9 +1,9 @@
 from __future__ import print_function, unicode_literals
 from datetime import datetime
-from django.db import models
+import os
 from unidecode import unidecode
 
-import node_text_file_handling
+from django.db import models
 
 
 class Setting(models.Model):
@@ -21,7 +21,9 @@ class Setting(models.Model):
         Override default save method so that we can do some extra stuff.
         """
         if self.id == 'NODE_SAVE_DIRECTORY':
-            node_text_file_handling.make_directory_if_not_exist(path=self.str_value)
+            # make the save directory if it doesn't exist
+            if not os.path.exists(self.str_value):
+                os.makedirs(self.str_value)
         super(Setting, self).save(*args, **kwargs)
 
     def __unicode__(self):
@@ -122,7 +124,10 @@ class Node(models.Model):
         Override default method to additionally save markdown file with node text.
         """
         node_save_directory = Setting.objects.get(pk='NODE_SAVE_DIRECTORY').value
-        node_text_file_handling.update_text_file(self, node_save_directory)
+        # update text file corresponding to this node
+        path = os.path.join(node_save_directory, self.id)
+        if not os.path.exists(os.path.dirname(path)):
+            os.makedirs(os.path.dirname(path))
         super(Node, self).save(*args, **kwargs)
 
     def __unicode__(self):
