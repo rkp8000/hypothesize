@@ -20,7 +20,7 @@ class Setting(models.Model):
         """
         Override default save method so that we can do some extra stuff.
         """
-        if self.id == 'node_save_directory':
+        if self.id == 'NODE_SAVE_DIRECTORY':
             node_text_file_handling.make_directory_if_not_exist(path=self.str_value)
         super(Setting, self).save(*args, **kwargs)
 
@@ -121,7 +121,7 @@ class Node(models.Model):
         """
         Override default method to additionally save markdown file with node text.
         """
-        node_save_directory = Setting.objects.get(pk='node_save_directory').value
+        node_save_directory = Setting.objects.get(pk='NODE_SAVE_DIRECTORY').value
         node_text_file_handling.update_text_file(self, node_save_directory)
         super(Node, self).save(*args, **kwargs)
 
