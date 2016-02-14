@@ -19,4 +19,10 @@ def update_text_file(node, root):
     :return success code
     """
     path = os.path.join(root, node.id)
+    make_directory_if_not_exist(os.path.dirname(path))
+
+    # write all information to file
+    with open('{}.md'.format(path), 'w') as f:
+        f.write(node.text)
+
     return None
