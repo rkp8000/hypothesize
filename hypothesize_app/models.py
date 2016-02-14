@@ -48,3 +48,13 @@ class Author(models.Model):
     first_name = models.CharField(max_length=100, blank=True, default='')
     middle_names = models.CharField(max_length=100, blank=True, default='')
     document = models.ForeignKey(Document)
+
+
+class Supplement(models.Model):
+    """Supplementary materials class."""
+    id = models.CharField(max_length=100, primary_key=True)
+    supplement_file = models.FileField(upload_to='supplementary', null=True)
+    article = models.ForeignKey(Document)
+
+    def __unicode__(self):
+        return self.id
