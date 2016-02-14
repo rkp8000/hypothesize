@@ -54,7 +54,7 @@ class Supplement(models.Model):
     """Supplementary materials class."""
     id = models.CharField(max_length=100, primary_key=True)
     supplement_file = models.FileField(upload_to='supplementary', null=True)
-    article = models.ForeignKey(Document)
+    document = models.ForeignKey(Document)
 
     def __unicode__(self):
         return self.id
