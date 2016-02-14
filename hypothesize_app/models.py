@@ -3,6 +3,27 @@ from datetime import datetime
 from django.db import models
 from unidecode import unidecode
 
+import node_text_file_handling
+
+
+class Setting(models.Model):
+    """Setting class."""
+    id = models.CharField(max_length=100, primary_key=True)
+    name = models.CharField(max_length=100, null=False)
+    type = models.CharField(max_length=10, null=False)
+    bool_value = models.BinaryField(null=True, blank=True)
+    int_value = models.IntegerField(null=True, blank=True)
+    float_value = models.FloatField(null=True, blank=True)
+    str_value = models.CharField(max_length=1000, null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if self.id == 'node_save_directory_root':
+            node_text_file_handling.make_directory_if_not_exist(path=self.str_value)
+        super(Setting, self).save(*args, **kwargs)
+
+    def __unicode__(self):
+        return self.name
+
 
 class Document(models.Model):
     """Article class."""
@@ -84,6 +105,7 @@ class Node(models.Model):
     documents = models.ManyToManyField(Document, blank=True)
 
     def save(self, *args, **kwargs):
+        node_save_directory_root = Setting.objects.get(pk='node_save_directory_root')
         print('save function overridden')
         super(Node, self).save(*args, **kwargs)
 
