@@ -1,4 +1,4 @@
-from __future__ import unicode_literals
+from __future__ import print_function, unicode_literals
 from datetime import datetime
 from django.db import models
 from unidecode import unidecode
@@ -55,6 +55,37 @@ class Supplement(models.Model):
     id = models.CharField(max_length=100, primary_key=True)
     supplement_file = models.FileField(upload_to='supplementary', null=True)
     document = models.ForeignKey(Document)
+
+    def __unicode__(self):
+        return self.id
+
+
+class NodeType(models.Model):
+    """
+    Node type class.
+    """
+    id = models.CharField(max_length=100, primary_key=True)
+    description = models.TextField(blank=True, default='')
+    template_title = models.CharField(max_length=500, blank=True, default='')
+    template = models.TextField(blank=True, default='')
+
+    def __unicode__(self):
+        return self.id
+
+
+class Node(models.Model):
+    """Node class."""
+    id = models.CharField(max_length=1000, primary_key=True)
+    type = models.ForeignKey(NodeType, null=True, blank=True, on_delete=models.SET_NULL)
+    title = models.CharField(max_length=500, null=False, default='untitled', blank=False, unique=True)
+    text = models.TextField(blank=True, default='')
+    last_viewed = models.DateTimeField(default=datetime.now, blank=True)
+    nodes = models.ManyToManyField('self', symmetrical=False, blank=True)
+    documents = models.ManyToManyField(Document, blank=True)
+
+    def save(self, *args, **kwargs):
+        print('save function overridden')
+        super(Node, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.id
