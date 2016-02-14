@@ -50,7 +50,7 @@ class Document(models.Model):
     web_link = models.CharField(max_length=500, blank=True, default='')
     last_viewed = models.DateTimeField(default=datetime.now, blank=True)
     uploaded = models.DateTimeField(default=datetime.now, blank=True)
-    file = models.FileField(upload_to='articles', null=True, blank=True)
+    file = models.FileField(upload_to='documents', null=True, blank=True)
 
     def __unicode__(self):
         return self.id
@@ -89,7 +89,7 @@ class Author(models.Model):
 class Supplement(models.Model):
     """Supplementary materials class."""
     id = models.CharField(max_length=100, primary_key=True)
-    supplement_file = models.FileField(upload_to='supplementary', null=True)
+    file = models.FileField(upload_to='supplements', null=True)
     document = models.ForeignKey(Document)
 
     def __unicode__(self):
