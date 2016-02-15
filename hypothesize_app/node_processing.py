@@ -1,4 +1,5 @@
 from __future__ import division, print_function
+import markdown
 import os
 
 
@@ -23,3 +24,9 @@ def update_text_file(node, settings):
         os.makedirs(os.path.dirname(path))
     with open('{}.md'.format(path), 'w') as f:
         f.write(node.text)
+
+
+def markdown_to_html(md):
+    """Convert node markdown to html."""
+    html = markdown.markdown(md)
+    return html
