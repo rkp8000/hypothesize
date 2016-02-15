@@ -39,8 +39,12 @@ def document_view(request, document_id):
     document = get_object_or_404(models.Document, pk=document_id)
     document.last_viewed = datetime.now()
     document.save()
+    context = {
+        'file_server_address': 'http://d-128-95-10-223.dhcp4.washington.edu',
+        'document': document,
+    }
 
-    return render(request, 'hypothesize_app/document_view.html', {'document': document})
+    return render(request, 'hypothesize_app/document_view.html', context)
 
 
 def document_change(request, document_id):
