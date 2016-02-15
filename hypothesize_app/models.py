@@ -5,6 +5,8 @@ from unidecode import unidecode
 
 from django.db import models
 
+import node_processing
+
 
 class Setting(models.Model):
     """Setting class."""
@@ -20,10 +22,10 @@ class Setting(models.Model):
         """
         Override default save method so that we can do some extra stuff.
         """
+        # do anything we need to do with the updated setting
         if self.id == 'NODE_SAVE_DIRECTORY':
-            # make the save directory if it doesn't exist
-            if not os.path.exists(self.str_value):
-                os.makedirs(self.str_value)
+            node_processing.make_node_save_directory(self.str_value)
+
         super(Setting, self).save(*args, **kwargs)
 
     def __unicode__(self):
@@ -121,13 +123,9 @@ class Node(models.Model):
 
     def save(self, *args, **kwargs):
         """
-        Override default method to additionally save markdown file with node text.
+        Override default method to do additional node processing.
         """
-        node_save_directory = Setting.objects.get(pk='NODE_SAVE_DIRECTORY').value
-        # update text file corresponding to this node
-        path = os.path.join(node_save_directory, self.id)
-        if not os.path.exists(os.path.dirname(path)):
-            os.makedirs(os.path.dirname(path))
+        node_processing.update_text_file(self, settings=Setting)
         super(Node, self).save(*args, **kwargs)
 
     def __unicode__(self):
