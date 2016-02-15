@@ -5,9 +5,15 @@
 
 <h3>
     {% if document.file %}
-        <a href="{{file_server_address}}/{{document.file.name}}">
-            <strong>{{document.id}}</strong>
-        </a>
+        {% if file_server_address %}
+            <a href="{{file_server_address}}/{{document.file.name}}">
+                <strong>{{document.id}}</strong>
+            </a>
+        {% else %}
+            <a href="{{ MEDIA_URL }}{{document.file}}">
+                <strong>{{document.id}}</strong>
+            </a>
+        {% endif %}
     {% elif document.primary_external_link %}
         <a href="{{document.primary_external_link}}"><strong>{{document.id}}</strong></a>
     {% else %}
