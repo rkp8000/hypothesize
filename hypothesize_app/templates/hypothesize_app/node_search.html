@@ -22,7 +22,10 @@
         <a href="{% url 'hypothesize_app:node_view' node.id %}">
         <span class="node_title"><strong>{{node.title}}</strong></span></a> (<span class="node_type">{{node.type}}</span>)
         <br />
-        <span class="node_last_viewed">(last viewed {{node.last_viewed}})</span><br /><br />
+        <span class="node_path">({{node.id}})</span>
+        <br />
+        <span class="node_last_viewed">(last viewed {{node.last_viewed}})</span>
+        <br />
         <div class="node_teaser">
             {{node.text | truncatewords:"50" }}
         </div>
