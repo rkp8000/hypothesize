@@ -20,7 +20,7 @@
         {% for document in documents %}
             <div class="document_search_result">
 
-                <a href="{% url 'hypothesize_app:document_view' document.id %}">
+                <a href="{% url 'hypothesize_app:document_detail' document.id %}">
 
                 <span class="document_id"><strong>{{document.id}}</strong></span>
                 <span class="document_last_viewed">({{document.last_viewed}})</span>
@@ -29,7 +29,7 @@
                     <br />
 
                 <div class="document_abstract">
-                    <a href="{% url 'hypothesize_app:document_view' document.id %}">
+                    <a href="{% url 'hypothesize_app:document_detail' document.id %}">
                     {{document.abstract}}
                     </a>
                 </div>
