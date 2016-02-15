@@ -7,6 +7,7 @@
 local_settings.py
 *.sqlite3
 media
+migrations
 
 env
 .idea
