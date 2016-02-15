@@ -44,7 +44,7 @@ class Document(models.Model):
     """Article class."""
     id = models.CharField(max_length=100, primary_key=True)
     title = models.CharField(max_length=255, blank=False, null=False)
-    journal = models.CharField(max_length=100, blank=True, default='')
+    publication = models.CharField(max_length=100, blank=True, default='')
     year = models.SmallIntegerField(null=False, blank=True, default=0)
     abstract = models.TextField(blank=True, default='')
     web_link = models.CharField(max_length=500, blank=True, default='')
