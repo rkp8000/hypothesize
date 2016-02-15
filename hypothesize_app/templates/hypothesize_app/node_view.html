@@ -1,0 +1,18 @@
+<head>
+    {% load staticfiles %}
+</head>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+</script>
+
+<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+
+<h3>{{ node.title }} <a href="{% url 'hypothesize_app:node_change' node.id %}">(change)</a></h3>
+<hr />
+
+{{ node.html | safe }}
+
+<br /><br />
+<a href="{% url 'hypothesize_app:node_search' %}">return to search</a>
