@@ -1,3 +1,4 @@
 Django==1.9.2
+Markdown==2.6.5
 Unidecode==0.4.19
 wheel==0.24.0
