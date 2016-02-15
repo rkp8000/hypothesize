@@ -5,6 +5,7 @@ from django.shortcuts import render, get_object_or_404
 
 import forms
 import models
+import node_processing
 
 try:
     DEFAULT_DOCUMENTS_TO_SHOW = models.Setting.objects.get(pk='DEFAULT_DOCUMENTS_TO_SHOW').value
@@ -80,7 +81,16 @@ def node_search(request, n_nodes=DEFAULT_NODES_TO_SHOW):
 
 
 def node_view(request, node_id):
-    pass
+    # view a specific node
+    node = get_object_or_404(models.Node, pk=node_id)
+    # update last viewed field
+    node.last_viewed = datetime.now()
+    node.save()
+    # generate html from node text
+    node.html = node_processing.markdown_to_html(node.text)
+    context = {'node': node}
+
+    return render(request, 'hypothesize_app/node_view.html', context)
 
 
 def node_change(request, node_id):
