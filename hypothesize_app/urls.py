@@ -3,7 +3,7 @@ from django.conf.urls import url
 from hypothesize_app import views
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
+    url(r'^$', views.IndexView.as_view(), name='index'),
 
     url(r'^document/search/$', views.document_search, name='document_search'),
     url(r'^document/(?P<document_id>[\w-]+)/view/$', views.document_view, name='document_view'),

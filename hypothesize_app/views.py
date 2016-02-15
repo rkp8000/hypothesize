@@ -2,6 +2,7 @@ from __future__ import division, print_function
 from datetime import datetime
 
 from django.shortcuts import render, get_object_or_404
+from django.views import generic
 
 import forms
 import models
@@ -14,8 +15,10 @@ except:
     pass
 
 
-def index(request):
-    return render(request, 'hypothesize_app/index.html')
+class IndexView(generic.View):
+
+    def get(self, request):
+        return render(request, 'hypothesize_app/index.html')
 
 
 def document_search(request, n_documents=DEFAULT_DOCUMENTS_TO_SHOW):
