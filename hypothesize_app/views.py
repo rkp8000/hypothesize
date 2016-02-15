@@ -1,5 +1,7 @@
 from __future__ import division, print_function
-from django.shortcuts import render
+from datetime import datetime
+
+from django.shortcuts import render, get_object_or_404
 
 from forms import DocumentSearchForm
 import models
@@ -34,8 +36,15 @@ def document_search(request, n_documents=DEFAULT_DOCUMENTS_TO_SHOW):
 
 
 def document_view(request, document_id):
-    pass
+    document = get_object_or_404(models.Document, pk=document_id)
+    document.last_viewed = datetime.now()
+    document.save()
 
+    return render(request, 'hypothesize_app/document_view.html', {'document': document})
+
+
+def document_change(request, document_id):
+    pass
 
 def document_add(request):
     pass
