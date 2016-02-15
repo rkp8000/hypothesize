@@ -44,3 +44,19 @@ class DocumentSearchForm(forms.Form):
         document_set_abstract = Document.objects.filter(abstract__contains=self.cleaned_data['query'])
         documents += [document for document in document_set_abstract if document not in documents]
         return documents
+
+
+class NodeSearchForm(forms.Form):
+    """
+    Form for searching node database.
+    """
+    query = forms.CharField(label='node_query', max_length=500)
+
+    def get_nodes_from_query(self):
+        # search first author, titles, abstracts
+        nodes = []
+        node_set_title = Node.objects.filter(title__contains=self.cleaned_data['query'])
+        nodes += [node for node in node_set_title if node not in nodes]
+        node_set_text = Node.objects.filter(text__contains=self.cleaned_data['query'])
+        nodes += [node for node in node_set_text if node not in nodes]
+        return nodes
