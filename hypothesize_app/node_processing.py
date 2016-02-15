@@ -60,7 +60,13 @@ def bind_linked_objects(node, document_model, node_model):
     :param document_model: models.Document
     :param node_model: models.Node
     """
-    extract_linked_objects(node.text, document_model, node_model)
+
+    documents, nodes = extract_linked_objects(node.text, document_model, node_model)
+
+    node.documents.clear()
+    node.documents.add(*documents)
+    node.nodes.clear()
+    node.nodes.add(*nodes)
 
 
 def text_to_md(text):
