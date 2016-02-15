@@ -125,7 +125,10 @@ class Node(models.Model):
         """
         Override default method to do additional node processing.
         """
-        node_processing.update_text_file(self, settings=Setting)
+
+        node_processing.update_text_file(self, setting_model=Setting)
+        node_processing.bind_linked_objects(self, document_model=Document, node_model=Node)
+
         super(Node, self).save(*args, **kwargs)
 
     def __unicode__(self):
