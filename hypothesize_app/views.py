@@ -21,26 +21,18 @@ class IndexView(generic.View):
         return render(request, 'hypothesize_app/index.html')
 
 
-def document_search(request, n_documents=DEFAULT_DOCUMENTS_TO_SHOW):
+class DocumentSearchView(generic.ListView):
 
-    # check if a search query has been sent
-    if request.GET:
-        # search some stuff
-        document_search_form = forms.DocumentSearchForm(request.GET)
-        if document_search_form.is_valid():
-            documents = document_search_form.get_articles_from_query()
-        else:
-            documents = models.Document.objects.order_by('-last_viewed')[:n_documents]
-    else:
-        # make new search form
-        document_search_form = forms.DocumentSearchForm()
-        # get most recently viewed articles
-        documents = models.Document.objects.order_by('-last_viewed')[:n_documents]
+    template_name = 'hypothesize_app/document_search.html'
+    context_object_name = 'documents'
 
-    context = {'documents': documents,
-               'document_search_form': document_search_form,
-               }
-    return render(request, 'hypothesize_app/document_search.html', context)
+    def get_context_data(self, **kwargs):
+        """We'll use this to bulk up later maybe."""
+        context = super(DocumentSearchView, self).get_context_data(**kwargs)
+        return context
+
+    def get_queryset(self):
+        return models.Document.objects.order_by('-last_viewed')
 
 
 def document_view(request, document_id):
@@ -63,24 +55,18 @@ def document_add(request):
     pass
 
 
-def node_search(request, n_nodes=DEFAULT_NODES_TO_SHOW):
-    # check if a query has been sent
-    if request.GET:
-        # search some stuff
-        node_search_form = forms.NodeSearchForm(request.GET)
-        if node_search_form.is_valid():
-            nodes = node_search_form.get_nodes_from_query()
-        else:
-            nodes = models.Node.objects.order_by('-last_viewed')[:n_nodes]
-    else:
-        # get most recently viewed nodes
-        nodes = models.Node.objects.order_by('-last_viewed')[:n_nodes]
-        node_search_form = forms.NodeSearchForm()
+class NodeSearchView(generic.ListView):
 
-    context = {'nodes': nodes,
-               'node_search_form': node_search_form}
+    template_name = 'hypothesize_app/node_search.html'
+    context_object_name = 'nodes'
 
-    return render(request, 'hypothesize_app/node_search.html', context)
+    def get_context_data(self, **kwargs):
+        """We'll use this to bulk up later maybe."""
+        context = super(NodeSearchView, self).get_context_data(**kwargs)
+        return context
+
+    def get_queryset(self):
+        return models.Node.objects.order_by('-last_viewed')
 
 
 def node_view(request, node_id):
