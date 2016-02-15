@@ -87,7 +87,7 @@ def node_view(request, node_id):
     node.last_viewed = datetime.now()
     node.save()
     # generate html from node text
-    node.html = node_processing.markdown_to_html(node.text)
+    node.html = node_processing.text_to_html(node.text)
     context = {'node': node}
 
     return render(request, 'hypothesize_app/node_view.html', context)
