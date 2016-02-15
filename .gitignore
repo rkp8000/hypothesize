@@ -6,6 +6,7 @@
 *.log
 local_settings.py
 *.sqlite3
+media
 
 env
 .idea
