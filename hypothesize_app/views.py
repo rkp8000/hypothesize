@@ -73,11 +73,17 @@ class NodeDetailView(generic.DetailView):
 
 class NodeChangeView(generic.UpdateView):
 
-    template_name_suffix = '_change'
+    template_name = 'hypothesize_app/node_change.html'
     form_class = forms.NodeForm
 
     def get_object(self):
         return models.Node.objects.get(pk=self.kwargs['pk'])
+
+
+class NodeCreateView(generic.CreateView):
+
+    template_name = 'hypothesize_app/node_change.html'
+    form_class = forms.NodeForm
 
 
 def node_add(request):
