@@ -37,3 +37,8 @@ Supplementary material:
 
 <br /><br />
 <a href="{% url 'hypothesize_app:document_search' %}">return to search</a>
+
+<h3>Nodes linking to this document</h3>
+{% for linking_node in document.node_set.all %}
+<a href="{% url 'hypothesize_app:node_detail' linking_node.id %}">{{linking_node.id}}</a>
+{% endfor %}
