@@ -85,6 +85,6 @@ def text_to_md(text):
 def text_to_html(text):
     """Convert node text to html."""
     # convert internal links to
-    md, document = text_to_md(text)
+    md = text_to_md(text)
     html = markdown.markdown(md)
     return html
