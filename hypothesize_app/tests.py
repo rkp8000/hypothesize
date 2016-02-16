@@ -6,13 +6,14 @@ from django.test import TestCase
 ## basic
 ## with weird author names
 ## with supplement
-## with document with same automatically generated primary key
 # document change
 ## basic
 ## with weird author names
 ## with supplement
 ## rearrange authors
+# primary key overlap/absence issues
 
 
 # node add
 # node change
+# primary key overlap/absence issues
