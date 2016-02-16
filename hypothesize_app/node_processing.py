@@ -135,3 +135,17 @@ def text_to_html(text):
     md = text_to_md(text)
     html = markdown.markdown(md)
     return html
+
+
+def make_tab_complete_options(document_model, node_model):
+    """
+    Generate a list of things that can be tab completed.
+    :param document_model: models.Document,
+    :param node_model: models.Node
+    :return list of strings for tab completion
+    """
+
+    document_strings = [str(doc_id) for doc_id in document_model.objects.values_list('id', flat=True)]
+    node_strings = [str(node_id) for node_id in node_model.objects.values_list('id', flat=True)]
+
+    return document_strings + node_strings

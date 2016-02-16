@@ -5,6 +5,7 @@ from django.views import generic
 
 import forms
 import models
+import node_processing
 
 try:
     DEFAULT_DOCUMENTS_TO_SHOW = models.Setting.objects.get(pk='DEFAULT_DOCUMENTS_TO_SHOW').value
@@ -78,6 +79,16 @@ class NodeChangeView(generic.UpdateView):
 
     def get_object(self):
         return models.Node.objects.get(pk=self.kwargs['pk'])
+
+    def get_context_data(self, **kwargs):
+        # get baseline context variables
+        context = super(NodeChangeView, self).get_context_data(**kwargs)
+        # add in tab complete options
+        context['tab_complete_options'] = node_processing.make_tab_complete_options(
+            document_model=models.Document, node_model=models.Node,
+        )
+        print(context['tab_complete_options'])
+        return context
 
 
 class NodeCreateView(generic.CreateView):
