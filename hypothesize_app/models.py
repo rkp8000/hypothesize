@@ -133,3 +133,7 @@ class Node(models.Model):
 
     def __unicode__(self):
         return self.id
+
+    @property
+    def html(self):
+        return node_processing.text_to_html(self.text)
