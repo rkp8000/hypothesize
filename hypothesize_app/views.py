@@ -1,12 +1,10 @@
 from __future__ import division, print_function
-from datetime import datetime
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.views import generic
 
 import forms
 import models
-import node_processing
 
 try:
     DEFAULT_DOCUMENTS_TO_SHOW = models.Setting.objects.get(pk='DEFAULT_DOCUMENTS_TO_SHOW').value
@@ -80,10 +78,6 @@ class NodeChangeView(generic.UpdateView):
 
     def get_object(self):
         return models.Node.objects.get(pk=self.kwargs['pk'])
-
-
-def node_change(request, node_id):
-    pass
 
 
 def node_add(request):
