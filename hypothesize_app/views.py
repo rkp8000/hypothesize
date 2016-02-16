@@ -35,16 +35,12 @@ class DocumentSearchView(generic.ListView):
         return models.Document.objects.order_by('-last_viewed')
 
 
-def document_view(request, document_id):
-    document = get_object_or_404(models.Document, pk=document_id)
-    document.last_viewed = datetime.now()
-    document.save()
-    context = {
-        'file_server_address': None,
-        'document': document,
-    }
-
-    return render(request, 'hypothesize_app/document_view.html', context)
+class DocumentDetailView(generic.DetailView):
+    """
+    Automatically look for template "document_detail.html".
+    To change this, change the template_name class variable.
+    """
+    model = models.Document
 
 
 def document_change(request, document_id):
@@ -69,17 +65,12 @@ class NodeSearchView(generic.ListView):
         return models.Node.objects.order_by('-last_viewed')
 
 
-def node_view(request, node_id):
-    # view a specific node
-    node = get_object_or_404(models.Node, pk=node_id)
-    # update last viewed field
-    node.last_viewed = datetime.now()
-    node.save()
-    # generate html from node text
-    node.html = node_processing.text_to_html(node.text)
-    context = {'node': node}
-
-    return render(request, 'hypothesize_app/node_view.html', context)
+class NodeDetailView(generic.DetailView):
+    """
+    Automatically look for template "node_detail.html".
+    To change this, change the template_name class variable.
+    """
+    model = models.Node
 
 
 def node_change(request, node_id):
