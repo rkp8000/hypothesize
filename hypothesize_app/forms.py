@@ -68,7 +68,7 @@ class NodeForm(ModelForm):
     """
     class Meta:
         model = Node
-        fields = ['type', 'title', 'text']
+        fields = ['id', 'type', 'title', 'text']
         widgets = {
             'text': forms.Textarea(attrs={'rows': 60, 'cols': 120})
         }
