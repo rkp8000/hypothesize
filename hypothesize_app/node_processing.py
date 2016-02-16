@@ -1,10 +1,14 @@
 from __future__ import division, print_function
-import markdown
 import os
 import re
 
+from django.core.urlresolvers import reverse
+import markdown
+
 DOCUMENT_LINK_PATTERN = r'\[\[(.*?)\]\]'
 NODE_LINK_PATTERN = r'\(\((.*?)\)\)'
+DOCUMENT_LINK_PATTERN_FULL = r'\[\[.*?\]\]'
+NODE_LINK_PATTERN_FULL = r'\(\(.*?\)\)'
 
 
 def make_node_save_directory(path):
@@ -69,15 +73,58 @@ def bind_linked_objects(node, document_model, node_model):
     node.nodes.add(*nodes)
 
 
+def document_link_to_html(match):
+    """
+    Convert document link pattern to html.
+    :param match: regular expression match
+    :return: html for link to document
+    """
+
+    fragments = match.group()[2:-2].split('|', 1)
+
+    document_id = fragments[0]
+
+    if len(fragments) == 1:
+        text_to_display = fragments[0]
+    elif len(fragments) == 2:
+        text_to_display = fragments[1]
+
+    url = reverse('hypothesize_app:document_detail', args=(document_id.strip(),))
+
+    return '<a href="{}">{}</a>'.format(url, text_to_display)
+
+
+def node_link_to_html(match):
+    """
+    Convert node link pattern to html.
+    :param match: regular expression match
+    :return:
+    """
+
+    fragments = match.group()[2:-2].split('|', 1)
+
+    node_id = fragments[0]
+
+    if len(fragments) == 1:
+        text_to_display = fragments[0]
+    elif len(fragments) == 2:
+        text_to_display = fragments[1]
+
+    url = reverse('hypothesize_app:node_detail', args=(node_id.strip(),))
+
+    return '<a href="{}">{}</a>'.format(url, text_to_display)
+
+
 def text_to_md(text):
     """
     Convert node text to markdown, parsing all of the links.
     :param text: node text
     :return node markdown
     """
-    # replace document links in text with markdown
-    # replace node links in text with markdown
-    md = text
+
+    # replace document links and node links in text with markdown
+    temp = re.compile(DOCUMENT_LINK_PATTERN_FULL).sub(document_link_to_html, text)
+    md = re.compile(NODE_LINK_PATTERN_FULL).sub(node_link_to_html, temp)
 
     return md
 
