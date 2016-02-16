@@ -73,6 +73,15 @@ class NodeDetailView(generic.DetailView):
     model = models.Node
 
 
+class NodeChangeView(generic.UpdateView):
+
+    template_name_suffix = '_change'
+    form_class = forms.NodeForm
+
+    def get_object(self):
+        return models.Node.objects.get(pk=self.kwargs['pk'])
+
+
 def node_change(request, node_id):
     pass
 
