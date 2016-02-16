@@ -1,6 +1,5 @@
 from __future__ import print_function, unicode_literals
 from datetime import datetime
-import os
 from unidecode import unidecode
 
 from django.db import models
