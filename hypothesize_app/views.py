@@ -1,5 +1,6 @@
 from __future__ import division, print_function
 
+from django.core.urlresolvers import reverse_lazy
 from django.views import generic
 
 import forms
@@ -107,3 +108,9 @@ class NodeCreate(generic.CreateView):
 
     template_name = 'hypothesize_app/node_change.html'
     form_class = forms.NodeForm
+
+
+class NodeDelete(generic.DeleteView):
+
+    model = models.Node
+    success_url = reverse_lazy('hypothesize_app:node_search')

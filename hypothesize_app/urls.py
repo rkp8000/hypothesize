@@ -13,5 +13,6 @@ urlpatterns = [
     url(r'^node/search/$', views.NodeSearch.as_view(), name='node_search'),
     url(r'^node/(?P<pk>[/\w\s-]+)/detail/$', views.NodeDetail.as_view(), name='node_detail'),
     url(r'^node/(?P<pk>[/\w\s-]+)/change/$', views.NodeChange.as_view(), name='node_change'),
+    url(r'^node/(?P<pk>[/\w\s-]+)/delete/$', views.NodeDelete.as_view(), name='node_delete'),
     url(r'^node/new/$', views.NodeCreate.as_view(), name='node_create'),
 ]
