@@ -68,9 +68,6 @@ class DocumentCreate(generic.CreateView):
     template_name = 'hypothesize_app/document_change.html'
     form_class = forms.DocumentForm
 
-    def get_success_url(self):
-        return reverse('hypothesize_app:document_search')
-
 
 class NodeSearch(generic.ListView):
 
@@ -116,6 +113,3 @@ class NodeCreate(generic.CreateView):
 
     template_name = 'hypothesize_app/node_change.html'
     form_class = forms.NodeForm
-
-    def get_success_url(self):
-        return reverse('hypothesize_app:node_search')
