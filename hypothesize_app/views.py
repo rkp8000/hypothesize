@@ -42,12 +42,23 @@ class DocumentDetailView(generic.DetailView):
     model = models.Document
 
 
-def document_change(request, document_id):
-    pass
+class DocumentChangeView(generic.UpdateView):
+    """
+    Update the contents of a document.
+    """
+    template_name = 'hypothesize_app/document_change.html'
+    form_class = forms.DocumentForm
+
+    def get_object(self):
+        return models.Document.objects.get(pk=self.kwargs['pk'])
 
 
-def document_add(request):
-    pass
+class DocumentCreateView(generic.CreateView):
+    """
+    Add a new document.
+    """
+    template_name = 'hypothesize_app/document_change.html'
+    form_class = forms.DocumentForm
 
 
 class NodeSearchView(generic.ListView):
@@ -95,7 +106,3 @@ class NodeCreateView(generic.CreateView):
 
     template_name = 'hypothesize_app/node_change.html'
     form_class = forms.NodeForm
-
-
-def node_add(request):
-    pass

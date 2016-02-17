@@ -28,6 +28,18 @@ class AuthorForm(ModelForm):
 AuthorFormSet = modelformset_factory(Author, form=AuthorForm, extra=30)
 
 
+class NodeForm(ModelForm):
+    """
+    Form for changing a node's contents.
+    """
+    class Meta:
+        model = Node
+        fields = ['id', 'type', 'title', 'text']
+        widgets = {
+            'text': forms.Textarea(attrs={'rows': 60, 'cols': 120})
+        }
+
+
 class DocumentSearchForm(forms.Form):
     """
     Form for searching documents database.
@@ -60,15 +72,3 @@ class NodeSearchForm(forms.Form):
         node_set_text = Node.objects.filter(text__contains=self.cleaned_data['query'])
         nodes += [node for node in node_set_text if node not in nodes]
         return nodes
-
-
-class NodeForm(ModelForm):
-    """
-    Form for changing a node's contents.
-    """
-    class Meta:
-        model = Node
-        fields = ['id', 'type', 'title', 'text']
-        widgets = {
-            'text': forms.Textarea(attrs={'rows': 60, 'cols': 120})
-        }
