@@ -15,23 +15,23 @@ def document_query(query):
     if query:
         documents = []
         try:
-            documents.append(models.Document.objects.get(id__iexact=query))
+            documents += list(models.Document.objects.filter(id__iexact=query).all())
         except ObjectDoesNotExist:
             pass
         try:
-            documents.append(models.Document.objects.get(title__iexact=query))
+            documents += list(models.Document.objects.filter(title__iexact=query).all())
         except ObjectDoesNotExist:
             pass
         try:
-            documents.append(models.Document.objects.get(id__contains=query))
+            documents += list(models.Document.objects.filter(id__contains=query).all())
         except ObjectDoesNotExist:
             pass
         try:
-            documents.append(models.Document.objects.get(title__contains=query))
+            documents += list(models.Document.objects.filter(title__contains=query).all())
         except ObjectDoesNotExist:
             pass
         try:
-            documents.append(models.Document.objects.get(abstract__contains=query))
+            documents += list(models.Document.objects.filter(abstract__contains=query).all())
         except ObjectDoesNotExist:
             pass
     else:
@@ -46,4 +46,28 @@ def node_query(query):
     :param query: search query (str)
     :return: list of nodes
     """
-    return models.Node.objects.all()
+    if query:
+        nodes = []
+        try:
+            nodes += list(models.Node.objects.filter(id__iexact=query).all())
+        except ObjectDoesNotExist:
+            pass
+        try:
+            nodes += list(models.Node.objects.filter(title__iexact=query).all())
+        except ObjectDoesNotExist:
+            pass
+        try:
+            nodes += list(models.Node.objects.filter(id__contains=query).all())
+        except ObjectDoesNotExist:
+            pass
+        try:
+            nodes += list(models.Node.objects.filter(title__contains=query).all())
+        except ObjectDoesNotExist:
+            pass
+        try:
+            nodes += list(models.Node.objects.filter(text__contains=query).all())
+        except ObjectDoesNotExist:
+            pass
+    else:
+        nodes = models.Node.objects.all()
+    return list(unique_everseen(nodes))
