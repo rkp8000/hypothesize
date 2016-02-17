@@ -1,9 +1,9 @@
 from __future__ import print_function, unicode_literals
 from datetime import datetime
-from unidecode import unidecode
 
 from django.db import models
 
+import document_processing
 import node_processing
 
 
@@ -68,17 +68,12 @@ class Document(models.Model):
             # TODO: make this return a google search for the article's title
             return None
 
-    @property
-    def id_clean(self):
-        return unidecode(self.id)
-
-    @property
-    def title_clean(self):
-        return unidecode(self.title)
-
-    @property
-    def abstract_clean(self):
-        return unidecode(self.abstract)
+    def save(self, *args, **kwargs):
+        """
+        Override basic save method to extract linked documents.
+        """
+        document_processing.bind_linked_documents(self, document_model=Document)
+        super(Document, self).save(*args, **kwargs)
 
 
 class Author(models.Model):

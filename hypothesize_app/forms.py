@@ -8,7 +8,7 @@ class DocumentForm(ModelForm):
     """Document form."""
     class Meta:
         model = Document
-        fields = ['title', 'publication', 'year', 'abstract', 'file', 'web_link']
+        fields = ['title', 'publication', 'year', 'abstract', 'file', 'web_link', 'linked_document_text']
 
 
 class SupplementForm(ModelForm):
