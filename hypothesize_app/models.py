@@ -77,7 +77,8 @@ class Document(models.Model):
         """
         Override basic save method to extract linked documents.
         """
-        document_processing.bind_primary_key(self, document_model=Document)
+        if not self.id:
+            document_processing.bind_primary_key(self, document_model=Document)
         document_processing.bind_authors(self, author_model=Author)
         document_processing.bind_linked_documents(self, document_model=Document)
         super(Document, self).save(*args, **kwargs)
