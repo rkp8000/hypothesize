@@ -60,9 +60,6 @@ class DocumentChange(generic.UpdateView):
         context['document_pk_list'] = [str(pk) for pk in models.Document.objects.values_list('id', flat=True)]
         return context
 
-    def get_success_url(self):
-        return reverse('hypothesize_app:document_detail', kwargs=self.kwargs)
-
 
 class DocumentCreate(generic.CreateView):
     """
@@ -113,9 +110,6 @@ class NodeChange(generic.UpdateView):
             document_model=models.Document, node_model=models.Node,
         )
         return context
-
-    def get_success_url(self):
-        return reverse('hypothesize_app:node_detail', kwargs=self.kwargs)
 
 
 class NodeCreate(generic.CreateView):

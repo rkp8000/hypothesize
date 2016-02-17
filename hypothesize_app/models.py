@@ -1,6 +1,7 @@
 from __future__ import print_function, unicode_literals
 from datetime import datetime
 
+from django.core.urlresolvers import reverse
 from django.db import models
 
 import document_processing
@@ -68,6 +69,9 @@ class Document(models.Model):
             # TODO: make this return a google search for the article's title
             return None
 
+    def get_absolute_url(self):
+        return reverse('hypothesize_app:document_detail', kwargs={'pk': self.id})
+
     def save(self, *args, **kwargs):
         """
         Override basic save method to extract linked documents.
@@ -133,3 +137,6 @@ class Node(models.Model):
     @property
     def html(self):
         return node_processing.text_to_html(self.text)
+
+    def get_absolute_url(self):
+        return reverse('hypothesize_app:node_detail', kwargs={'pk': self.id})
