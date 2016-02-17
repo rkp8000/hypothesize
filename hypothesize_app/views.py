@@ -15,27 +15,27 @@ except:
     pass
 
 
-class IndexView(generic.View):
+class Index(generic.View):
 
     def get(self, request):
         return render(request, 'hypothesize_app/index.html')
 
 
-class DocumentSearchView(generic.ListView):
+class DocumentSearch(generic.ListView):
 
     template_name = 'hypothesize_app/document_search.html'
     context_object_name = 'documents'
 
     def get_context_data(self, **kwargs):
         """We'll use this to bulk up later maybe."""
-        context = super(DocumentSearchView, self).get_context_data(**kwargs)
+        context = super(DocumentSearch, self).get_context_data(**kwargs)
         return context
 
     def get_queryset(self):
         return models.Document.objects.order_by('-last_viewed')
 
 
-class DocumentDetailView(generic.DetailView):
+class DocumentDetail(generic.DetailView):
     """
     Automatically look for template "document_detail.html".
     To change this, change the template_name class variable.
@@ -43,7 +43,7 @@ class DocumentDetailView(generic.DetailView):
     model = models.Document
 
 
-class DocumentChangeView(generic.UpdateView):
+class DocumentChange(generic.UpdateView):
     """
     Update the contents of a document.
     """
@@ -55,7 +55,7 @@ class DocumentChangeView(generic.UpdateView):
 
     def get_context_data(self, **kwargs):
         # get baseline context variables
-        context = super(DocumentChangeView, self).get_context_data(**kwargs)
+        context = super(DocumentChange, self).get_context_data(**kwargs)
         # add in tab complete options
         context['document_pk_list'] = [str(pk) for pk in models.Document.objects.values_list('id', flat=True)]
         return context
@@ -64,7 +64,7 @@ class DocumentChangeView(generic.UpdateView):
         return reverse('hypothesize_app:document_detail', kwargs=self.kwargs)
 
 
-class DocumentCreateView(generic.CreateView):
+class DocumentCreate(generic.CreateView):
     """
     Add a new document.
     """
@@ -75,21 +75,21 @@ class DocumentCreateView(generic.CreateView):
         return reverse('hypothesize_app:document_search')
 
 
-class NodeSearchView(generic.ListView):
+class NodeSearch(generic.ListView):
 
     template_name = 'hypothesize_app/node_search.html'
     context_object_name = 'nodes'
 
     def get_context_data(self, **kwargs):
         """We'll use this to bulk up later maybe."""
-        context = super(NodeSearchView, self).get_context_data(**kwargs)
+        context = super(NodeSearch, self).get_context_data(**kwargs)
         return context
 
     def get_queryset(self):
         return models.Node.objects.order_by('-last_viewed')
 
 
-class NodeDetailView(generic.DetailView):
+class NodeDetail(generic.DetailView):
     """
     Automatically look for template "node_detail.html".
     To change this, change the template_name class variable.
@@ -97,7 +97,7 @@ class NodeDetailView(generic.DetailView):
     model = models.Node
 
 
-class NodeChangeView(generic.UpdateView):
+class NodeChange(generic.UpdateView):
 
     template_name = 'hypothesize_app/node_change.html'
     form_class = forms.NodeForm
@@ -107,7 +107,7 @@ class NodeChangeView(generic.UpdateView):
 
     def get_context_data(self, **kwargs):
         # get baseline context variables
-        context = super(NodeChangeView, self).get_context_data(**kwargs)
+        context = super(NodeChange, self).get_context_data(**kwargs)
         # add in tab complete options
         context['tab_complete_options'] = node_processing.make_tab_complete_options(
             document_model=models.Document, node_model=models.Node,
@@ -118,7 +118,7 @@ class NodeChangeView(generic.UpdateView):
         return reverse('hypothesize_app:node_detail', kwargs=self.kwargs)
 
 
-class NodeCreateView(generic.CreateView):
+class NodeCreate(generic.CreateView):
 
     template_name = 'hypothesize_app/node_change.html'
     form_class = forms.NodeForm
