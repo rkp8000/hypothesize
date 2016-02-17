@@ -45,6 +45,7 @@ class Setting(models.Model):
 class Document(models.Model):
     """Article class."""
     id = models.CharField(max_length=100, primary_key=True)
+    author_text = models.TextField(blank=True, default='')
     title = models.CharField(max_length=255, blank=False, null=False)
     publication = models.CharField(max_length=100, blank=True, default='')
     year = models.SmallIntegerField(null=False, blank=True, default=0)
@@ -76,6 +77,7 @@ class Document(models.Model):
         """
         Override basic save method to extract linked documents.
         """
+        document_processing.bind_authors(self, author_model=Author)
         document_processing.bind_linked_documents(self, document_model=Document)
         super(Document, self).save(*args, **kwargs)
 
