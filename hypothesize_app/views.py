@@ -20,6 +20,7 @@ class DocumentSearch(generic.ListView):
     def get_context_data(self, **kwargs):
         """We'll use this to bulk up later maybe."""
         context = super(DocumentSearch, self).get_context_data(**kwargs)
+        context['document_search_form'] = forms.DocumentSearchForm
         return context
 
     def get_queryset(self):
@@ -68,6 +69,7 @@ class NodeSearch(generic.ListView):
     def get_context_data(self, **kwargs):
         """We'll use this to bulk up later maybe."""
         context = super(NodeSearch, self).get_context_data(**kwargs)
+        context['node_search_form'] = forms.NodeSearchForm
         return context
 
     def get_queryset(self):
