@@ -25,7 +25,7 @@ class DocumentSearch(generic.ListView):
         return context
 
     def get_queryset(self):
-        return search.document_query(self.request.GET)
+        return search.document_query(self.request.GET.get('query', ''))
 
 
 class DocumentDetail(generic.DetailView):
@@ -74,7 +74,7 @@ class NodeSearch(generic.ListView):
         return context
 
     def get_queryset(self):
-        return search.node_query(self.request.GET)
+        return search.node_query(self.request.GET.get('query', ''))
 
 
 class NodeDetail(generic.DetailView):
