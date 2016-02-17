@@ -52,6 +52,8 @@ class Document(models.Model):
     last_viewed = models.DateTimeField(default=datetime.now, blank=True)
     uploaded = models.DateTimeField(default=datetime.now, blank=True)
     file = models.FileField(upload_to='documents', null=True, blank=True)
+    linked_document_text = models.TextField(blank=True, default='')
+    linked_documents = models.ManyToManyField('self', symmetrical=False, blank=True)
 
     def __unicode__(self):
         return self.id
