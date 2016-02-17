@@ -8,7 +8,7 @@
     $(document).ready(function(){
         //var suggests = ['elephant', 'rhino', 'elephino'];
         var suggests = {{ document_pk_list | safe }};
-        $.fn.asuggest.defaults.delimiters = "";
+        $.fn.asuggest.defaults.delimiters = " ";
         $.fn.asuggest.defaults.minChunkSize = 1;
         $("#id_linked_document_text").asuggest(suggests);
     });

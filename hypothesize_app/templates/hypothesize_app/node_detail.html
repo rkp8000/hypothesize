@@ -18,7 +18,12 @@
 <a href="{% url 'hypothesize_app:node_search' %}">return to search</a>
 <br /><br />
 
-<h3>Nodes linking to this node</h3>
-{% for linking_node in node.node_set.all %}
-<a href="{% url 'hypothesize_app:node_detail' linking_node.id %}">{{linking_node.id}}</a>
+<h3>downstream nodes (nodes linked to by this node)</h3>
+{% for ds_node in node.nodes.all %}
+<a href="{% url 'hypothesize_app:node_detail' ds_node.id %}">{{ds_node.id}}</a>
+{% endfor %}
+
+<h3>upstream nodes (nodes linking to this node)</h3>
+{% for us_node in node.node_set.all %}
+<a href="{% url 'hypothesize_app:node_detail' us_node.id %}">{{us_node.id}}</a>
 {% endfor %}

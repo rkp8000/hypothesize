@@ -1,5 +1,6 @@
 from __future__ import division, print_function
 
+from django.core.urlresolvers import reverse
 from django.shortcuts import render
 from django.views import generic
 
@@ -59,6 +60,9 @@ class DocumentChangeView(generic.UpdateView):
         context['document_pk_list'] = [str(pk) for pk in models.Document.objects.values_list('id', flat=True)]
         return context
 
+    def get_success_url(self):
+        return reverse('hypothesize_app:document_detail', kwargs=self.kwargs)
+
 
 class DocumentCreateView(generic.CreateView):
     """
@@ -107,8 +111,14 @@ class NodeChangeView(generic.UpdateView):
         )
         return context
 
+    def get_success_url(self):
+        return reverse('hypothesize_app:node_detail', kwargs=self.kwargs)
+
 
 class NodeCreateView(generic.CreateView):
 
     template_name = 'hypothesize_app/node_change.html'
     form_class = forms.NodeForm
+
+    def get_success_url(self):
+        return reverse('hypothesize_app:node_search')
