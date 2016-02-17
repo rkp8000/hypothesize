@@ -1,6 +1,5 @@
 from __future__ import division, print_function
 
-from django.shortcuts import render
 from django.views import generic
 
 import forms
@@ -8,10 +7,9 @@ import models
 import node_processing
 
 
-class Index(generic.View):
+class Index(generic.TemplateView):
 
-    def get(self, request):
-        return render(request, 'hypothesize_app/index.html')
+    template_name = 'hypothesize_app/index.html'
 
 
 class DocumentSearch(generic.ListView):
