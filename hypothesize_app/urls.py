@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^document/search/$', views.DocumentSearch.as_view(), name='document_search'),
     url(r'^document/(?P<pk>[\w-]+)/detail/$', views.DocumentDetail.as_view(), name='document_detail'),
     url(r'^document/(?P<pk>[\w-]+)/change/$', views.DocumentChange.as_view(), name='document_change'),
+    url(r'^document/(?P<pk>[\w-]+)/delete/$', views.DocumentDelete.as_view(), name='document_delete'),
     url(r'^document/add/$', views.DocumentCreate.as_view(), name='document_create'),
 
     url(r'^node/search/$', views.NodeSearch.as_view(), name='node_search'),

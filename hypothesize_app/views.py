@@ -63,6 +63,15 @@ class DocumentCreate(generic.CreateView):
     form_class = forms.DocumentForm
 
 
+class DocumentDelete(generic.DeleteView):
+    """
+    Delete a document.
+    """
+
+    model = models.Document
+    success_url = reverse_lazy('hypothesize_app:document_search')
+
+
 class NodeSearch(generic.ListView):
 
     template_name = 'hypothesize_app/node_search.html'
