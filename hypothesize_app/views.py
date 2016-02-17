@@ -71,6 +71,9 @@ class DocumentCreateView(generic.CreateView):
     template_name = 'hypothesize_app/document_change.html'
     form_class = forms.DocumentForm
 
+    def get_success_url(self):
+        return reverse('hypothesize_app:document_search')
+
 
 class NodeSearchView(generic.ListView):
 
