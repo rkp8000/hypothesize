@@ -1,18 +1,11 @@
 from __future__ import division, print_function
 
-from django.core.urlresolvers import reverse
 from django.shortcuts import render
 from django.views import generic
 
 import forms
 import models
 import node_processing
-
-try:
-    DEFAULT_DOCUMENTS_TO_SHOW = models.Setting.objects.get(pk='DEFAULT_DOCUMENTS_TO_SHOW').value
-    DEFAULT_NODES_TO_SHOW = models.Setting.objects.get(pk='DEFAULT_NODES_TO_SHOW').value
-except:
-    pass
 
 
 class Index(generic.View):
