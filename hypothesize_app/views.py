@@ -5,6 +5,7 @@ from django.views import generic
 import forms
 import models
 import node_processing
+import search
 
 
 class Index(generic.TemplateView):
@@ -20,11 +21,11 @@ class DocumentSearch(generic.ListView):
     def get_context_data(self, **kwargs):
         """We'll use this to bulk up later maybe."""
         context = super(DocumentSearch, self).get_context_data(**kwargs)
-        context['document_search_form'] = forms.DocumentSearchForm
+        context['document_search_form'] = forms.DocumentSearchForm(self.request.GET)
         return context
 
     def get_queryset(self):
-        return models.Document.objects.order_by('-last_viewed')
+        return search.document_query(self.request.GET)
 
 
 class DocumentDetail(generic.DetailView):
@@ -69,11 +70,11 @@ class NodeSearch(generic.ListView):
     def get_context_data(self, **kwargs):
         """We'll use this to bulk up later maybe."""
         context = super(NodeSearch, self).get_context_data(**kwargs)
-        context['node_search_form'] = forms.NodeSearchForm
+        context['node_search_form'] = forms.NodeSearchForm(self.request.GET)
         return context
 
     def get_queryset(self):
-        return models.Node.objects.order_by('-last_viewed')
+        return search.node_query(self.request.GET)
 
 
 class NodeDetail(generic.DetailView):
