@@ -52,6 +52,13 @@ class DocumentChangeView(generic.UpdateView):
     def get_object(self):
         return models.Document.objects.get(pk=self.kwargs['pk'])
 
+    def get_context_data(self, **kwargs):
+        # get baseline context variables
+        context = super(DocumentChangeView, self).get_context_data(**kwargs)
+        # add in tab complete options
+        context['document_pk_list'] = [str(pk) for pk in models.Document.objects.values_list('id', flat=True)]
+        return context
+
 
 class DocumentCreateView(generic.CreateView):
     """
@@ -98,7 +105,6 @@ class NodeChangeView(generic.UpdateView):
         context['tab_complete_options'] = node_processing.make_tab_complete_options(
             document_model=models.Document, node_model=models.Node,
         )
-        print(context['tab_complete_options'])
         return context
 
 

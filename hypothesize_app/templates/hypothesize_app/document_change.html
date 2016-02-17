@@ -1,3 +1,20 @@
+<head>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/skin.css" %}"/>
+    <script src="{% static "js/jquery-2.1.4.js" %}"></script>
+    <script src="{% static "js/jquery.a-tools-1.4.1.js" %}"></script>
+    <script src="{% static "js/jquery.asuggest.js" %}"></script>
+    <script>
+    $(document).ready(function(){
+        //var suggests = ['elephant', 'rhino', 'elephino'];
+        var suggests = {{ document_pk_list | safe }};
+        $.fn.asuggest.defaults.delimiters = "";
+        $.fn.asuggest.defaults.minChunkSize = 1;
+        $("#id_linked_document_text").asuggest(suggests);
+    });
+    </script>
+</head>
+
 <form action="" method="post">
     {% csrf_token %}
     {{form.as_p}}
