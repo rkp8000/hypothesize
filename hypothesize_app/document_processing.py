@@ -1,5 +1,6 @@
 from __future__ import division, print_function
 import string
+import urllib
 
 import unidecode
 
@@ -78,3 +79,19 @@ def bind_primary_key(document, document_model):
                 break
 
     document.id = pk
+
+
+def google_scholar_search_url(document):
+    """
+    Generate the url corresponding to a Google Scholar search for the document's title.
+    :param document: document
+    """
+
+    prefix = 'https://scholar.google.com/scholar'
+
+    if document.title:
+        suffix = urllib.urlencode({'hl': 'en', 'q': document.title})
+    else:
+        suffix = ''
+
+    return '?'.join([prefix, suffix])

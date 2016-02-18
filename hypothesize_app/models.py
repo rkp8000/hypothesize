@@ -65,8 +65,7 @@ class Document(models.Model):
         if self.web_link:
             return self.web_link
         else:
-            # TODO: make this return a google search for the article's title
-            return None
+            return document_processing.google_scholar_search_url(self)
 
     def get_absolute_url(self):
         return reverse('hypothesize_app:document_detail', kwargs={'pk': self.id})
