@@ -42,11 +42,18 @@ class Setting(models.Model):
         return value_dict[self.type]
 
 
+class Author(models.Model):
+    """Author class."""
+    id = models.IntegerField(primary_key=True)
+    last_names = models.CharField(max_length=100, blank=True, default='')
+    first_names = models.CharField(max_length=200, blank=True, default='')
+
+
 class Document(models.Model):
     """Article class."""
     id = models.CharField(max_length=100, primary_key=True)
-    author_text = models.TextField(blank=True, default='')
     title = models.CharField(max_length=255, blank=False, null=False)
+    author_text = models.TextField(blank=True, default='')
     publication = models.CharField(max_length=100, blank=True, default='')
     year = models.SmallIntegerField(null=True, blank=True)
     abstract = models.TextField(blank=True, default='')
@@ -56,6 +63,7 @@ class Document(models.Model):
     file = models.FileField(upload_to='documents', null=True, blank=True)
     linked_document_text = models.TextField(blank=True, default='')
     linked_documents = models.ManyToManyField('self', symmetrical=False, blank=True)
+    authors = models.ManyToManyField(Author, blank=True)
 
     def __unicode__(self):
         return self.id
@@ -79,14 +87,6 @@ class Document(models.Model):
         document_processing.bind_authors(self, author_model=Author)
         document_processing.bind_linked_documents(self, document_model=Document)
         super(Document, self).save(*args, **kwargs)
-
-
-class Author(models.Model):
-    """Author class."""
-    last_name = models.CharField(max_length=100, blank=True, default='')
-    first_name = models.CharField(max_length=100, blank=True, default='')
-    middle_names = models.CharField(max_length=100, blank=True, default='')
-    document = models.ForeignKey(Document)
 
 
 class Supplement(models.Model):

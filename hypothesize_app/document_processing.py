@@ -15,7 +15,16 @@ def bind_authors(document, author_model):
     :return:
     """
 
-    pass
+    # get author strings from author text
+    author_strings = [author_string.strip() for author_string in document.author_text.split(';')]
+
+    document.authors.clear()
+    # get/make authors referenced by this article
+    for author_string in author_strings:
+        if author_string:
+            last_names, first_names = [names.strip() for names in author_string.split(',', 1)]
+            author = author_model.objects.get_or_create(last_names=last_names, first_names=first_names)[0]
+            document.authors.add(author)
 
 
 def bind_linked_documents(document, document_model):

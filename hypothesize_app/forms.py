@@ -1,14 +1,13 @@
 from django import forms
 from django.forms import ModelForm
-from django.forms import modelformset_factory
-from hypothesize_app.models import Document, Author, Supplement, Node
+from hypothesize_app.models import Document, Supplement, Node
 
 
 class DocumentForm(ModelForm):
     """Document form."""
     class Meta:
         model = Document
-        fields = ['title', 'publication', 'year', 'abstract', 'file', 'web_link', 'linked_document_text']
+        fields = ['title', 'author_text', 'publication', 'year', 'abstract', 'file', 'web_link', 'linked_document_text']
 
 
 class SupplementForm(ModelForm):
@@ -16,16 +15,6 @@ class SupplementForm(ModelForm):
     class Meta:
         model = Supplement
         fields = ['file']
-
-
-class AuthorForm(ModelForm):
-    """Author form."""
-    class Meta:
-        model = Author
-        fields = ['first_name', 'middle_names', 'last_name']
-
-
-AuthorFormSet = modelformset_factory(Author, form=AuthorForm, extra=30)
 
 
 class NodeForm(ModelForm):
