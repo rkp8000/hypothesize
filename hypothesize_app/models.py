@@ -44,7 +44,7 @@ class Setting(models.Model):
 
 class Author(models.Model):
     """Author class."""
-    id = models.IntegerField(primary_key=True)
+    id = models.CharField(max_length=255, primary_key=True)
     last_names = models.CharField(max_length=100, blank=True, default='')
     first_names = models.CharField(max_length=200, blank=True, default='')
 
@@ -82,10 +82,16 @@ class Document(models.Model):
         """
         Override basic save method to extract linked documents.
         """
+
         if not self.id:
             document_processing.bind_primary_key(self, document_model=Document)
+
+        # save the document so we can bind other things to it
+        super(Document, self).save(*args, **kwargs)
+
         document_processing.bind_authors(self, author_model=Author)
         document_processing.bind_linked_documents(self, document_model=Document)
+
         super(Document, self).save(*args, **kwargs)
 
 
