@@ -62,9 +62,7 @@ class Document(models.Model):
 
     @property
     def primary_external_link(self):
-        if self.external_file_path:
-            return self.external_file_path
-        elif self.web_link:
+        if self.web_link:
             return self.web_link
         else:
             # TODO: make this return a google search for the article's title
