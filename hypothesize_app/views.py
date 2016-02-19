@@ -62,6 +62,13 @@ class DocumentCreate(generic.CreateView):
     template_name = 'hypothesize_app/document_change.html'
     form_class = forms.DocumentForm
 
+    def get_context_data(self, **kwargs):
+        # get baseline context variables
+        context = super(DocumentCreate, self).get_context_data(**kwargs)
+        # add in tab complete options
+        context['document_pk_list'] = [str(pk) for pk in models.Document.objects.values_list('id', flat=True)]
+        return context
+
 
 class DocumentDelete(generic.DeleteView):
     """
@@ -117,6 +124,15 @@ class NodeCreate(generic.CreateView):
 
     template_name = 'hypothesize_app/node_change.html'
     form_class = forms.NodeForm
+
+    def get_context_data(self, **kwargs):
+        # get baseline context variables
+        context = super(NodeCreate, self).get_context_data(**kwargs)
+        # add in tab complete options
+        context['tab_complete_options'] = node_processing.make_tab_complete_options(
+            document_model=models.Document, node_model=models.Node,
+        )
+        return context
 
 
 class NodeDelete(generic.DeleteView):
