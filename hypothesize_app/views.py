@@ -41,7 +41,7 @@ class DocumentChange(generic.UpdateView):
     """
     Update the contents of a document.
     """
-    template_name = 'hypothesize_app/document_change.html'
+    template_name = 'hypothesize_app/document_form.html'
     form_class = forms.DocumentForm
 
     def get_object(self):
@@ -59,7 +59,7 @@ class DocumentCreate(generic.CreateView):
     """
     Add a new document.
     """
-    template_name = 'hypothesize_app/document_change.html'
+    template_name = 'hypothesize_app/document_form.html'
     form_class = forms.DocumentForm
 
     def get_context_data(self, **kwargs):
@@ -104,7 +104,7 @@ class NodeDetail(generic.DetailView):
 
 class NodeChange(generic.UpdateView):
 
-    template_name = 'hypothesize_app/node_change.html'
+    template_name = 'hypothesize_app/node_form.html'
     form_class = forms.NodeForm
 
     def get_object(self):
@@ -122,7 +122,7 @@ class NodeChange(generic.UpdateView):
 
 class NodeCreate(generic.CreateView):
 
-    template_name = 'hypothesize_app/node_change.html'
+    template_name = 'hypothesize_app/node_form.html'
     form_class = forms.NodeForm
 
     def get_context_data(self, **kwargs):
