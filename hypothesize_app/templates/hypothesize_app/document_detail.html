@@ -28,7 +28,7 @@ Abstract:<br />
 {{document.abstract}}<br /><br />
 AUTHORS:<br />
 {% for author in document.authors.all %}
-    {{author.last_names}}, {{author.first_names}}<br />
+    {{author.id}}<br />
 {% endfor %}<br />
 Supplementary material:
 {% for supplement in document.supplement_set.all %}

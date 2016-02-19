@@ -19,24 +19,14 @@ def bind_authors(document, author_model):
     author_strings = [author_string.strip() for author_string in document.author_text.split(';')]
 
     document.authors.clear()
+
     # get/make authors referenced by this article
     for author_string in author_strings:
 
         if author_string:
 
-            names = author_string.split(',', 1)
-            last_names = author_string.split(',')[0].strip()
-            if len(names) == 2:
-                first_names = author_string.split(',')[1].strip()
-            else:
-                first_names = ''
-
-            # the primary key is just the unidecoded author string
-            id = unidecode.unidecode(author_string)
-
-            # make new author and add it to the document
-            author = author_model.objects.get_or_create(id=id, last_names=last_names, first_names=first_names)[0]
-
+            # get or create new author (with pk as unicode author string) and add it to the document
+            author = author_model.objects.get_or_create(id=author_string)[0]
             document.authors.add(author)
 
 

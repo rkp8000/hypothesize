@@ -45,8 +45,9 @@ class Setting(models.Model):
 class Author(models.Model):
     """Author class."""
     id = models.CharField(max_length=255, primary_key=True)
-    last_names = models.CharField(max_length=100, blank=True, default='')
-    first_names = models.CharField(max_length=200, blank=True, default='')
+
+    def __unicode__(self):
+        return self.id
 
 
 class Document(models.Model):
