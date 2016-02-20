@@ -52,6 +52,7 @@ class DocumentChange(generic.UpdateView):
         context = super(DocumentChange, self).get_context_data(**kwargs)
         # add in tab complete options
         context['document_pk_list'] = [str(pk) for pk in models.Document.objects.values_list('id', flat=True)]
+        context['author_pk_list'] = [str(pk) for pk in models.Author.objects.values_list('id', flat=True)]
         return context
 
 
@@ -67,6 +68,7 @@ class DocumentCreate(generic.CreateView):
         context = super(DocumentCreate, self).get_context_data(**kwargs)
         # add in tab complete options
         context['document_pk_list'] = [str(pk) for pk in models.Document.objects.values_list('id', flat=True)]
+        context['author_pk_list'] = [str(pk) for pk in models.Author.objects.values_list('id', flat=True)]
         return context
 
 

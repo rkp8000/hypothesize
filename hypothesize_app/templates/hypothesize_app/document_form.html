@@ -7,10 +7,13 @@
     <script>
     $(document).ready(function(){
         //var suggests = ['elephant', 'rhino', 'elephino'];
-        var suggests = {{ document_pk_list | safe }};
+        var suggests_documents = {{ document_pk_list | safe }};
         $.fn.asuggest.defaults.delimiters = " ";
         $.fn.asuggest.defaults.minChunkSize = 1;
-        $("#id_linked_document_text").asuggest(suggests);
+        $("#id_linked_document_text").asuggest(suggests_documents);
+
+        var suggests_authors = {{ author_pk_list | safe }};
+        $("#id_author_text").asuggest(suggests_authors);
     });
     </script>
 </head>

@@ -26,7 +26,7 @@ def bind_authors(document, author_model):
         if author_string:
 
             # get or create new author (with pk as unicode author string) and add it to the document
-            author = author_model.objects.get_or_create(id=author_string)[0]
+            author = author_model.objects.get_or_create(id=unidecode.unidecode(author_string))[0]
             document.authors.add(author)
 
 
