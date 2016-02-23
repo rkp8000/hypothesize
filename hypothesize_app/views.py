@@ -147,3 +147,37 @@ class NodeDelete(generic.DeleteView):
 
     model = models.Node
     success_url = reverse_lazy('hypothesize_app:node_search')
+
+
+class NodeTypeSearch(generic.ListView):
+
+    template_name = 'hypothesize_app/node_type_search.html'
+    context_object_name = 'node_types'
+
+    def get_queryset(self):
+        return models.NodeType.objects.all()
+
+
+class NodeTypeDetail(generic.DetailView):
+
+    template_name = 'hypothesize_app/node_type_detail.html'
+    model = models.NodeType
+    context_object_name = 'node_type'
+
+
+class NodeTypeChange(generic.UpdateView):
+
+    template_name = 'hypothesize_app/node_type_form.html'
+    form_class = forms.NodeTypeForm
+
+
+class NodeTypeCreate(generic.CreateView):
+
+    template_name = 'hypothesize_app/node_type_form.html'
+    form_class = forms.NodeTypeForm
+
+
+class NodeTypeDelete(generic.DeleteView):
+
+    model = models.NodeType
+    success_url = reverse_lazy('hypothesize_app:node_type_search')

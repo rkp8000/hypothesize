@@ -112,11 +112,14 @@ class NodeType(models.Model):
     """
     id = models.CharField(max_length=100, primary_key=True)
     description = models.TextField(blank=True, default='')
-    template_title = models.CharField(max_length=500, blank=True, default='')
-    template = models.TextField(blank=True, default='')
+    title_template = models.CharField(max_length=500, blank=True, default='')
+    text_template = models.TextField(blank=True, default='')
 
     def __unicode__(self):
         return self.id
+
+    def get_absolute_url(self):
+        return reverse('hypothesize_app:node_type_detail', kwargs={'pk': self.id})
 
 
 class Node(models.Model):

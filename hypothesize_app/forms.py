@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django import forms
 from django.forms import ModelForm
-from hypothesize_app.models import Document, Supplement, Node
+from hypothesize_app.models import Document, Supplement, Node, NodeType
 
 
 class DocumentForm(ModelForm):
@@ -28,6 +28,18 @@ class NodeForm(ModelForm):
         fields = ['id', 'type', 'title', 'text']
         widgets = {
             'text': forms.Textarea(attrs={'rows': 60, 'cols': 120})
+        }
+
+
+class NodeTypeForm(ModelForm):
+    """
+    Form for changing a node type's contents.
+    """
+    class Meta:
+        model = NodeType
+        fields = ['id', 'description', 'title_template', 'text_template']
+        widgets = {
+            'text': forms.Textarea(attrs={'rows': 10, 'cols': 120})
         }
 
 

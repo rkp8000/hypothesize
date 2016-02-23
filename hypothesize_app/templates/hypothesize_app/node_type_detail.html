@@ -1,0 +1,13 @@
+<head>
+    {% load staticfiles %}
+</head>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+</script>
+
+{{ node_type.id }}
+{{ node_type.description }}
+{{ node_type.title_template }}
+{{ node_type.text_template }}
