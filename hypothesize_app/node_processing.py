@@ -1,4 +1,4 @@
-from __future__ import division, print_function
+from __future__ import division, print_function, unicode_literals
 import os
 import re
 
@@ -26,12 +26,16 @@ def update_text_file(node, setting_model):
     :param node: node instance
     :param setting_model: models.Setting
     """
-    node_save_directory = setting_model.objects.get(pk='NODE_SAVE_DIRECTORY').value
-    path = os.path.join(node_save_directory, node.id)
-    if not os.path.exists(os.path.dirname(path)):
-        os.makedirs(os.path.dirname(path))
-    with open('{}.md'.format(path), 'w') as f:
-        f.write(node.text)
+    try:
+        node_save_directory = setting_model.objects.get(pk='NODE_SAVE_DIRECTORY').value
+        path = os.path.join(node_save_directory, node.id)
+        if not os.path.exists(os.path.dirname(path)):
+            os.makedirs(os.path.dirname(path))
+        with open('{}.md'.format(path), 'w') as f:
+            f.write(node.text)
+        return True
+    except:
+        return False
 
 
 def extract_linked_objects(text, document_model, node_model):

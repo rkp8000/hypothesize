@@ -1,4 +1,4 @@
-from __future__ import division, print_function
+from __future__ import division, print_function, unicode_literals
 
 from django.core.urlresolvers import reverse_lazy
 from django.views import generic

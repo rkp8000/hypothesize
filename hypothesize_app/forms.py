@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from django import forms
 from django.forms import ModelForm
 from hypothesize_app.models import Document, Supplement, Node

@@ -1,8 +1,8 @@
 from __future__ import print_function, unicode_literals
-from datetime import datetime
 
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.utils import timezone
 
 import document_processing
 import node_processing
@@ -59,8 +59,8 @@ class Document(models.Model):
     year = models.SmallIntegerField(null=True, blank=True)
     abstract = models.TextField(blank=True, default='')
     web_link = models.CharField(max_length=500, blank=True, default='')
-    last_viewed = models.DateTimeField(default=datetime.now, blank=True)
-    uploaded = models.DateTimeField(default=datetime.now, blank=True)
+    last_viewed = models.DateTimeField(default=timezone.now, blank=True)
+    uploaded = models.DateTimeField(default=timezone.now, blank=True)
     file = models.FileField(upload_to='documents', null=True, blank=True)
     linked_document_text = models.TextField(blank=True, default='')
     linked_documents = models.ManyToManyField('self', symmetrical=False, blank=True)
@@ -125,7 +125,7 @@ class Node(models.Model):
     type = models.ForeignKey(NodeType, null=True, blank=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=500, null=False, default='untitled', blank=False, unique=True)
     text = models.TextField(blank=True, default='')
-    last_viewed = models.DateTimeField(default=datetime.now, blank=True)
+    last_viewed = models.DateTimeField(default=timezone.now, blank=True)
     nodes = models.ManyToManyField('self', symmetrical=False, blank=True)
     documents = models.ManyToManyField(Document, blank=True)
 
