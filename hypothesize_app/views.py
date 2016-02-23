@@ -53,6 +53,9 @@ class DocumentChange(generic.UpdateView):
         # add in tab complete options
         context['document_pk_list'] = [str(pk) for pk in models.Document.objects.values_list('id', flat=True)]
         context['author_pk_list'] = [str(pk) for pk in models.Author.objects.values_list('id', flat=True)]
+        context['publication_name_list'] = [
+            str(pub) for pub in models.Document.objects.values_list('publication', flat=True).distinct()
+        ]
         return context
 
 
@@ -69,6 +72,9 @@ class DocumentCreate(generic.CreateView):
         # add in tab complete options
         context['document_pk_list'] = [str(pk) for pk in models.Document.objects.values_list('id', flat=True)]
         context['author_pk_list'] = [str(pk) for pk in models.Author.objects.values_list('id', flat=True)]
+        context['publication_name_list'] = [
+            str(pub) for pub in models.Document.objects.values_list('publication', flat=True).distinct()
+        ]
         return context
 
 

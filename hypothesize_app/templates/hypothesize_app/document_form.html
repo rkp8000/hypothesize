@@ -14,6 +14,9 @@
 
         var suggests_authors = {{ author_pk_list | safe }};
         $("#id_author_text").asuggest(suggests_authors);
+
+        var suggests_publication = {{ publication_name_list | safe }};
+        $("#id_publication").asuggest(suggests_publication);
     });
     </script>
 </head>
