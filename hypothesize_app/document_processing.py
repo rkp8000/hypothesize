@@ -38,12 +38,10 @@ def bind_linked_documents(document, document_model):
     """
 
     candidate_pks = [el.strip() for el in document.linked_document_text.split(' ')]
-    print(candidate_pks)
     linked_documents = [document_model.objects.get(pk=pk) for pk in candidate_pks if pk]
 
     document.linked_documents.clear()
     document.linked_documents.add(*linked_documents)
-    print(document.linked_documents)
 
 
 def bind_primary_key(document, document_model):
