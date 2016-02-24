@@ -144,6 +144,9 @@ class DocumentChangingTestCase(TestCase):
     def test_downstream_documents_are_extracted_correctly_and_bound_to_document(self):
         pass
 
+    def test_downstream_documents_dont_raise_error_if_nonexistent(self):
+        pass
+
 
 class DocumentNodeMarkdownTestCase(TestCase):
 
