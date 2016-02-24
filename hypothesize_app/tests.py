@@ -96,6 +96,31 @@ class DocumentChangingTestCase(TestCase):
         doc.save()
         self.assertEqual(doc.id, 'VanDuberveckJr2010')
 
+    def test_primary_key_defaults_work_if_name_or_year_not_given(self):
+        """
+        If the author name is not given, it should be replaced with Unknown. If the year is not given it should
+        be replaced with 0000.
+        """
+        doc = models.Document(
+            publication='Nature',
+            title='My title',
+            author_text='Johnson, John; Smith, Steve',
+            abstract='This is pretty abstract.',
+        )
+
+        doc.save()
+        self.assertEqual(doc.id, 'Johnson0000')
+
+        doc = models.Document(
+            publication='Nature',
+            title='My title',
+            year=2005,
+            abstract='This is pretty abstract.',
+        )
+
+        doc.save()
+        self.assertEqual(doc.id, 'Unknown2005')
+
     def test_authors_are_extracted_correctly_and_bound_to_document(self):
         """
         Make sure authors get bound to document after being extracted from author text.
@@ -115,9 +140,6 @@ class DocumentChangingTestCase(TestCase):
         bound_author_ids_correct = ['van Joseph Jr., Vierden', 'Doo, Yabadaba']
 
         self.assertEqual(set(bound_author_ids), set(bound_author_ids_correct))
-
-    def test_weird_author_names_dont_break_document_editing(self):
-        pass
 
     def test_downstream_documents_are_extracted_correctly_and_bound_to_document(self):
         pass
