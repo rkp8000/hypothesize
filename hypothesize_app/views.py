@@ -1,6 +1,7 @@
 from __future__ import division, print_function, unicode_literals
 
 from django.core.urlresolvers import reverse_lazy
+from django.http import JsonResponse
 from django.views import generic
 
 import forms
@@ -181,3 +182,10 @@ class NodeTypeDelete(generic.DeleteView):
 
     model = models.NodeType
     success_url = reverse_lazy('hypothesize_app:node_type_search')
+
+
+class Ajax(generic.View):
+
+    def get(self, request):
+        data = {'my_key': 'my_value'}
+        return JsonResponse(data)

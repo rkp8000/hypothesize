@@ -10,9 +10,26 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
     <script>
+        function talk_to_ajax_view(){
+            $.ajax({
+                url: "{% url 'hypothesize_app:ajax' %}",
+                type: "GET",
+
+                success: function(json){
+                    alert(json.my_key);
+                },
+
+                failure: function(json){
+                    alert('failure!');
+                }
+            });
+        }
+
         $(document).ready(function(){
-            $("#ajax_button").click(function(){
-                $(this).hide();
+            $("#ajax_button").click(function(event){
+                event.preventDefault();
+                alert('Sending AJAX request...');
+                talk_to_ajax_view();
             });
         });
     </script>
