@@ -187,5 +187,6 @@ class NodeTypeDelete(generic.DeleteView):
 class Ajax(generic.View):
 
     def get(self, request):
-        data = {'my_key': 'my_value'}
+
+        data = {'server_data': request.GET['client_data'] + '_processed_by_server'}
         return JsonResponse(data)

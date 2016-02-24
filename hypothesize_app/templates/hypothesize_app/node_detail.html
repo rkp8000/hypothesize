@@ -14,9 +14,10 @@
             $.ajax({
                 url: "{% url 'hypothesize_app:ajax' %}",
                 type: "GET",
+                data: {'client_data': 'abc'},
 
                 success: function(json){
-                    alert(json.my_key);
+                    alert(json.server_data);
                 },
 
                 failure: function(json){
