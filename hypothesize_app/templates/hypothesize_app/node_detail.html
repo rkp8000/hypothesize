@@ -39,16 +39,16 @@
                 event.preventDefault();
                 if ($(this).next().is(".expanded-link")) {
                     if ($(this).next().is(":visible")) {
-                        $(this).next().hide();
+                        $(this).next().hide("fast");
                     }
                     else {
-                        $(this).next().show();
+                        $(this).next().show("fast");
                     }
                 }
                 else {
-                    inside_div = 'Details. <a href="#" class="internal-link">Non-working test link.</a>';
+                    inside_div = 'Details. <a href="#" class="internal-link">Dynamically added link.</a>';
                     html = '<div class="expanded-link"><hr />' + inside_div + '<hr/></div>';
-                    $(html).insertAfter(this);
+                    $(html).insertAfter(this).hide().show("fast");
                 }
 
             });
