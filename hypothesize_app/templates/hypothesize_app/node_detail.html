@@ -10,14 +10,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
     <script>
-        function fetch_link_detail(linkpk){
+        function fetch_link_detail(el){
             $.ajax({
                 url: "{% url 'hypothesize_app:ajax_link_fetcher' %}",
                 type: "GET",
-                data: {'client_data': linkpk},
+                data: {'linkpk': el.attr("data-linkpk")},
 
                 success: function(json){
-                    alert(json.server_data);
+                    inside_div = 'Link detail:' + json.html;
+                    html = '<div class="expanded-link"><hr />' + inside_div + '<hr /></div>';
+                    $(html).insertAfter(el).hide().show("fast");
                 },
 
                 failure: function(json){
@@ -47,9 +49,7 @@
                     }
                 }
                 else {
-                    inside_div = fetch_link_detail($(this).attr("data-linkpk"));
-                    html = '<div class="expanded-link"><hr />' + inside_div + '<hr/></div>';
-                    $(html).insertAfter(this).hide().show("fast");
+                    inside_div = fetch_link_detail($(this));
                 }
 
             });

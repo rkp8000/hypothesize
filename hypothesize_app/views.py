@@ -188,5 +188,7 @@ class AjaxLinkFetcher(generic.View):
 
     def get(self, request):
 
-        data = {'server_data': request.GET['client_data'] + '_processed_by_server'}
+        data = {
+            'html': 'Fetched HTML for {}'.format(request.GET['linkpk']),
+        }
         return JsonResponse(data)
