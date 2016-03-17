@@ -184,7 +184,7 @@ class NodeTypeDelete(generic.DeleteView):
     success_url = reverse_lazy('hypothesize_app:node_type_search')
 
 
-class Ajax(generic.View):
+class AjaxLinkFetcher(generic.View):
 
     def get(self, request):
 

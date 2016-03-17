@@ -23,5 +23,5 @@ urlpatterns = [
     url(r'^node_type/(?P<pk>[/\w\s-]+)/delete/$', views.NodeTypeDelete.as_view(), name='node_type_delete'),
     url(r'^node_type/new/$', views.NodeTypeCreate.as_view(), name='node_type_create'),
 
-    url(None, views.Ajax.as_view(), name='ajax'),
+    url(None, views.AjaxLinkFetcher.as_view(), name='ajax_link_fetcher'),
 ]

@@ -12,7 +12,7 @@
     <script>
         function talk_to_ajax_view(){
             $.ajax({
-                url: "{% url 'hypothesize_app:ajax' %}",
+                url: "{% url 'hypothesize_app:ajax_link_fetcher' %}",
                 type: "GET",
                 data: {'client_data': 'abc'},
 
@@ -32,7 +32,6 @@
                 event.preventDefault();
                 alert('Sending AJAX request...');
                 talk_to_ajax_view();
-                $("<div>hi</div>").insertAfter(this);
             });
 
             $(document).on('click', '.internal-link', function() {
