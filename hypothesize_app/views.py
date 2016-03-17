@@ -2,6 +2,7 @@ from __future__ import division, print_function, unicode_literals
 
 from django.core.urlresolvers import reverse_lazy
 from django.http import JsonResponse
+from django.template.loader import render_to_string
 from django.views import generic
 
 import forms
@@ -188,7 +189,18 @@ class AjaxLinkFetcher(generic.View):
 
     def get(self, request):
 
+        link_type, link_pk = request.GET['linkpk'].split('-', 1)
+
+        context = {}
+
+        if link_type == 'document':
+            html = 'Fetched HTML for document: {}'.format(link_pk)
+
+        elif link_type == 'node':
+            context['node'] = models.Node.objects.get(pk=link_pk)
+            html = render_to_string('hypothesize_app/node_detail_content_only.html', context)
+
         data = {
-            'html': 'Fetched HTML for {}'.format(request.GET['linkpk']),
+            'html': html,
         }
         return JsonResponse(data)

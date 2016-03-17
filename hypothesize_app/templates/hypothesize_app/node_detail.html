@@ -17,7 +17,7 @@
                 data: {'linkpk': el.attr("data-linkpk")},
 
                 success: function(json){
-                    inside_div = 'Link detail:' + json.html;
+                    inside_div = json.html;
                     html = '<div class="expanded-link"><hr />' + inside_div + '<hr /></div>';
                     $(html).insertAfter(el).hide().show("fast");
                 },
