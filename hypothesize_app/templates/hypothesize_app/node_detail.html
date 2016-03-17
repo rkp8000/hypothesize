@@ -35,7 +35,7 @@
                 $("<div>hi</div>").insertAfter(this);
             });
 
-            $(".internal-link").click(function(event){
+            $(document).on('click', '.internal-link', function() {
                 event.preventDefault();
                 if ($(this).next().is(".expanded-link")) {
                     if ($(this).next().is(":visible")) {
