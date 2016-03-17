@@ -119,7 +119,7 @@ def node_link_to_html(match):
 
     url = reverse('hypothesize_app:node_detail', args=(node_id.strip(),))
 
-    html = '<a href="{}" class="internal-link" data-linkpk="node-"{}">{}</a>'.format(
+    html = '<a href="{}" class="internal-link" data-linkpk="node-{}">{}</a>'.format(
         url, node_id, text_to_display
     )
 
