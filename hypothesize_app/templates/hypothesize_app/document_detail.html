@@ -3,52 +3,7 @@
 </script>
 <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
-<h3>
-    {% if document.file %}
-        {% if file_server_address %}
-            <a href="{{file_server_address}}/{{document.file.name}}">
-                <strong>{{document.id}}</strong>
-            </a>
-        {% else %}
-            <a href="{{ MEDIA_URL }}{{document.file}}">
-                <strong>{{document.id}}</strong>
-            </a>
-        {% endif %}
-    {% elif document.primary_external_link %}
-        <a href="{{document.primary_external_link}}"><strong>{{document.id}}</strong></a>
-    {% else %}
-        <strong>{{document.id}}</strong>
-    {% endif %}
-    <a href="{% url 'hypothesize_app:document_change' document.id %}">(change)</a>
-</h3>
-
-"{{document.title}}"<br />
-<em>{{document.publication}}</em> {{document.year}}<br />
-Abstract:<br />
-{{document.abstract}}<br /><br />
-AUTHORS:<br />
-{% for author in document.authors.all %}
-    {{author.id}}<br />
-{% endfor %}<br />
-Supplementary material:
-{% for supplement in document.supplement_set.all %}
-    <a href="{{ MEDIA_URL }}{{supplement.file}}">{{supplement.id}}</a>
-{% endfor %}
+{% include 'hypothesize_app/document_detail_content_only.html' %}
 
 <br /><br />
 <a href="{% url 'hypothesize_app:document_search' %}">return to search</a>
-
-<h3>downstream documents (documents linked to by this document)</h3>
-{% for ds_doc in document.linked_documents.all %}
-<a href="{% url 'hypothesize_app:document_detail' ds_doc.id %}">{{ds_doc.id}}</a>
-{% endfor %}
-
-<h3>upstream documents (documents linking to this document)</h3>
-{% for us_doc in document.document_set.all %}
-<a href="{% url 'hypothesize_app:document_detail' us_doc.id %}">{{us_doc.id}}</a>
-{% endfor %}
-
-<h3>upstream nodes (nodes linking to this document)</h3>
-{% for us_node in document.node_set.all %}
-<a href="{% url 'hypothesize_app:node_detail' us_node.id %}">{{us_node.id}}</a>
-{% endfor %}
