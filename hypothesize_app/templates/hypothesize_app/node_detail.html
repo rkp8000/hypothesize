@@ -10,11 +10,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
     <script>
-        function talk_to_ajax_view(){
+        function fetch_link_detail(linkpk){
             $.ajax({
                 url: "{% url 'hypothesize_app:ajax_link_fetcher' %}",
                 type: "GET",
-                data: {'client_data': 'abc'},
+                data: {'client_data': linkpk},
 
                 success: function(json){
                     alert(json.server_data);
@@ -24,6 +24,8 @@
                     alert('failure!');
                 }
             });
+
+            return 'fetch_link_detail_return_string';
         }
 
         $(document).ready(function(){
@@ -31,7 +33,7 @@
             $("#ajax_button").click(function(event){
                 event.preventDefault();
                 alert('Sending AJAX request...');
-                talk_to_ajax_view();
+                fetch_link_detail();
             });
 
             $(document).on('click', '.internal-link', function() {
@@ -45,7 +47,7 @@
                     }
                 }
                 else {
-                    inside_div = 'Details. <a href="#" class="internal-link">Dynamically added link.</a>';
+                    inside_div = fetch_link_detail($(this).attr("data-linkpk"));
                     html = '<div class="expanded-link"><hr />' + inside_div + '<hr/></div>';
                     $(html).insertAfter(this).hide().show("fast");
                 }
