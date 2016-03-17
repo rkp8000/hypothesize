@@ -46,7 +46,9 @@
                     }
                 }
                 else {
-                    $('<div class="expanded-link"><hr />Link details.<hr /></div>').insertAfter(this);
+                    inside_div = 'Details. <a href="#" class="internal-link">Non-working test link.</a>';
+                    html = '<div class="expanded-link"><hr />' + inside_div + '<hr/></div>';
+                    $(html).insertAfter(this);
                 }
 
             });
