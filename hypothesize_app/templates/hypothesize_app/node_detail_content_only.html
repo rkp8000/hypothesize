@@ -1,0 +1,19 @@
+<h3>{{ node.title }} <a href="{% url 'hypothesize_app:node_change' node.id %}">(change)</a></h3>
+<hr />
+
+{{ node.html | safe }}
+
+<h3>downstream nodes (nodes linked to by this node)</h3>
+{% for ds_node in node.nodes.all %}
+<a href="{% url 'hypothesize_app:node_detail' ds_node.id %}">{{ds_node.id}}</a>
+{% endfor %}
+
+<h3>upstream nodes (nodes linking to this node)</h3>
+{% for us_node in node.node_set.all %}
+<a href="{% url 'hypothesize_app:node_detail' us_node.id %}">{{us_node.id}}</a>
+{% endfor %}
+
+<h3>downstream documents (documents linked to by this node)</h3>
+{% for ds_doc in node.documents.all %}
+<a href="{% url 'hypothesize_app:document_detail' ds_doc.id %}">{{ds_doc.id}}</a>
+{% endfor %}
