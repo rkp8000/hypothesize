@@ -32,12 +32,6 @@
 
         $(document).ready(function(){
 
-            $("#ajax_button").click(function(event){
-                event.preventDefault();
-                alert('Sending AJAX request...');
-                fetch_link_detail();
-            });
-
             $(document).on('click', '.internal-link', function() {
                 event.preventDefault();
                 if ($(this).next().is(".expanded-link")) {
@@ -59,7 +53,6 @@
 
 <h3>{{ node.title }} <a href="{% url 'hypothesize_app:node_change' node.id %}">(change)</a></h3>
 <hr />
-<a href="#" id="ajax_button">ajax</a>
 
 {{ node.html | safe }}
 
