@@ -27,11 +27,28 @@
         }
 
         $(document).ready(function(){
+
             $("#ajax_button").click(function(event){
                 event.preventDefault();
                 alert('Sending AJAX request...');
                 talk_to_ajax_view();
                 $("<div>hi</div>").insertAfter(this);
+            });
+
+            $(".internal-link").click(function(event){
+                event.preventDefault();
+                if ($(this).next().is(".expanded-link")) {
+                    if ($(this).next().is(":visible")) {
+                        $(this).next().hide();
+                    }
+                    else {
+                        $(this).next().show();
+                    }
+                }
+                else {
+                    $('<div class="expanded-link"><hr />Link details.<hr /></div>').insertAfter(this);
+                }
+
             });
         });
     </script>
