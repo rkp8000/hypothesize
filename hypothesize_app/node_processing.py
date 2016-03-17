@@ -95,7 +95,10 @@ def document_link_to_html(match):
 
     url = reverse('hypothesize_app:document_detail', args=(document_id.strip(),))
 
-    return '<a href="{}">{}</a>'.format(url, text_to_display)
+    html = '<a href="{}" class="internal-link" data-linkpk="document-{}">{}</a>'.format(
+        url, document_id, text_to_display
+    )
+    return html
 
 
 def node_link_to_html(match):
@@ -116,7 +119,11 @@ def node_link_to_html(match):
 
     url = reverse('hypothesize_app:node_detail', args=(node_id.strip(),))
 
-    return '<a href="{}">{}</a>'.format(url, text_to_display)
+    html = '<a href="{}" class="internal-link" data-linkpk="node-"{}">{}</a>'.format(
+        url, node_id, text_to_display
+    )
+
+    return html
 
 
 def text_to_md(text):
