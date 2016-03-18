@@ -18,7 +18,7 @@
 
                 success: function(json){
                     inside_div = json.html;
-                    html = '<div class="expanded-link"><hr />' + inside_div + '<hr /></div>';
+                    html = '<div class="expanded-link">' + json.anchor + '<hr />' + inside_div + '<hr /></div>';
                     $(html).insertAfter(el).hide().show("fast");
                 },
 
@@ -43,7 +43,7 @@
                     }
                 }
                 else {
-                    inside_div = fetch_link_detail($(this));
+                    fetch_link_detail($(this));
                 }
 
             });

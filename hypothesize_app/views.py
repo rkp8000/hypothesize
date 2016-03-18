@@ -196,14 +196,19 @@ class AjaxLinkFetcher(generic.View):
         }
 
         if link_type == 'document':
-            context['document'] = models.Document.objects.get(pk=link_pk)
+            obj = models.Document.objects.get(pk=link_pk)
+            context['document'] = obj
             html = render_to_string('hypothesize_app/document_detail_content_only.html', context)
 
         elif link_type == 'node':
-            context['node'] = models.Node.objects.get(pk=link_pk)
+            obj = models.Node.objects.get(pk=link_pk)
+            context['node'] = obj
             html = render_to_string('hypothesize_app/node_detail_content_only.html', context)
+
+        anchor = '<a href="{}">(open as new page)</a>'.format(obj.get_absolute_url())
 
         data = {
             'html': html,
+            'anchor': anchor,
         }
         return JsonResponse(data)
