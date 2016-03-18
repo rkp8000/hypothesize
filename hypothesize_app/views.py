@@ -191,7 +191,9 @@ class AjaxLinkFetcher(generic.View):
 
         link_type, link_pk = request.GET['linkpk'].split('-', 1)
 
-        context = {}
+        context = {
+            'MEDIA_URL': '/media/',
+        }
 
         if link_type == 'document':
             context['document'] = models.Document.objects.get(pk=link_pk)
