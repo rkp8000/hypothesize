@@ -194,7 +194,8 @@ class AjaxLinkFetcher(generic.View):
         context = {}
 
         if link_type == 'document':
-            html = 'Fetched HTML for document: {}'.format(link_pk)
+            context['document'] = models.Document.objects.get(pk=link_pk)
+            html = render_to_string('hypothesize_app/document_detail_content_only.html', context)
 
         elif link_type == 'node':
             context['node'] = models.Node.objects.get(pk=link_pk)
