@@ -184,6 +184,7 @@ class NodeTypeCreate(generic.CreateView):
 
 class NodeTypeDelete(generic.DeleteView):
 
+    template_name = 'hypothesize_app/node_type_confirm_delete.html'
     model = models.NodeType
     success_url = reverse_lazy('hypothesize_app:node_type_search')
 
