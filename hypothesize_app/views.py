@@ -172,6 +172,9 @@ class NodeTypeChange(generic.UpdateView):
     template_name = 'hypothesize_app/node_type_form.html'
     form_class = forms.NodeTypeForm
 
+    def get_object(self):
+        return models.NodeType.objects.get(pk=self.kwargs['pk'])
+
 
 class NodeTypeCreate(generic.CreateView):
 
