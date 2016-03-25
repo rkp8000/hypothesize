@@ -53,7 +53,7 @@ class Author(models.Model):
 class Document(models.Model):
     """Article class."""
     id = models.CharField(max_length=100, primary_key=True)
-    title = models.CharField(max_length=255, blank=False, null=False)
+    title = models.CharField(max_length=255, default='')
     author_text = models.TextField(blank=True, default='')
     publication = models.CharField(max_length=100, blank=True, default='')
     year = models.SmallIntegerField(null=True, blank=True)
