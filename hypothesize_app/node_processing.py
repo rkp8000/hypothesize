@@ -50,12 +50,14 @@ def extract_linked_objects(text, document_model, node_model):
     # extract documents
     document_links = re.findall(DOCUMENT_LINK_PATTERN, text)
     document_ids = [link.split('|')[0].strip() for link in document_links]
-    documents = [document_model.objects.get(pk=document_id) for document_id in document_ids]
+    documents = [document_model.objects.filter(id=document_id).first() for document_id in document_ids]
+    documents = [document for document in documents if document is not None]
 
     # extract node links
     node_links = re.findall(NODE_LINK_PATTERN, text)
     node_ids = [link.split('|')[0].strip() for link in node_links]
-    nodes = [node_model.objects.get(pk=node_id) for node_id in node_ids]
+    nodes = [node_model.objects.filter(id=node_id).first() for node_id in node_ids]
+    nodes = [node for node in nodes if node is not None]
 
     return documents, nodes
 

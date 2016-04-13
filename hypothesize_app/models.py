@@ -126,7 +126,7 @@ class Node(models.Model):
     """Node class."""
     id = models.CharField(max_length=1000, primary_key=True)
     type = models.ForeignKey(NodeType, null=True, blank=True, on_delete=models.SET_NULL)
-    title = models.CharField(max_length=500, null=False, default='untitled', blank=False, unique=True)
+    title = models.CharField(max_length=500, default='untitled')
     text = models.TextField(blank=True, default='')
     last_viewed = models.DateTimeField(default=timezone.now, blank=True)
     nodes = models.ManyToManyField('self', symmetrical=False, blank=True)
