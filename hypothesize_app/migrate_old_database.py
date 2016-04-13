@@ -147,7 +147,7 @@ def migrate_old_database(db_path):
 
             try:
                 cur = con.cursor()
-                cur.execute('SELECT id, journal, year, abstract, web_link, last_viewed, uploaded, file, '
+                cur.execute('SELECT id, title, journal, year, abstract, web_link, last_viewed, uploaded, file, '
                             'external_file_path FROM hypothesize_app_article')
             except Exception, e:
                 messages_error.append('Cursor/SELECT error: "{}"'.format(e))
@@ -209,7 +209,7 @@ def migrate_old_database(db_path):
 
             try:
                 cur = con.cursor()
-                cur.execute('SELECT id, text, last_viewed, title, type_id FROM hypothesize_app_node')
+                cur.execute('SELECT id, text, last_viewed, type_id FROM hypothesize_app_node')
             except Exception, e:
                 messages_error.append('Cursor/SELECT error: "{}"'.format(e))
                 messages_error.append(traceback.format_exc())
