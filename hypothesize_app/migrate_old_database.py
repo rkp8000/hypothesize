@@ -5,6 +5,7 @@ from __future__ import division, print_function
 from django.core.files import File
 import os
 import sqlite3 as lite
+import traceback
 
 from hypothesize_app import models
 
@@ -150,6 +151,7 @@ def migrate_old_database(db_path):
                             'external_file_path FROM hypothesize_app_article')
             except Exception, e:
                 messages_error.append('Cursor/SELECT error: "{}"'.format(e))
+                messages_error.append(traceback.format_exc())
 
             doc_ctr = 0
 
@@ -184,9 +186,11 @@ def migrate_old_database(db_path):
 
                 except Exception, e:
                     messages_error.append('Document upload error: "{}"'.format(e))
+                    messages_error.append(traceback.format_exc().replace('\n', '<br />'))
 
     except Exception, e:
         messages_error.append('Connection error: "{}"'.format(e))
+        messages_error.append(traceback.format_exc())
 
     # add certain node types
     for id, description in NODE_TYPES.items():
@@ -197,6 +201,7 @@ def migrate_old_database(db_path):
             messages_success.append('Node type upload successful: "{}"'.format(node_type.id))
         except Exception, e:
             messages_error.append('Node type upload error: "{}"'.format(e))
+            messages_error.append(traceback.format_exc())
 
     # upload all nodes
     try:
@@ -207,6 +212,7 @@ def migrate_old_database(db_path):
                 cur.execute('SELECT id, text, last_viewed, title, type_id FROM hypothesize_app_node')
             except Exception, e:
                 messages_error.append('Cursor/SELECT error: "{}"'.format(e))
+                messages_error.append(traceback.format_exc())
 
             node_ctr = 0
 
@@ -224,8 +230,10 @@ def migrate_old_database(db_path):
 
                 except Exception, e:
                     messages_error.append('Node upload error: "{}"'.format(e))
+                    messages_error.append(traceback.format_exc())
 
     except Exception, e:
         messages_error.append('Connection error: "{}"'.format(e))
+        messages_error.append(traceback.format_exc())
 
     return messages_success, messages_error
