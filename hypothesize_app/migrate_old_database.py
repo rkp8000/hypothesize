@@ -9,7 +9,7 @@ import sqlite3 as lite
 from hypothesize_app import models
 
 MAX_DOC_UPLOADS = 5
-MAX_NODE_UPLOADS = 0
+MAX_NODE_UPLOADS = 5
 NODE_TYPES = {
     'document group': 'Group of documents.',
     'node group': 'Group of nodes.',
@@ -106,31 +106,28 @@ class Node(object):
 
     def __init__(self, row):
         self.id = row[0]
-        self.type_id = row[1]
-        self.text = row[2]
-        self.last_viewed = row[3]
+        self.text = row[1]
+        self.last_viewed = row[2]
+
+        self.node = models.Node(
+            id=self.id,
+            text=self.text,
+            last_viewed=self.last_viewed,
+        )
+
+        self.type_id = NODE_TYPE_ID_CONVERSIONS.get(row[3], None)
+
+        if self.type_id is not None:
+            try:
+                self.node.type = models.NodeType.object.get(pk=self.type_id)
+            except Exception, e:
+                print('Error assigning node type to node: "{}"'.format(e))
 
     def upload_to_new_db(self):
         """
         Upload the node to the new db.
         """
-
-        try:
-            node_type = models.NodeType.object.get(pk=self.type_id)
-            node = models.Node(
-                id=self.id,
-                type=node_type,
-                text=self.text,
-                last_viewed=self.last_viewed,
-            )
-            node.save()
-
-        except Exception, e:
-            print(
-                'The following error occurred when uploading Node "{}": "{}"'.format(
-                    self.id, e
-                )
-            )
+        self.node.save()
 
 
 def migrate_old_database(db_path):
@@ -149,7 +146,7 @@ def migrate_old_database(db_path):
 
             try:
                 cur = con.cursor()
-                cur.execute('SELECT id, title, journal, year, abstract, web_link, last_viewed, uploaded, file, '
+                cur.execute('SELECT id, journal, year, abstract, web_link, last_viewed, uploaded, file, '
                             'external_file_path FROM hypothesize_app_article')
             except Exception, e:
                 messages_error.append('Cursor/SELECT error: "{}"'.format(e))
@@ -158,6 +155,8 @@ def migrate_old_database(db_path):
 
             for row in cur.fetchall():
                 doc_ctr += 1
+                if doc_ctr >= MAX_DOC_UPLOADS:
+                    break
 
                 try:
                     doc = Document(row[:-2])
@@ -186,9 +185,6 @@ def migrate_old_database(db_path):
                 except Exception, e:
                     messages_error.append('Document upload error: "{}"'.format(e))
 
-                if doc_ctr >= MAX_DOC_UPLOADS:
-                    break
-
     except Exception, e:
         messages_error.append('Connection error: "{}"'.format(e))
 
@@ -202,6 +198,34 @@ def migrate_old_database(db_path):
         except Exception, e:
             messages_error.append('Node type upload error: "{}"'.format(e))
 
+    # upload all nodes
+    try:
+        with con:
 
+            try:
+                cur = con.cursor()
+                cur.execute('SELECT id, text, last_viewed, title, type_id FROM hypothesize_app_node')
+            except Exception, e:
+                messages_error.append('Cursor/SELECT error: "{}"'.format(e))
+
+            node_ctr = 0
+
+            for row in cur.fetchall():
+                node_ctr += 1
+                if node_ctr >= MAX_NODE_UPLOADS:
+                    break
+
+                try:
+                    node = Node(row)
+
+                    node.upload_to_new_db()
+
+                    messages_success.append('Node upload successful: "{}"'.format(node.node.id))
+
+                except Exception, e:
+                    messages_error.append('Node upload error: "{}"'.format(e))
+
+    except Exception, e:
+        messages_error.append('Connection error: "{}"'.format(e))
 
     return messages_success, messages_error
