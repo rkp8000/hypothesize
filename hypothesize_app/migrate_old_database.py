@@ -10,10 +10,15 @@ from hypothesize_app import models
 
 MAX_DOC_UPLOADS = 5
 MAX_NODE_UPLOADS = 0
-NODE_TYPES_TO_UPLOAD = {
-    'talk_notes': 'talk_notes',
-    'node_group': 'node_group',
-    'article_group': 'document_group'
+NODE_TYPES = {
+    'document group': 'Group of documents.',
+    'node group': 'Group of nodes.',
+    'talk': 'Talk.',
+}
+NODE_TYPE_ID_CONVERSIONS = {
+    'article_group': 'document group',
+    'node_group': 'node group',
+    'talk_notes': 'talk',
 }
 NUM_TO_ALPHA = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
 
@@ -77,26 +82,19 @@ class NodeType(object):
     "row" should be a tuple containing the following elements: (id, description)
     """
 
-    def __init__(self, row):
-        self.id = row[0]
-        self.description = row[1]
+    def __init__(self, id, description):
+        self.id = id
+        self.description = description
+        self.node_type = models.NodeType(
+            id=self.id,
+            description=self.description,
+        )
 
     def upload_to_new_db(self):
         """
         Upload the node type to the new db.
         """
-        try:
-            node_type = models.Document(
-                id=self.id,
-                description=self.description,
-            )
-            node_type.save()
-        except Exception, e:
-            print(
-                'The following error occurred when uploading NodeType "{}": "{}"'.format(
-                    self.id, e
-                )
-            )
+        self.node_type.save()
 
 
 class Node(object):
@@ -137,12 +135,13 @@ class Node(object):
 
 def migrate_old_database(db_path):
 
-    messages = []
+    messages_success = []
+    messages_error = []
     # open database connection
     try:
         con = lite.connect(db_path)
     except Exception, e:
-        messages.append('Connection error: "{}"'.format(e))
+        messages_error.append('Connection error: "{}"'.format(e))
 
     # upload all documents
     try:
@@ -153,7 +152,7 @@ def migrate_old_database(db_path):
                 cur.execute('SELECT id, title, journal, year, abstract, web_link, last_viewed, uploaded, file, '
                             'external_file_path FROM hypothesize_app_article')
             except Exception, e:
-                messages.append('Cursor/SELECT error: "{}"'.format(e))
+                messages_error.append('Cursor/SELECT error: "{}"'.format(e))
 
             doc_ctr = 0
 
@@ -181,17 +180,28 @@ def migrate_old_database(db_path):
                         doc.attach_file(full_path)
 
                     doc.upload_to_new_db()
+
+                    messages_success.append('Document upload successful: "{}"'.format(doc.doc.id))
+
                 except Exception, e:
-                    messages.append('Document upload error: "{}"'.format(e))
+                    messages_error.append('Document upload error: "{}"'.format(e))
 
                 if doc_ctr >= MAX_DOC_UPLOADS:
                     break
 
     except Exception, e:
-        messages.append('Connection error: "{}"'.format(e))
+        messages_error.append('Connection error: "{}"'.format(e))
 
-    return messages
+    # add certain node types
+    for id, description in NODE_TYPES.items():
+        try:
+            node_type = NodeType(id=id, description=description)
+            node_type.upload_to_new_db()
 
-    # upload certain node types
+            messages_success.append('Node type upload successful: "{}"'.format(node_type.id))
+        except Exception, e:
+            messages_error.append('Node type upload error: "{}"'.format(e))
 
-    # upload all nodes
+
+
+    return messages_success, messages_error
