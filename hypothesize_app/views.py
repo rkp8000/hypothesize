@@ -224,9 +224,12 @@ def migrate_old_database_view(request, dbp):
     from django.shortcuts import render
     import migrate_old_database as modb
 
-    messages = ['path to db: {}'.format(dbp)]
-    messages.extend(modb.migrate_old_database(dbp))
+    messages_success, messages_error = modb.migrate_old_database(dbp)
+    messages_success.insert(0, 'path to db: {}'.format(dbp))
 
-    context = {'success_messages': messages}
+    context = {
+        'messages_success': messages_success,
+        'messages_error': messages_error,
+    }
 
     return render(request, 'hypothesize_app/migrate_old_database.html', context)
