@@ -6,10 +6,10 @@ from django.core.urlresolvers import NoReverseMatch
 from django.core.urlresolvers import reverse
 import markdown
 
-DOCUMENT_LINK_PATTERN = r'\[\[(.*?[^\[\]])\]\]'
-NODE_LINK_PATTERN = r'\(\((.*?[^\(\)])\)\)'
-DOCUMENT_LINK_PATTERN_FULL = r'\[\[.*?[^\[\]]\]\]'
-NODE_LINK_PATTERN_FULL = r'\(\(.*?[^\(\)]\)\)'
+DOCUMENT_LINK_PATTERN = r'\[\[(.*?)\]\]'
+NODE_LINK_PATTERN = r'\(\((.*?)\)\)'
+DOCUMENT_LINK_PATTERN_FULL = r'\[\[.*?\]\]'
+NODE_LINK_PATTERN_FULL = r'\(\(.*?\)\)'
 
 
 def make_node_save_directory(path):
