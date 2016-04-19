@@ -2,13 +2,14 @@ from __future__ import division, print_function, unicode_literals
 import os
 import re
 
+from django.core.urlresolvers import NoReverseMatch
 from django.core.urlresolvers import reverse
 import markdown
 
-DOCUMENT_LINK_PATTERN = r'\[\[(.*?)\]\]'
-NODE_LINK_PATTERN = r'\(\((.*?)\)\)'
-DOCUMENT_LINK_PATTERN_FULL = r'\[\[.*?\]\]'
-NODE_LINK_PATTERN_FULL = r'\(\(.*?\)\)'
+DOCUMENT_LINK_PATTERN = r'\[\[(.*?[^\[\]])\]\]'
+NODE_LINK_PATTERN = r'\(\((.*?[^\(\)])\)\)'
+DOCUMENT_LINK_PATTERN_FULL = r'\[\[.*?[^\[\]]\]\]'
+NODE_LINK_PATTERN_FULL = r'\(\(.*?[^\(\)]\)\)'
 
 
 def make_node_save_directory(path):
@@ -95,7 +96,10 @@ def document_link_to_html(match):
     elif len(fragments) == 2:
         text_to_display = fragments[1]
 
-    url = reverse('hypothesize_app:document_detail', args=(document_id.strip(),))
+    try:
+        url = reverse('hypothesize_app:document_detail', args=(document_id.strip(),))
+    except NoReverseMatch:
+        url = '#'
 
     html = '<a href="{}" class="internal-link" data-linkpk="document-{}">{}</a>'.format(
         url, document_id, text_to_display
@@ -119,7 +123,10 @@ def node_link_to_html(match):
     elif len(fragments) == 2:
         text_to_display = fragments[1]
 
-    url = reverse('hypothesize_app:node_detail', args=(node_id.strip(),))
+    try:
+        url = reverse('hypothesize_app:node_detail', args=(node_id.strip(),))
+    except NoReverseMatch:
+        url = '#'
 
     html = '<a href="{}" class="internal-link" data-linkpk="node-{}">{}</a>'.format(
         url, node_id, text_to_display
