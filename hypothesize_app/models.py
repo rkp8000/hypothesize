@@ -137,6 +137,9 @@ class Node(models.Model):
         Override default method to do additional node processing.
         """
 
+        # save the node so we can bind other things to it
+        super(Node, self).save(*args, **kwargs)
+
         node_processing.update_text_file(self, setting_model=Setting)
         node_processing.bind_linked_objects(self, document_model=Document, node_model=Node)
 
