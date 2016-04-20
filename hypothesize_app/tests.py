@@ -161,6 +161,7 @@ class DocumentNodeMarkdownTestCase(TestCase):
 # document add
 ## basic
 ## with weird author names
+## with no authors
 ## with supplement
 # document change
 ## basic
