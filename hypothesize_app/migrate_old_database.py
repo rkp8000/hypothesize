@@ -9,8 +9,8 @@ import traceback
 
 from hypothesize_app import models
 
-MAX_DOC_UPLOADS = 5
-MAX_NODE_UPLOADS = 5
+MAX_DOC_UPLOADS = 40
+MAX_NODE_UPLOADS = 40
 NODE_TYPES = {
     'document group': 'Group of documents.',
     'node group': 'Group of nodes.',
@@ -128,11 +128,11 @@ class Node(object):
 
             try:
 
-                self.node.type = models.NodeType.object.get(pk=self.type_id)
+                self.node.type = models.NodeType.objects.get(pk=self.type_id)
 
             except Exception, e:
 
-                print('Error assigning node type to node: "{}"'.format(e))
+                print('Error assigning node type to node "{}": "{}"'.format(self.node.id, e))
 
     def upload_to_new_db(self):
         """
@@ -211,7 +211,15 @@ def migrate_old_database(db_path):
                     if full_path is not None:
 
                         full_path = full_path.replace('%20', ' ')
-                        doc.attach_file(full_path)
+
+                        try:
+
+                            doc.attach_file(full_path)
+
+                        except Exception, e:
+
+                            messages_error.append('Document file-attach error: "{}"'.format(e))
+                            messages_error.append(traceback.format_exc().replace('\n', '<br />'))
 
                     doc.upload_to_new_db()
 
@@ -286,12 +294,32 @@ def migrate_old_database(db_path):
                     messages_error.append('Node upload error: "{}"'.format(e))
                     messages_error.append(traceback.format_exc())
 
-            # go through all nodes in database again and save them (otherwise links from earlier added nodes to
-            # later added nodes will not function)
-
     except Exception, e:
 
         messages_error.append('Connection error: "{}"'.format(e))
         messages_error.append(traceback.format_exc())
+
+    # go through all nodes/documents in database again and save them (otherwise links from earlier added nodes to
+    # later added nodes will not function)
+
+    for node in models.Node.objects.all():
+
+        try:
+
+            node.save()
+
+        except Exception, e:
+
+            messages_error.append('Error saving node "{}": "{}"'.format(node.id, e))
+
+    for document in models.Document.objects.all():
+
+        try:
+
+            document.save()
+
+        except Exception, e:
+
+            messages_error.append('Error saving document "{}": "{}"'.format(document.id, e))
 
     return messages_success, messages_error
