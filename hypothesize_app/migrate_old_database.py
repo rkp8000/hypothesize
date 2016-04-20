@@ -67,11 +67,17 @@ class Document(object):
         :param file_path: path to file
         """
 
-        file_name = os.path.basename(file_path)
+        try:
 
-        with open(file_path) as f:
+            file_name = os.path.basename(file_path)
 
-            self.doc.file.save(file_name, File(f), save=False)
+            with open(file_path) as f:
+
+                self.doc.file.save(file_name, File(f), save=False)
+
+        except Exception, e:
+
+            return [e, traceback.format_exc().replace('\n', '<br />')]
 
     def upload_to_new_db(self):
         """
@@ -212,14 +218,12 @@ def migrate_old_database(db_path):
 
                         full_path = full_path.replace('%20', ' ')
 
-                        try:
+                        errors = doc.attach_file(full_path)
 
-                            doc.attach_file(full_path)
+                        if errors is not None:
 
-                        except Exception, e:
-
-                            messages_error.append('Document file-attach error: "{}"'.format(e))
-                            messages_error.append(traceback.format_exc().replace('\n', '<br />'))
+                            messages_error.append('Document file-attach error: "{}"'.format(errors[0]))
+                            messages_error.append(errors[1])
 
                     doc.upload_to_new_db()
 
