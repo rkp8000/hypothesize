@@ -23,8 +23,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+
 BASICAUTH_USERNAME = os.getenv('HYPOTHESIZE_USER')
 BASICAUTH_PASSWORD = os.getenv('HYPOTHESIZE_PASS')
+
+# uncomment the next two lines to add a username and password in the simple way
+# (this is not secure, however! the password and username are stored as text)
+# BASICAUTH_USERNAME = 'my_username'
+# BASICAUTH_PASSWORD = 'my_password'
+
 
 # Application definition
 
