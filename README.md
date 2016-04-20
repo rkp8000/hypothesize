@@ -4,7 +4,7 @@ Hypothesize is a browser-based software used to manage scientific documents and 
 
 ### To download and run hypothesize on your local computer
 
-1. Clone the repository (`git clone https://github.com/rkp8000/hypothesize2').
+1. Clone the repository (`git clone https://github.com/rkp8000/hypothesize2`).
 2. Set your username and password in the file 'hypothesize/settings.py'. To do this, uncomment the lines `# BASICAUTH_USERNAME = 'my_username'` and `# BASICAUTH_PASSWORD = 'my_password'` and fill in what you want your username and password to be. You can also store your username and password in the environment variables 'HYPOTHESIZE_USER' and 'HYPOTHESIZE_PATH'. Note: **neither of these passwords are securely stored since they're stored in plain text, so don't use the same password you use for anything important!**
 3. *Optional*: create and activate a virtual environment. [Click for instructions on how to do this](https://virtualenv.pypa.io/en/latest/).
 4. Install the relevant requirements: `pip install -r requirements.txt`.
