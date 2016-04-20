@@ -1,4 +1,5 @@
 from __future__ import print_function, unicode_literals
+import os
 
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -112,7 +113,6 @@ class NodeType(models.Model):
     """
     id = models.CharField(max_length=100, primary_key=True)
     description = models.TextField(blank=True, default='')
-    title_template = models.CharField(max_length=500, blank=True, default='')
     text_template = models.TextField(blank=True, default='')
 
     def __unicode__(self):
@@ -126,7 +126,6 @@ class Node(models.Model):
     """Node class."""
     id = models.CharField(max_length=1000, primary_key=True)
     type = models.ForeignKey(NodeType, null=True, blank=True, on_delete=models.SET_NULL)
-    title = models.CharField(max_length=500, default='untitled')
     text = models.TextField(blank=True, default='')
     last_viewed = models.DateTimeField(default=timezone.now, blank=True)
     nodes = models.ManyToManyField('self', symmetrical=False, blank=True)
@@ -147,6 +146,10 @@ class Node(models.Model):
 
     def __unicode__(self):
         return self.id
+
+    @property
+    def title(self):
+        return os.path.basename(self.id)
 
     @property
     def html(self):

@@ -25,7 +25,7 @@ class NodeForm(ModelForm):
     """
     class Meta:
         model = Node
-        fields = ['id', 'type', 'title', 'text']
+        fields = ['id', 'type', 'text']
         widgets = {
             'text': forms.Textarea(attrs={'rows': 60, 'cols': 120})
         }
@@ -37,7 +37,7 @@ class NodeTypeForm(ModelForm):
     """
     class Meta:
         model = NodeType
-        fields = ['id', 'description', 'title_template', 'text_template']
+        fields = ['id', 'description', 'text_template']
         widgets = {
             'text': forms.Textarea(attrs={'rows': 10, 'cols': 120})
         }
