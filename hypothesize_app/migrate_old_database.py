@@ -9,8 +9,8 @@ import traceback
 
 from hypothesize_app import models
 
-MAX_DOC_UPLOADS = 40
-MAX_NODE_UPLOADS = 40
+MAX_DOC_UPLOADS = 10000
+MAX_NODE_UPLOADS = 10000
 NODE_TYPES = {
     'document group': 'Group of documents.',
     'node group': 'Group of nodes.',
@@ -184,6 +184,9 @@ def migrate_old_database(db_path):
 
             for row in cur.fetchall():
 
+                if doc_ctr % 20 == 0:
+                    print('{} documents uploaded'.format(doc_ctr))
+
                 doc_ctr += 1
 
                 if doc_ctr >= MAX_DOC_UPLOADS:
@@ -279,6 +282,9 @@ def migrate_old_database(db_path):
             # loop through all nodes and upload them
 
             for row in cur.fetchall():
+
+                if node_ctr % 20 == 0:
+                    print('{} nodes uploaded.'.format(node_ctr))
 
                 node_ctr += 1
 
