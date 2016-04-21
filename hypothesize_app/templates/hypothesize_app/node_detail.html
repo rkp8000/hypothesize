@@ -1,5 +1,6 @@
 <head>
     {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/skin.css" %}"/>
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
         tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
@@ -18,7 +19,7 @@
 
                 success: function(json){
                     inside_div = json.html;
-                    html = '<div class="expanded-link">' + json.anchor + '<hr />' + inside_div + '<hr /></div>';
+                    html = '<div class="expanded-link">' + json.anchor + ' ' + inside_div + '</div>';
                     $(html).insertAfter(el).hide().show("fast");
                 },
 
