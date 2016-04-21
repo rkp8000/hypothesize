@@ -1,3 +1,12 @@
 .node_search_result {
-    background-color: red;
+    background-color: #DDDDDD;
+    margin: 5px;
+    padding: 5px;
+}
+
+.expanded-link {
+    margin: 5px;
+    padding: 5px;
+    border-style: groove;
+    border-width: 4px;
 }
