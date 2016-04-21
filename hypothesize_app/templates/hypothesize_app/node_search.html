@@ -22,7 +22,7 @@
 
 {% if nodes %}
     {% for node in nodes %}
-    <div class="node_search_result">
+    <div class="node_search_result search_result">
         <a href="{% url 'hypothesize_app:node_detail' node.id %}">
         <span class="node_title"><strong>{{node.title}}</strong></span></a> (<span class="node_type">{{node.type}}</span>)
         <br />

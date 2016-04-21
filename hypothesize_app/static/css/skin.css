@@ -1,7 +1,9 @@
-.node_search_result {
+.search_result {
     background-color: #DDDDDD;
     margin: 5px;
     padding: 5px;
+    border-style: groove;
+    border-width: 4px;
 }
 
 .expanded-link {

@@ -1,5 +1,6 @@
 <head>
     {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/skin.css" %}"/>
 </head>
 
 <body>
@@ -18,7 +19,7 @@
 
     {% if documents %}
         {% for document in documents %}
-            <div class="document_search_result">
+            <div class="document_search_result search_result">
 
                 <a href="{% url 'hypothesize_app:document_detail' document.id %}">
 
