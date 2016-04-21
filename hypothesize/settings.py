@@ -32,6 +32,8 @@ BASICAUTH_PASSWORD = os.getenv('HYPOTHESIZE_PASS')
 # BASICAUTH_USERNAME = 'my_username'
 # BASICAUTH_PASSWORD = 'my_password'
 
+# default settings
+NODE_SAVE_DIRECTORY = os.path.join(BASE_DIR, 'nodes')
 
 # Application definition
 

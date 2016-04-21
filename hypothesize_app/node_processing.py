@@ -2,6 +2,7 @@ from __future__ import division, print_function, unicode_literals
 import os
 import re
 
+from django.conf import settings
 from django.core.urlresolvers import NoReverseMatch
 from django.core.urlresolvers import reverse
 import markdown
@@ -28,15 +29,20 @@ def update_text_file(node, setting_model):
     :param setting_model: models.Setting
     """
     try:
+
         node_save_directory = setting_model.objects.get(pk='NODE_SAVE_DIRECTORY').value
-        path = os.path.join(node_save_directory, node.id)
-        if not os.path.exists(os.path.dirname(path)):
-            os.makedirs(os.path.dirname(path))
-        with open('{}.md'.format(path), 'w') as f:
-            f.write(node.text)
-        return True
-    except:
-        return False
+
+    except Exception, e:
+
+        node_save_directory = settings.NODE_SAVE_DIRECTORY
+        make_node_save_directory(node_save_directory)
+
+    path = os.path.join(node_save_directory, node.id)
+    if not os.path.exists(os.path.dirname(path)):
+        os.makedirs(os.path.dirname(path))
+    with open('{}.md'.format(path), 'w') as f:
+        f.write(node.text)
+    return True
 
 
 def extract_linked_objects(text, document_model, node_model):
