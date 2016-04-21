@@ -53,15 +53,7 @@ def node_query(query):
         except ObjectDoesNotExist:
             pass
         try:
-            nodes += list(models.Node.objects.filter(title__iexact=query).all())
-        except ObjectDoesNotExist:
-            pass
-        try:
             nodes += list(models.Node.objects.filter(id__contains=query).all())
-        except ObjectDoesNotExist:
-            pass
-        try:
-            nodes += list(models.Node.objects.filter(title__contains=query).all())
         except ObjectDoesNotExist:
             pass
         try:
