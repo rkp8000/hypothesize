@@ -35,7 +35,7 @@ def document_query(query):
         except ObjectDoesNotExist:
             pass
     else:
-        documents = models.Document.objects.all()
+        documents = models.Document.objects.all().order_by('-last_viewed')
 
     return list(unique_everseen(documents))
 
@@ -61,5 +61,6 @@ def node_query(query):
         except ObjectDoesNotExist:
             pass
     else:
-        nodes = models.Node.objects.all()
+        nodes = models.Node.objects.all().order_by('-last_viewed')
+
     return list(unique_everseen(nodes))
