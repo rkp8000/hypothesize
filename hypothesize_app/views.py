@@ -1,4 +1,5 @@
 from __future__ import division, print_function, unicode_literals
+from datetime import datetime
 
 from django.core.urlresolvers import reverse_lazy
 from django.http import JsonResponse
@@ -38,6 +39,14 @@ class DocumentDetail(generic.DetailView):
     """
     model = models.Document
 
+    def get_object(self):
+
+        doc = models.Document.objects.get(pk=self.kwargs['pk'])
+        doc.last_viewed = datetime.now()
+        doc.save()
+
+        return doc
+
 
 class DocumentChange(generic.UpdateView):
     """
@@ -47,7 +56,12 @@ class DocumentChange(generic.UpdateView):
     form_class = forms.DocumentForm
 
     def get_object(self):
-        return models.Document.objects.get(pk=self.kwargs['pk'])
+
+        doc = models.Document.objects.get(pk=self.kwargs['pk'])
+        doc.last_viewed = datetime.now()
+        doc.save()
+
+        return doc
 
     def get_context_data(self, **kwargs):
         # get baseline context variables
@@ -111,6 +125,14 @@ class NodeDetail(generic.DetailView):
     """
     model = models.Node
 
+    def get_object(self):
+
+        node = models.Node.objects.get(pk=self.kwargs['pk'])
+        node.last_viewed = datetime.now()
+        node.save()
+
+        return node
+
 
 class NodeChange(generic.UpdateView):
 
@@ -118,7 +140,12 @@ class NodeChange(generic.UpdateView):
     form_class = forms.NodeForm
 
     def get_object(self):
-        return models.Node.objects.get(pk=self.kwargs['pk'])
+
+        node = models.Node.objects.get(pk=self.kwargs['pk'])
+        node.last_viewed = datetime.now()
+        node.save()
+
+        return node
 
     def get_context_data(self, **kwargs):
         # get baseline context variables
