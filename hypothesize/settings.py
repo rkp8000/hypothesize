@@ -29,8 +29,8 @@ BASICAUTH_PASSWORD = os.getenv('HYPOTHESIZE_PASS')
 
 # uncomment the next two lines to add a username and password in the simple way
 # (this is not secure, however! the password and username are stored as text)
-# BASICAUTH_USERNAME = 'my_username'
-# BASICAUTH_PASSWORD = 'my_password'
+BASICAUTH_USERNAME = 'user'
+BASICAUTH_PASSWORD = 'pass'
 
 # default settings
 NODE_SAVE_DIRECTORY = os.path.join(BASE_DIR, 'nodes')
