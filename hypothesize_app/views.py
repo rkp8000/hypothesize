@@ -1,5 +1,6 @@
 from __future__ import division, print_function, unicode_literals
 from datetime import datetime
+from unidecode import unidecode
 
 from django.core.urlresolvers import reverse_lazy
 from django.http import JsonResponse
@@ -70,7 +71,7 @@ class DocumentChange(generic.UpdateView):
         context['document_pk_list'] = [str(pk) for pk in models.Document.objects.values_list('id', flat=True)]
         context['author_pk_list'] = [str(pk) for pk in models.Author.objects.values_list('id', flat=True)]
         context['publication_name_list'] = [
-            str(pub) for pub in models.Document.objects.values_list('publication', flat=True).distinct()
+            str(unidecode(pub)) for pub in models.Document.objects.values_list('publication', flat=True).distinct()
         ]
         return context
 
@@ -89,7 +90,7 @@ class DocumentCreate(generic.CreateView):
         context['document_pk_list'] = [str(pk) for pk in models.Document.objects.values_list('id', flat=True)]
         context['author_pk_list'] = [str(pk) for pk in models.Author.objects.values_list('id', flat=True)]
         context['publication_name_list'] = [
-            str(pub) for pub in models.Document.objects.values_list('publication', flat=True).distinct()
+            str(unidecode(pub)) for pub in models.Document.objects.values_list('publication', flat=True).distinct()
         ]
         return context
 
