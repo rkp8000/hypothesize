@@ -4,6 +4,8 @@ from django import forms
 from django.forms import ModelForm
 from hypothesize_app.models import Document, Supplement, Node, NodeType
 
+MAX_HIT_OPTIONS = [(20, 20), (50, 50), (100, 100)]
+
 
 class DocumentForm(ModelForm):
     """Document form."""
@@ -53,6 +55,7 @@ class DocumentSearchForm(forms.Form):
     Form for searching documents database.
     """
     query = forms.CharField(label='document_query', max_length=500)
+    max_hits = forms.ChoiceField(label='max_hits', choices=MAX_HIT_OPTIONS)
 
 
 class NodeSearchForm(forms.Form):
@@ -60,3 +63,4 @@ class NodeSearchForm(forms.Form):
     Form for searching node database.
     """
     query = forms.CharField(label='node_query', max_length=500)
+    max_hits = forms.ChoiceField(label='max_hits', choices=MAX_HIT_OPTIONS)

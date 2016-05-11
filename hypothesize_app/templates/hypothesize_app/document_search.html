@@ -12,6 +12,8 @@
     <form action="{% url 'hypothesize_app:document_search' %}" method="get">
         {{ document_search_form.query }}
         <input type="submit" value="search" />
+        <br />
+        Show top {{ document_search_form.max_hits }} results.
     </form>
 
     <a href="{% url 'hypothesize_app:document_create' %}">add new document</a><br />

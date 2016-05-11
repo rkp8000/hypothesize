@@ -30,7 +30,8 @@ class DocumentSearch(generic.ListView):
         return context
 
     def get_queryset(self):
-        return search.document_query(self.request.GET.get('query', ''))
+        full_list = search.document_query(self.request.GET.get('query', ''))
+        return full_list[:int(self.request.GET.get('max_hits', 20))]
 
 
 class DocumentDetail(generic.DetailView):
@@ -116,7 +117,8 @@ class NodeSearch(generic.ListView):
         return context
 
     def get_queryset(self):
-        return search.node_query(self.request.GET.get('query', ''))
+        full_list = search.node_query(self.request.GET.get('query', ''))
+        return full_list[:int(self.request.GET.get('max_hits', 20))]
 
 
 class NodeDetail(generic.DetailView):

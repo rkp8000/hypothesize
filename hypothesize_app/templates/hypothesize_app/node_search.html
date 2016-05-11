@@ -14,6 +14,8 @@
     <form action="{% url 'hypothesize_app:node_search' %}" method="get">
         {{ node_search_form.query }}
         <input type="submit" value="search" />
+        <br />
+        Show top {{ node_search_form.max_hits }} results.
     </form>
 
 <a href="{% url 'hypothesize_app:node_create' %}">add new node</a><br />
