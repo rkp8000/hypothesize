@@ -74,6 +74,9 @@ class DocumentChange(generic.UpdateView):
         context['publication_name_list'] = [
             str(unidecode(pub)) for pub in models.Document.objects.values_list('publication', flat=True).distinct()
         ]
+        # add in deletion option
+        context['include_delete'] = True
+
         return context
 
 
@@ -157,6 +160,9 @@ class NodeChange(generic.UpdateView):
         context['tab_complete_options'] = node_processing.make_tab_complete_options(
             document_model=models.Document, node_model=models.Node,
         )
+        # add in deletion option
+        context['include_delete'] = True
+
         return context
 
 
@@ -204,6 +210,14 @@ class NodeTypeChange(generic.UpdateView):
 
     def get_object(self):
         return models.NodeType.objects.get(pk=self.kwargs['pk'])
+
+    def get_context_data(self, **kwargs):
+        # get baseline context variables
+        context = super(NodeTypeChange, self).get_context_data(**kwargs)
+        # add deletion option
+        context['include_delete'] = True
+
+        return context
 
 
 class NodeTypeCreate(generic.CreateView):

@@ -27,6 +27,10 @@
     <input type="submit" value="Save" />
 </form>
 
+{% if include_delete %}
+
 <br />
 
 <a href="{% url 'hypothesize_app:document_delete' document.id %}">delete this document</a>
+
+{% endif %}
