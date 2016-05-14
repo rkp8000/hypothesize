@@ -20,3 +20,7 @@
     {{form.as_p}}
     <input type="submit" value="Save" />
 </form>
+
+<br />
+
+<a href="{% url 'hypothesize_app:node_delete' node.id %}">delete this node</a>
