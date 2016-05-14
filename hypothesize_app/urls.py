@@ -24,6 +24,4 @@ urlpatterns = [
     url(r'^node_type/new/$', views.NodeTypeCreate.as_view(), name='node_type_create'),
 
     url(None, views.AjaxLinkFetcher.as_view(), name='ajax_link_fetcher'),
-
-    url(r'^migrate_old_database/(?P<dbp>[/\w\s-]+)/$', views.migrate_old_database_view, name='migrate_old_database'),
 ]
