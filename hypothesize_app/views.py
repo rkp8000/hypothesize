@@ -260,20 +260,3 @@ class AjaxLinkFetcher(generic.View):
             'anchor': anchor,
         }
         return JsonResponse(data)
-
-
-def migrate_old_database_view(request, dbp):
-
-    dbp += '/db.sqlite3'
-    from django.shortcuts import render
-    import migrate_old_database as modb
-
-    messages_success, messages_error = modb.migrate_old_database(dbp)
-    messages_success.insert(0, 'path to db: {}'.format(dbp))
-
-    context = {
-        'messages_success': messages_success,
-        'messages_error': messages_error,
-    }
-
-    return render(request, 'hypothesize_app/migrate_old_database.html', context)
