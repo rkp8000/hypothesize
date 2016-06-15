@@ -60,7 +60,7 @@
         'cycleOnTab': true,
         'autoComplete': true,
         'endingSymbols': ' ',
-        'stopSuggestionKeys': [$.asuggestKeys.RETURN, $.asuggestKeys.SPACE],
+        'stopSuggestionKeys': [$.asuggestKeys.RETURN],
         'ignoreCase': false
     };
 
