@@ -1,7 +1,9 @@
+{% load staticfiles %}
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
 </script>
 <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src="{% static "js/jquery-2.1.4.js" %}"></script>
 
 {% include 'hypothesize_app/document_detail_content_only.html' %}
 
