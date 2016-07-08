@@ -9,40 +9,6 @@ import document_processing
 import node_processing
 
 
-class Setting(models.Model):
-    """Setting class."""
-    id = models.CharField(max_length=100, primary_key=True)
-    name = models.CharField(max_length=100, null=False)
-    type = models.CharField(max_length=10, null=False)
-    bool_value = models.BinaryField(null=True, blank=True)
-    int_value = models.IntegerField(null=True, blank=True)
-    float_value = models.FloatField(null=True, blank=True)
-    str_value = models.CharField(max_length=1000, null=True, blank=True)
-
-    def save(self, *args, **kwargs):
-        """
-        Override default save method so that we can do some extra stuff.
-        """
-        # do anything we need to do with the updated setting
-        if self.id == 'NODE_SAVE_DIRECTORY':
-            node_processing.make_node_save_directory(self.str_value)
-
-        super(Setting, self).save(*args, **kwargs)
-
-    def __unicode__(self):
-        return self.name
-
-    @property
-    def value(self):
-        value_dict = {
-            'bool': self.bool_value,
-            'int': self.int_value,
-            'float': self.float_value,
-            'str': self.str_value,
-        }
-        return value_dict[self.type]
-
-
 class Author(models.Model):
     """Author class."""
     id = models.CharField(max_length=255, primary_key=True)
@@ -139,7 +105,7 @@ class Node(models.Model):
         # save the node so we can bind other things to it
         super(Node, self).save(*args, **kwargs)
 
-        node_processing.update_text_file(self, setting_model=Setting)
+        node_processing.update_text_file(self)
         node_processing.bind_linked_objects(self, document_model=Document, node_model=Node)
 
         super(Node, self).save(*args, **kwargs)

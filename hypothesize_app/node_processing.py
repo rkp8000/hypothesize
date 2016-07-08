@@ -22,20 +22,14 @@ def make_node_save_directory(path):
         os.makedirs(path)
 
 
-def update_text_file(node, setting_model):
+def update_text_file(node):
     """
     Update the text file corresponding to an updated node.
     :param node: node instance
-    :param setting_model: models.Setting
     """
-    try:
 
-        node_save_directory = setting_model.objects.get(pk='NODE_SAVE_DIRECTORY').value
-
-    except Exception, e:
-
-        node_save_directory = settings.NODE_SAVE_DIRECTORY
-        make_node_save_directory(node_save_directory)
+    node_save_directory = settings.NODE_SAVE_DIRECTORY
+    make_node_save_directory(node_save_directory)
 
     path = os.path.join(node_save_directory, node.id)
     if not os.path.exists(os.path.dirname(path)):
