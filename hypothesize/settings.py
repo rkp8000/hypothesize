@@ -10,6 +10,9 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+
+import my_settings
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -23,19 +26,40 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-# set username and password below
-# (this is not secure, however! the password and username are stored as text)
+# set default settings or override with user-defined settings in my_settings.py
 
-BASICAUTH_USERNAME = 'user'
-BASICAUTH_PASSWORD = 'pass'
+if my_settings.USERNAME:
 
-# default settings
+    BASICAUTH_USERNAME = my_settings.USERNAME
 
-NODE_SAVE_DIRECTORY = os.path.join(BASE_DIR, 'nodes')
+else:
 
-# database backup directory
+    BASICAUTH_USERNAME = 'user'
 
-DATABASE_BACKUP_DIRECTORY = os.path.join(BASE_DIR, 'db_backups')
+if my_settings.PASSWORD:
+
+    BASICAUTH_PASSWORD = my_settings.PASSWORD
+
+else:
+
+    BASICAUTH_PASSWORD = 'pass'
+
+if my_settings.NODE_DIRECTORY:
+
+    NODE_SAVE_DIRECTORY = my_settings.NODE_DIRECTORY
+
+else:
+
+    NODE_SAVE_DIRECTORY = os.path.join(BASE_DIR, 'nodes')
+
+if my_settings.DATABASE_BACKUP_DIRECTORY:
+
+    DATABASE_BACKUP_DIRECTORY = my_settings.DATABASE_BACKUP_DIRECTORY
+
+else:
+
+    DATABASE_BACKUP_DIRECTORY = os.path.join(BASE_DIR, 'db_backups')
+
 DATABASE_BACKUP_INTERVAL_SECONDS = 24 * 60 * 60
 
 # Application definition
