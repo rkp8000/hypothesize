@@ -1,6 +1,8 @@
 <head>
     {% load staticfiles %}
     <link rel="stylesheet" type="text/css" href="{% static "css/skin.css" %}"/>
+
+    <title>document search</title>
 </head>
 
 <body>
@@ -16,8 +18,10 @@
         Show top {{ document_search_form.max_hits }} results.
     </form>
 
-    <a href="{% url 'hypothesize_app:document_create' %}">add new document</a><br />
-    <a href="{% url 'hypothesize_app:node_search' %}">search nodes</a><br />
+    <a href="{% url 'hypothesize_app:node_search' %}">search nodes</a>
+    &nbsp;&nbsp;&nbsp;
+    <a href="{% url 'hypothesize_app:document_create' %}">add new document</a>
+    &nbsp;&nbsp;&nbsp;
     <a href="{% url 'hypothesize_app:database_backup' %}">back up database</a><br /><br />
 
     {% if documents %}
