@@ -75,7 +75,7 @@ def attempt_db_backup():
 
     # return False if not enough time has passed since last backup
 
-    if (datetime.now() - last_backup_time) < settings.DB_BACKUP_INTERVAL_SECONDS:
+    if (datetime.now() - last_backup_time) < settings.DATABASE_BACKUP_INTERVAL_SECONDS:
 
         return False
 
