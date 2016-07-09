@@ -24,4 +24,6 @@ urlpatterns = [
     url(r'^node_type/new/$', views.NodeTypeCreate.as_view(), name='node_type_create'),
 
     url(None, views.AjaxLinkFetcher.as_view(), name='ajax_link_fetcher'),
+
+    url(r'^database_backup/$', views.DatabaseBackup.as_view(), name='database_backup'),
 ]

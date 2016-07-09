@@ -32,6 +32,12 @@ def back_up_db():
 
         original_db_path = settings.DATABASES['default']['NAME']
 
+        # create db backup directory if it doesn't exist
+
+        if not os.path.exists(settings.DATABASE_BACKUPS_DIRECTORY):
+
+            os.makedirs(settings.DATABASE_BACKUPS_DIRECTORY)
+
         # get path for new backup file
 
         timestamp = datetime.now().strftime(DATETIME_FORMAT)

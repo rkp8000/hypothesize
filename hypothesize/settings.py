@@ -35,7 +35,7 @@ NODE_SAVE_DIRECTORY = os.path.join(BASE_DIR, 'nodes')
 
 # database backup directory
 
-DATABASE_BACKUP_DIRECTORY = os.path.join(BASE_DIR, '')
+DATABASE_BACKUP_DIRECTORY = os.path.join(BASE_DIR, 'db_backups')
 DATABASE_BACKUP_INTERVAL_SECONDS = 24 * 60 * 60
 
 # Application definition

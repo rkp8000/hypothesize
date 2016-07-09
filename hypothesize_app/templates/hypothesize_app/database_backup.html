@@ -1,0 +1,15 @@
+<head>
+    {% load staticfiles %}
+</head>
+
+{% if backup_result %}
+    Database successfully backed up at {{ backup_result }}
+    <br />
+{% endif %}
+
+Back up your document and node database?
+<a href="{% url 'hypothesize_app:database_backup' %}?backup=TRUE">Go!</a>
+<br />
+<a href="{% url 'hypothesize_app:document_search' %}">return to document search</a>
+<br />
+<a href="{% url 'hypothesize_app:node_search' %}">return to node search</a>

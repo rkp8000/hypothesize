@@ -7,6 +7,7 @@ from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.views import generic
 
+import backup
 import forms
 import models
 import node_processing
@@ -260,3 +261,18 @@ class AjaxLinkFetcher(generic.View):
             'anchor': anchor,
         }
         return JsonResponse(data)
+
+
+class DatabaseBackup(generic.TemplateView):
+
+    template_name = 'hypothesize_app/database_backup.html'
+
+    def get_context_data(self, **kwargs):
+
+        context = super(DatabaseBackup, self).get_context_data(**kwargs)
+
+        if self.request.GET.get('backup', False) == 'TRUE':
+
+            context['backup_result'] = 'yes'  # backup.back_up_db()
+
+        return context

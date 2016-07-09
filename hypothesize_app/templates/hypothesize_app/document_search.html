@@ -17,7 +17,8 @@
     </form>
 
     <a href="{% url 'hypothesize_app:document_create' %}">add new document</a><br />
-    <a href="{% url 'hypothesize_app:node_search' %}">search nodes</a><br /><br />
+    <a href="{% url 'hypothesize_app:node_search' %}">search nodes</a><br />
+    <a href="{% url 'hypothesize_app:database_backup' %}">back up database</a><br /><br />
 
     {% if documents %}
         {% for document in documents %}
