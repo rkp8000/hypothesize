@@ -23,17 +23,20 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
-BASICAUTH_USERNAME = os.getenv('HYPOTHESIZE_USER')
-BASICAUTH_PASSWORD = os.getenv('HYPOTHESIZE_PASS')
-
-# uncomment the next two lines to add a username and password in the simple way
+# set username and password below
 # (this is not secure, however! the password and username are stored as text)
+
 BASICAUTH_USERNAME = 'user'
 BASICAUTH_PASSWORD = 'pass'
 
 # default settings
+
 NODE_SAVE_DIRECTORY = os.path.join(BASE_DIR, 'nodes')
+
+# database backup directory
+
+DATABASE_BACKUP_DIRECTORY = os.path.join(BASE_DIR, '')
+DATABASE_BACKUP_INTERVAL_SECONDS = 24 * 60 * 60
 
 # Application definition
 
