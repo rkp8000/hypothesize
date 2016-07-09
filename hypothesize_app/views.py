@@ -273,6 +273,6 @@ class DatabaseBackup(generic.TemplateView):
 
         if self.request.GET.get('backup', False) == 'TRUE':
 
-            context['backup_result'] = 'yes'  # backup.back_up_db()
+            context['backup_result'] = backup.back_up_db()
 
         return context

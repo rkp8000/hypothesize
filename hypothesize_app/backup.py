@@ -28,29 +28,25 @@ def back_up_db():
     :return: True if successful. False otherwise.
     """
 
-    try:
+    original_db_path = settings.DATABASES['default']['NAME']
 
-        original_db_path = settings.DATABASES['default']['NAME']
+    # create db backup directory if it doesn't exist
 
-        # create db backup directory if it doesn't exist
+    if not os.path.exists(settings.DATABASE_BACKUP_DIRECTORY):
 
-        if not os.path.exists(settings.DATABASE_BACKUPS_DIRECTORY):
+        os.makedirs(settings.DATABASE_BACKUP_DIRECTORY)
 
-            os.makedirs(settings.DATABASE_BACKUPS_DIRECTORY)
+    # get path for new backup file
 
-        # get path for new backup file
+    timestamp = datetime.now().strftime(DATETIME_FORMAT)
 
-        timestamp = datetime.now().strftime(DATETIME_FORMAT)
+    backup_filename = 'db_backup_{}.sqlite3'.format(timestamp)
 
-        backup_filename = 'db_backup_{}.sqlite3'.format(timestamp)
+    backup_path = os.path.join(settings.DATABASE_BACKUP_DIRECTORY, backup_filename)
 
-        backup_path = os.join(settings.DATABASE_BACKUPS_DIRECTORY, backup_filename)
+    copyfile(original_db_path, backup_path)
 
-        copyfile(original_db_path, backup_path)
-
-    except Exception:
-
-        return False
+    return backup_path
 
 
 def attempt_db_backup():
