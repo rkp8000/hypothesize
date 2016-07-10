@@ -321,6 +321,36 @@ class AjaxLinkFetcher(generic.View):
         return JsonResponse(data)
 
 
+class AjaxNodeSaver(generic.View):
+    """
+    View for saving nodes without reloading page.
+    """
+
+    def get(self, request):
+
+        # get node if it exists already, otherwise create it
+
+        try:
+
+            node = models.Node.objects.get(pk=self.request.GET['id'])
+
+            node_save_message = 'Node found.'
+
+        except:
+
+            node = models.Node(id=self.request.GET['id'])
+
+            node_save_message = 'New node created.'
+
+        # TODO: FIGURE OUT PROPER EXCEPTION HANDLING IF PRIMARY KEY UNIQUENESS ERROR
+
+        node.text = self.request.GET['text']
+
+        node.save()
+
+        return JsonResponse({'node_save_message': node_save_message})
+
+
 class DatabaseBackup(generic.TemplateView):
 
     template_name = 'hypothesize_app/database_backup.html'
