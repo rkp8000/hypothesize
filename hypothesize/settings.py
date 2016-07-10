@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+
 import os
 
 import my_settings
@@ -22,6 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # SECURITY WARNING: keep the secret key used in production secret!
 
 # SECURITY WARNING: don't run with debug turned on in production!
+
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
@@ -117,30 +119,44 @@ MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 
 # Typically these end up symlinks on prod boxes
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Try to import local settings
+
 try:
     from local_settings import *
 except ImportError:
     pass
 
 # Finally, if there is no secret key defined, create one now.
+
 try:
+
     SECRET_KEY
+
 except NameError:
+
     SECRET_FILE = os.path.join(BASE_DIR, '../../secret.txt')
+
     try:
+
         SECRET_KEY = open(SECRET_FILE).read().strip()
+
     except IOError:
+
         try:
+
             import random
+
             SECRET_KEY = ''.join([random.SystemRandom().choice('abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)') for i in range(50)])
             secret = file(SECRET_FILE, 'w')
             secret.write(SECRET_KEY)
             secret.close()
+
         except IOError:
+
             Exception('Please create a %s file with random characters \
             to generate your secret key!' % SECRET_FILE)
 
