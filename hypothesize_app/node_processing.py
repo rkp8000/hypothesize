@@ -18,7 +18,9 @@ def make_node_save_directory(path):
     Make a new directory for saving nodes in.
     :param path: path to directory
     """
+
     if not os.path.exists(path):
+
         os.makedirs(path)
 
 
@@ -29,13 +31,19 @@ def update_text_file(node):
     """
 
     node_save_directory = settings.NODE_SAVE_DIRECTORY
+
     make_node_save_directory(node_save_directory)
 
     path = os.path.join(node_save_directory, node.id)
+
     if not os.path.exists(os.path.dirname(path)):
+
         os.makedirs(os.path.dirname(path))
+
     with open('{}.md'.format(path), 'w') as f:
+
         f.write(node.text)
+
     return True
 
 
@@ -49,14 +57,18 @@ def extract_linked_objects(text, document_model, node_model):
     """
 
     # extract documents
+
     document_links = re.findall(DOCUMENT_LINK_PATTERN, text)
     document_ids = [link.split('|')[0].strip() for link in document_links]
+
     documents = [document_model.objects.filter(id=document_id).first() for document_id in document_ids]
     documents = [document for document in documents if document is not None]
 
     # extract node links
+
     node_links = re.findall(NODE_LINK_PATTERN, text)
     node_ids = [link.split('|')[0].strip() for link in node_links]
+
     nodes = [node_model.objects.filter(id=node_id).first() for node_id in node_ids]
     nodes = [node for node in nodes if node is not None]
 
@@ -76,6 +88,7 @@ def bind_linked_objects(node, document_model, node_model):
 
     node.documents.clear()
     node.documents.add(*documents)
+
     node.nodes.clear()
     node.nodes.add(*nodes)
 
@@ -92,18 +105,24 @@ def document_link_to_html(match):
     document_id = fragments[0]
 
     if len(fragments) == 1:
+
         text_to_display = fragments[0]
+
     elif len(fragments) == 2:
+
         text_to_display = fragments[1]
 
     try:
+
         url = reverse('hypothesize_app:document_detail', args=(document_id.strip(),))
+
     except NoReverseMatch:
+
         url = '#'
 
     html = '<a href="{}" class="internal-link" data-linkpk="document-{}">{}</a>'.format(
-        url, document_id, text_to_display
-    )
+        url, document_id, text_to_display)
+
     return html
 
 
@@ -119,18 +138,23 @@ def node_link_to_html(match):
     node_id = fragments[0]
 
     if len(fragments) == 1:
+
         text_to_display = fragments[0]
+
     elif len(fragments) == 2:
+
         text_to_display = fragments[1]
 
     try:
+
         url = reverse('hypothesize_app:node_detail', args=(node_id.strip(),))
+
     except NoReverseMatch:
+
         url = '#'
 
     html = '<a href="{}" class="internal-link" data-linkpk="node-{}">{}</a>'.format(
-        url, node_id, text_to_display
-    )
+        url, node_id, text_to_display)
 
     return html
 
@@ -143,7 +167,9 @@ def text_to_md(text):
     """
 
     # replace document links and node links in text with markdown
+
     temp = re.compile(DOCUMENT_LINK_PATTERN_FULL).sub(document_link_to_html, text)
+
     md = re.compile(NODE_LINK_PATTERN_FULL).sub(node_link_to_html, temp)
 
     return md
@@ -151,9 +177,12 @@ def text_to_md(text):
 
 def text_to_html(text):
     """Convert node text to html."""
-    # convert internal links to
+
+    # convert internal links to html
+
     md = text_to_md(text)
     html = markdown.markdown(md)
+
     return html
 
 

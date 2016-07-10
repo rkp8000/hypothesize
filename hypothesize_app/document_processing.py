@@ -17,17 +17,21 @@ def bind_authors(document, author_model):
     """
 
     # get author strings from author text
+
     author_strings = [author_string.strip() for author_string in document.author_text.split(';')]
 
     document.authors.clear()
 
     # get/make authors referenced by this article
+
     for author_string in author_strings:
 
         if author_string:
 
             # get or create new author (with pk as unicode author string) and add it to the document
+
             author = author_model.objects.get_or_create(id=unidecode.unidecode(author_string))[0]
+
             document.authors.add(author)
 
 
@@ -39,6 +43,7 @@ def bind_linked_documents(document, document_model):
     """
 
     candidate_pks = [el.strip() for el in document.linked_document_text.split(' ')]
+
     linked_documents = [document_model.objects.get(pk=pk) for pk in candidate_pks if pk]
 
     document.linked_documents.clear()
@@ -110,21 +115,28 @@ def bind_primary_key(document, document_model):
     candidate_pk = make_candidate_primary_key(document)
 
     # find all documents that start with this primary key
+
     conflicting_pks = document_model.objects.filter(id__startswith=candidate_pk).values_list('id', flat=True)
 
     if not conflicting_pks:
+
         pk = candidate_pk
+
     else:
+
         # TODO: go on to AA, BB, ... if more than 26 conflicting pks exist
         suffix_list = [''] + list(ALPHABET)
 
         # find the next available pk
+
         for suffix in suffix_list:
 
             candidate_pk_next = '{}{}'.format(candidate_pk, suffix)
 
             if candidate_pk_next not in conflicting_pks:
+
                 pk = candidate_pk_next
+
                 break
 
     document.id = pk
@@ -139,8 +151,11 @@ def google_scholar_search_url(document):
     prefix = 'https://scholar.google.com/scholar'
 
     if document.title:
+
         suffix = urllib.urlencode({'hl': 'en', 'q': document.title})
+
     else:
+
         suffix = ''
 
     return '?'.join([prefix, suffix])

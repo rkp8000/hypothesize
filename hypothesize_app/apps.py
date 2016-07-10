@@ -4,4 +4,5 @@ from django.apps import AppConfig
 
 
 class HypothesizeAppConfig(AppConfig):
+
     name = 'hypothesize_app'
