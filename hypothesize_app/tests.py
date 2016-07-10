@@ -30,6 +30,7 @@ class DocumentChangingTestCase(TestCase):
         )
 
         doc.save()
+
         self.assertEqual(doc.id, 'Johnson2005')
 
     def test_basic_overlapping_primary_keys_are_sorted_correctly(self):
@@ -86,6 +87,7 @@ class DocumentChangingTestCase(TestCase):
         )
 
         doc.save()
+
         self.assertEqual(doc.id, 'VanJosephJr2010')
 
     def test_primary_key_with_accented_first_author_name_is_created_correctly(self):
@@ -102,6 +104,7 @@ class DocumentChangingTestCase(TestCase):
         )
 
         doc.save()
+
         self.assertEqual(doc.id, 'VanDuberveckJr2010')
 
     def test_primary_key_defaults_work_if_name_or_year_not_given(self):
@@ -109,6 +112,7 @@ class DocumentChangingTestCase(TestCase):
         If the author name is not given, it should be replaced with Unknown. If the year is not given it should
         be replaced with 0000.
         """
+
         doc = models.Document(
             publication='Nature',
             title='My title',
@@ -117,6 +121,7 @@ class DocumentChangingTestCase(TestCase):
         )
 
         doc.save()
+
         self.assertEqual(doc.id, 'Johnson0000')
 
         doc = models.Document(
@@ -127,6 +132,7 @@ class DocumentChangingTestCase(TestCase):
         )
 
         doc.save()
+
         self.assertEqual(doc.id, 'Unknown2005')
 
     def test_authors_are_extracted_correctly_and_bound_to_document(self):
@@ -150,18 +156,22 @@ class DocumentChangingTestCase(TestCase):
         self.assertEqual(set(bound_author_ids), set(bound_author_ids_correct))
 
     def test_downstream_documents_are_extracted_correctly_and_bound_to_document(self):
+
         pass
 
     def test_downstream_documents_dont_raise_error_if_nonexistent(self):
+
         pass
 
 
 class DocumentNodeMarkdownTestCase(TestCase):
 
     def test_markdown_is_converted_correctly(self):
+
         pass
 
     def test_markdown_is_converted_correctly_with_unfound_document(self):
+
         pass
 
 
