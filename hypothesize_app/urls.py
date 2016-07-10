@@ -23,7 +23,8 @@ urlpatterns = [
     url(r'^node_type/(?P<pk>.+)/delete/$', views.NodeTypeDelete.as_view(), name='node_type_delete'),
     url(r'^node_type/new/$', views.NodeTypeCreate.as_view(), name='node_type_create'),
 
-    url(None, views.AjaxLinkFetcher.as_view(), name='ajax_link_fetcher'),
+    url(r'^ajax/link_fetcher', views.AjaxLinkFetcher.as_view(), name='ajax_link_fetcher'),
+    url(r'^ajax/node_saver', views.AjaxNodeSaver.as_view(), name='ajax_node_saver'),
 
     url(r'^database_backup/$', views.DatabaseBackup.as_view(), name='database_backup'),
 ]
