@@ -14,17 +14,39 @@
     });
     </script>
     <script>
-        function KeyPress(e) {
+        function save_node() {
+            alert("CTRL + S will save the node in the future.");
+
+            $.ajax({
+                url: "{% url 'hypothesize_app:ajax_node_saver' %}",
+                type: "GET",
+                data: {
+                    'id': $("#id_id").val(),
+                    'type': $("#id_type").val(),
+                    'text': $("#id_text").val()
+                },
+
+                success: function(json){
+                    alert(json['node_save_message']);
+                },
+
+                failure: function(json){
+                    alert('Error saving node!');
+                }
+            });
+        }
+
+        function check_key_press(e) {
 
             // detect whether save command was pressed
 
             var evtobj = window.event? event : e
             if (evtobj.keyCode == 83 && evtobj.ctrlKey) {
-                alert("CTRL + S will save the node in the future.");
+                save_node();
             }
         }
 
-        document.onkeydown = KeyPress;
+        document.onkeydown = check_key_press;
     </script>
 
     <title>
