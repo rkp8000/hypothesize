@@ -1,4 +1,5 @@
 from __future__ import division, print_function, unicode_literals
+import re
 import string
 import urllib
 
@@ -44,6 +45,57 @@ def bind_linked_documents(document, document_model):
     document.linked_documents.add(*linked_documents)
 
 
+def make_candidate_primary_key(document):
+    """
+    Create the candidate primary key for a document given its first author and year.
+    The candidate primary key is the last name of the first author concatenated with the year.
+
+    :param document: document in question
+    :return: candidate primary key
+    """
+
+    # generate processed version of first author's last name
+
+    first_author_last_name = document.author_text.split(';')[0].split(',')[0].strip()
+
+    processed_name = first_author_last_name.title().replace(' ', '')
+
+    processed_name = unidecode.unidecode(processed_name)
+
+    processed_name = ''.join([ch for ch in processed_name if ch.isalpha()])
+
+    if not processed_name:
+
+        processed_name = 'Unknown'
+
+    # add year to get candidate primary key
+
+    if document.year:
+
+        candidate_pk = '{}{}'.format(processed_name, document.year)
+
+    else:
+
+        candidate_pk = '{}0000'.format(processed_name)
+
+    return candidate_pk
+
+
+def get_primary_key_base(pk):
+    """
+    Remove duplicate-indicating primary key extensions.
+
+    E.g., convert Smith2001A to Smith2001
+
+    :param pk: AuthorYEAR primary key
+    :return: stripped primary key
+    """
+
+    pk_base_pattern = '[a-zA-z]+\d+'
+
+    return re.search(pk_base_pattern, pk).group(0)
+
+
 def bind_primary_key(document, document_model):
     """
     Generate a unique primary key and bind it to the document.
@@ -55,20 +107,7 @@ def bind_primary_key(document, document_model):
     :param document_model: models.Document
     """
 
-    # generate processed version of first author's last name
-    first_author_last_name = document.author_text.split(';')[0].split(',')[0].strip()
-    processed_name = first_author_last_name.title().replace(' ', '')
-    processed_name = unidecode.unidecode(processed_name)
-    processed_name = ''.join([ch for ch in processed_name if ch.isalpha()])
-
-    if not processed_name:
-        processed_name = 'Unknown'
-
-    # add year to get candidate primary key
-    if document.year:
-        candidate_pk = '{}{}'.format(processed_name, document.year)
-    else:
-        candidate_pk = '{}0000'.format(processed_name)
+    candidate_pk = make_candidate_primary_key(document)
 
     # find all documents that start with this primary key
     conflicting_pks = document_model.objects.filter(id__startswith=candidate_pk).values_list('id', flat=True)
