@@ -87,18 +87,6 @@ class Document(models.Model):
         super(Document, self).save(*args, **kwargs)
 
 
-class Supplement(models.Model):
-    """Supplementary materials class."""
-
-    id = models.CharField(max_length=100, primary_key=True)
-    file = models.FileField(upload_to='supplements', null=True)
-    document = models.ForeignKey(Document)
-
-    def __unicode__(self):
-
-        return self.id
-
-
 class NodeType(models.Model):
     """
     Node type class.

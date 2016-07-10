@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django import forms
 from django.forms import ModelForm
-from hypothesize_app.models import Document, Supplement, Node, NodeType
+from hypothesize_app.models import Document, Node, NodeType
 
 MAX_HIT_OPTIONS = [(20, 20), (50, 50), (100, 100)]
 
@@ -19,15 +19,6 @@ class DocumentForm(ModelForm):
             'web_link': 'Webpage',
             'linked_document_text': 'Downstream documents',
         }
-
-
-class SupplementForm(ModelForm):
-    """Supplementary material form."""
-
-    class Meta:
-
-        model = Supplement
-        fields = ['file']
 
 
 class NodeForm(ModelForm):

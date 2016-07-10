@@ -24,13 +24,10 @@ Abstract:<br />
 AUTHORS:<br />
 {% for author in document.authors.all %}
     {{author.id}}<br />
-{% endfor %}<br />
-Supplementary material:
-{% for supplement in document.supplement_set.all %}
-    <a href="{{ MEDIA_URL }}{{supplement.file}}">{{supplement.id}}</a>
 {% endfor %}
 
 <br /><br />
+
 <hr />
 
 {% if document.linked_documents.all %}

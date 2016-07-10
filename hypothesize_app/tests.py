@@ -180,11 +180,9 @@ class DocumentNodeMarkdownTestCase(TestCase):
 ## basic
 ## with weird author names
 ## with no authors
-## with supplement
 # document change
 ## basic
 ## with weird author names
-## with supplement
 ## rearrange authors
 # primary key overlap/absence issues
 
