@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django import forms
 from django.forms import ModelForm
+from django.utils.safestring import mark_safe
 from hypothesize_app.models import Document, Node, NodeType
 
 MAX_HIT_OPTIONS = [(20, 20), (50, 50), (100, 100)]
@@ -30,6 +31,11 @@ class NodeForm(ModelForm):
 
         model = Node
         fields = ['id', 'type', 'text']
+        labels = {
+            'id': 'ID',
+            'type': 'Type',
+            'text': mark_safe('Text (press CTRL + S to save)<br />'),
+        }
         widgets = {
             'text': forms.Textarea(attrs={'rows': 60, 'cols': 120})
         }
