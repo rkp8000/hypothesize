@@ -6,6 +6,14 @@ import models
 
 
 # Create your tests here.
+
+class DocumentProcessingTestCase(TestCase):
+
+    def test_get_primary_key_base_works_correctly_on_examples(self):
+
+        pass
+
+
 class DocumentChangingTestCase(TestCase):
 
     def test_basic_primary_key_is_created_correctly(self):
