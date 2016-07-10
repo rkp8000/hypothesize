@@ -51,8 +51,21 @@ class Document(models.Model):
         Override basic save method to extract linked documents.
         """
 
+        # generate id if there wasn't one before
+
         if not self.id:
+
             document_processing.bind_primary_key(self, document_model=Document)
+
+        else:
+
+            # change document id if primary key base has changed
+
+            pk_base = document_processing.get_primary_key_base(self.id)
+
+            if pk_base != document_processing.make_candidate_primary_key(self):
+
+                document_processing.bind_primary_key(self, document_model=Document)
 
         # save the document so we can bind other things to it
         super(Document, self).save(*args, **kwargs)
