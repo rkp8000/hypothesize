@@ -13,6 +13,19 @@
         $("#id_text").asuggest(suggests);
     });
     </script>
+    <script>
+        function KeyPress(e) {
+
+            // detect whether save command was pressed
+
+            var evtobj = window.event? event : e
+            if (evtobj.keyCode == 83 && evtobj.ctrlKey) {
+                alert("CTRL + S will save the node in the future.");
+            }
+        }
+
+        document.onkeydown = KeyPress;
+    </script>
 
     <title>
         {% if node %}
