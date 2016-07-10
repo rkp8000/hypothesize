@@ -3,24 +3,34 @@
 
 {{ node.html | safe }}
 
-<h3>downstream nodes (nodes linked to by this node)</h3>
-{% for ds_node in node.nodes.all %}
-<a href="{% url 'hypothesize_app:node_detail' ds_node.id %}" class="internal-link" data-linkpk="node-{{ds_node.id}}">
-   {{ds_node.id}}
-</a>
-{% endfor %}
+<br /><br />
+<hr />
 
-<h3>upstream nodes (nodes linking to this node)</h3>
-{% for us_node in node.node_set.all %}
-<a href="{% url 'hypothesize_app:node_detail' us_node.id %}" class="internal-link" data-linkpk="node-{{us_node.id}}">
-   {{us_node.id}}
-</a>
-{% endfor %}
+{% if node.nodes.all %}
+   <h4>downstream nodes (nodes linked to by this node)</h4>
+   {% for ds_node in node.nodes.all %}
+   <a href="{% url 'hypothesize_app:node_detail' ds_node.id %}" class="internal-link" data-linkpk="node-{{ds_node.id}}">
+      {{ds_node.id}}
+   </a>
+   {% endfor %}
+{% endif %}
 
-<h3>downstream documents (documents linked to by this node)</h3>
-{% for ds_doc in node.documents.all %}
-<a href="{% url 'hypothesize_app:document_detail' ds_doc.id %}" class="internal-link"
-   data-linkpk="document-{{ds_doc.id}}">
-   {{ds_doc.id}}
-</a>
-{% endfor %}
+{% if node.node_set.all %}
+   <h4>upstream nodes (nodes linking to this node)</h4>
+   {% for us_node in node.node_set.all %}
+   <a href="{% url 'hypothesize_app:node_detail' us_node.id %}" class="internal-link" data-linkpk="node-{{us_node.id}}">
+      {{us_node.id}}
+   </a>
+   {% endfor %}
+{% endif %}
+
+{% if node.documents.all %}
+   <h4>downstream documents (documents linked to by this node)</h4>
+   {% for ds_doc in node.documents.all %}
+   <a href="{% url 'hypothesize_app:document_detail' ds_doc.id %}" class="internal-link"
+      data-linkpk="document-{{ds_doc.id}}">
+      {{ds_doc.id}}
+   </a>
+   {% endfor %}
+{% endif %}
+<hr />
