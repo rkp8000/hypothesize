@@ -19,6 +19,14 @@
         $("#id_publication").asuggest(suggests_publication);
     });
     </script>
+
+    <title>
+        {% if document %}
+            EDIT: {{ document.title }}
+        {% else %}
+            add new document
+        {% endif %}
+    </title>
 </head>
 
 <form action="" method="post" enctype="multipart/form-data">

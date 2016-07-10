@@ -13,6 +13,14 @@
         $("#id_text").asuggest(suggests);
     });
     </script>
+
+    <title>
+        {% if node %}
+            EDIT: {{ node.id }}
+        {% else %}
+            add new node
+        {% endif %}
+    </title>
 </head>
 
 <form action="" method="post">
