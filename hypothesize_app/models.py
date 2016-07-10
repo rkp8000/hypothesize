@@ -11,14 +11,17 @@ import node_processing
 
 class Author(models.Model):
     """Author class."""
+
     id = models.CharField(max_length=255, primary_key=True)
 
     def __unicode__(self):
+
         return self.id
 
 
 class Document(models.Model):
     """Article class."""
+
     id = models.CharField(max_length=100, primary_key=True)
     title = models.CharField(max_length=255, default='')
     author_text = models.TextField(blank=True, default='')
@@ -34,16 +37,22 @@ class Document(models.Model):
     authors = models.ManyToManyField(Author, blank=True)
 
     def __unicode__(self):
+
         return self.id
 
     @property
     def primary_external_link(self):
+
         if self.web_link:
+
             return self.web_link
+
         else:
+
             return document_processing.google_scholar_search_url(self)
 
     def get_absolute_url(self):
+
         return reverse('hypothesize_app:document_detail', kwargs={'pk': self.id})
 
     def save(self, *args, **kwargs):
@@ -68,9 +77,11 @@ class Document(models.Model):
                 document_processing.bind_primary_key(self, document_model=Document)
 
         # save the document so we can bind other things to it
+
         super(Document, self).save(*args, **kwargs)
 
         document_processing.bind_authors(self, author_model=Author)
+
         document_processing.bind_linked_documents(self, document_model=Document)
 
         super(Document, self).save(*args, **kwargs)
@@ -78,11 +89,13 @@ class Document(models.Model):
 
 class Supplement(models.Model):
     """Supplementary materials class."""
+
     id = models.CharField(max_length=100, primary_key=True)
     file = models.FileField(upload_to='supplements', null=True)
     document = models.ForeignKey(Document)
 
     def __unicode__(self):
+
         return self.id
 
 
@@ -90,19 +103,23 @@ class NodeType(models.Model):
     """
     Node type class.
     """
+
     id = models.CharField(max_length=100, primary_key=True)
     description = models.TextField(blank=True, default='')
     text_template = models.TextField(blank=True, default='')
 
     def __unicode__(self):
+
         return self.id
 
     def get_absolute_url(self):
+
         return reverse('hypothesize_app:node_type_detail', kwargs={'pk': self.id})
 
 
 class Node(models.Model):
     """Node class."""
+
     id = models.CharField(max_length=1000, primary_key=True)
     type = models.ForeignKey(NodeType, null=True, blank=True, on_delete=models.SET_NULL)
     text = models.TextField(blank=True, default='')
@@ -116,23 +133,29 @@ class Node(models.Model):
         """
 
         # save the node so we can bind other things to it
+
         super(Node, self).save(*args, **kwargs)
 
         node_processing.update_text_file(self)
+
         node_processing.bind_linked_objects(self, document_model=Document, node_model=Node)
 
         super(Node, self).save(*args, **kwargs)
 
     def __unicode__(self):
+
         return self.id
 
     @property
     def title(self):
+
         return os.path.basename(self.id)
 
     @property
     def html(self):
+
         return node_processing.text_to_html(self.text)
 
     def get_absolute_url(self):
+
         return reverse('hypothesize_app:node_detail', kwargs={'pk': self.id})
