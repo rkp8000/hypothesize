@@ -328,25 +328,32 @@ class AjaxNodeSaver(generic.View):
 
     def get(self, request):
 
-        # get node if it exists already, otherwise create it
+        # get original node or try to make a new one
 
-        try:
+        if self.request.GET['id'] == self.request.GET['initial_id']:
 
             node = models.Node.objects.get(pk=self.request.GET['id'])
 
-            node_save_message = 'Node found.'
+        else:
 
-        except:
+            # attempt to create new node
 
-            node = models.Node(id=self.request.GET['id'])
+            try:
 
-            node_save_message = 'New node created.'
+                models.Node.objects.get(pk=self.request.GET['id'])
 
-        # TODO: FIGURE OUT PROPER EXCEPTION HANDLING IF PRIMARY KEY UNIQUENESS ERROR
+                return JsonResponse(
+                    {'node_save_message': 'Error: a node with that ID already exists.'})
+
+            except:
+
+                node = models.Node(id=self.request.GET['id'])
 
         node.text = self.request.GET['text']
 
         node.save()
+
+        node_save_message = datetime.now().strftime('node last saved at %H:%M:%S on %Y-%m-%d')
 
         return JsonResponse({'node_save_message': node_save_message})
 
