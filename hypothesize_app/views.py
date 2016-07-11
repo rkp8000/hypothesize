@@ -328,6 +328,14 @@ class AjaxNodeSaver(generic.View):
 
     def get(self, request):
 
+        # make sure node has ID
+
+        if not self.request.GET['id']:
+
+            return JsonResponse(
+                {'node_save_message': 'Error: you must provide an ID.'}
+            )
+
         # get original node or try to make a new one
 
         if self.request.GET['id'] == self.request.GET['initial_id']:
