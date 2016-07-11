@@ -5,13 +5,22 @@
     <script src="{% static "js/jquery.a-tools-1.4.1.js" %}"></script>
     <script src="{% static "js/jquery.asuggest.js" %}"></script>
     <script>
-    $(document).ready(function(){
-        //var suggests = ['elephant', 'rhino', 'elephino'];
-        var suggests = {{ tab_complete_options | safe }};
-        $.fn.asuggest.defaults.delimiters = "([";
-        $.fn.asuggest.defaults.minChunkSize = 2;
-        $("#id_text").asuggest(suggests);
-    });
+        $(document).ready(function(){
+            //var suggests = ['elephant', 'rhino', 'elephino'];
+            var suggests = {{ tab_complete_options | safe }};
+            $.fn.asuggest.defaults.delimiters = "([";
+            $.fn.asuggest.defaults.minChunkSize = 2;
+            $("#id_text").asuggest(suggests);
+
+            $('#id_text').bind('input propertychange', function() {
+
+                $('#node_save_status').html('(unsaved changes -- press CTRL + S to save)');
+
+            });
+        });
+    </script>
+    <script>
+
     </script>
     <script>
         function save_node() {
@@ -26,7 +35,7 @@
                 },
 
                 success: function(json){
-                    alert(json['node_save_message']);
+                    $('#node_save_status').html(json['node_save_message']);
                 },
 
                 failure: function(json){

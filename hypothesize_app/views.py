@@ -333,7 +333,7 @@ class AjaxNodeSaver(generic.View):
         if not self.request.GET['id']:
 
             return JsonResponse(
-                {'node_save_message': 'Error: you must provide an ID.'}
+                {'node_save_message': '(Error: you must provide an ID.)'}
             )
 
         # get original node or try to make a new one
@@ -351,7 +351,7 @@ class AjaxNodeSaver(generic.View):
                 models.Node.objects.get(pk=self.request.GET['id'])
 
                 return JsonResponse(
-                    {'node_save_message': 'Error: a node with that ID already exists.'})
+                    {'node_save_message': '(Error: a node with that ID already exists.)'})
 
             except:
 
@@ -361,7 +361,7 @@ class AjaxNodeSaver(generic.View):
 
         node.save()
 
-        node_save_message = datetime.now().strftime('node last saved at %H:%M:%S on %Y-%m-%d')
+        node_save_message = datetime.now().strftime('(node last saved at %H:%M:%S on %Y-%m-%d)')
 
         return JsonResponse({'node_save_message': node_save_message})
 

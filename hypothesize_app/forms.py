@@ -34,7 +34,9 @@ class NodeForm(ModelForm):
         labels = {
             'id': 'ID',
             'type': 'Type',
-            'text': mark_safe('Text (press CTRL + S to save)<br />'),
+            'text': mark_safe(
+                'Text'
+                '&nbsp; &nbsp; <span id="node_save_status"></span><br />'),
         }
         widgets = {
             'text': forms.Textarea(attrs={'rows': 60, 'cols': 120})
