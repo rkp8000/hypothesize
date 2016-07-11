@@ -21,6 +21,7 @@
                 url: "{% url 'hypothesize_app:ajax_node_saver' %}",
                 type: "GET",
                 data: {
+                    'initial_id': $("#initial_id").val(),
                     'id': $("#id_id").val(),
                     'type': $("#id_type").val(),
                     'text': $("#id_text").val()
@@ -61,6 +62,7 @@
 <form action="" method="post">
     {% csrf_token %}
     {{form.as_p}}
+    <input id="initial_id" type="hidden" value="{{ node.id }}" />
     <input type="submit" value="Save" />
 </form>
 
