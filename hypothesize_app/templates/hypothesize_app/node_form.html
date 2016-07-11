@@ -15,8 +15,6 @@
     </script>
     <script>
         function save_node() {
-            alert("CTRL + S will save the node in the future.");
-
             $.ajax({
                 url: "{% url 'hypothesize_app:ajax_node_saver' %}",
                 type: "GET",
