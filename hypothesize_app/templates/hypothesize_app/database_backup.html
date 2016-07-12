@@ -8,7 +8,7 @@
     <br />
 {% endif %}
 
-Back up your document and node database?
+Back up your document and topic database?
 <a href="{% url 'hypothesize_app:database_backup' %}?backup=TRUE">Go!</a>
 <br /><br />
 To restore the database from a backup simply copy your desired backup file (located in the directory "")
@@ -16,4 +16,4 @@ into the directory "" and change the filename to "db.sqlite3".
 <br /><br />
 <a href="{% url 'hypothesize_app:document_search' %}">return to document search</a>
 <br />
-<a href="{% url 'hypothesize_app:node_search' %}">return to node search</a>
+<a href="{% url 'hypothesize_app:topic_search' %}">return to topic search</a>

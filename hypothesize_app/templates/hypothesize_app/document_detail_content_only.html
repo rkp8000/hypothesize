@@ -48,10 +48,10 @@ AUTHORS:<br />
     {% endfor %}
 {% endif %}
 
-{% if document.node_set.all %}
-<strong>upstream nodes (nodes linking to this document):</strong>
-    {% for us_node in document.node_set.all %}
-    <a href="{% url 'hypothesize_app:node_detail' us_node.id %}" class="internal-link" data-linkpk="node-{{us_node.id}}">
-       {{us_node.id}}</a>
+{% if document.topic_set.all %}
+<strong>upstream topics (topics linking to this document):</strong>
+    {% for us_topic in document.topic_set.all %}
+    <a href="{% url 'hypothesize_app:topic_detail' us_topic.id %}" class="internal-link" data-linkpk="topic-{{us_topic.id}}">
+       {{us_topic.id}}</a>
     {% endfor %}
 {% endif %}

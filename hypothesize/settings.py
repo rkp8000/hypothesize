@@ -46,13 +46,13 @@ else:
 
     BASICAUTH_PASSWORD = 'pass'
 
-if my_settings.NODE_DIRECTORY:
+if my_settings.TOPIC_DIRECTORY:
 
-    NODE_SAVE_DIRECTORY = my_settings.NODE_DIRECTORY
+    TOPIC_SAVE_DIRECTORY = my_settings.TOPIC_DIRECTORY
 
 else:
 
-    NODE_SAVE_DIRECTORY = os.path.join(BASE_DIR, 'nodes')
+    TOPIC_SAVE_DIRECTORY = os.path.join(BASE_DIR, 'topics')
 
 if my_settings.DATABASE_BACKUP_DIRECTORY:
 

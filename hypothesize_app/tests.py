@@ -164,7 +164,7 @@ class DocumentChangingTestCase(TestCase):
         pass
 
 
-class DocumentNodeMarkdownTestCase(TestCase):
+class DocumentTopicMarkdownTestCase(TestCase):
 
     def test_markdown_is_converted_correctly(self):
 
@@ -187,7 +187,7 @@ class DocumentNodeMarkdownTestCase(TestCase):
 # primary key overlap/absence issues
 
 
-# node add
-# node change
+# topic add
+# topic change
 # primary key overlap/absence issues
-# node text update with and without save directory declared
+# topic text update with and without save directory declared

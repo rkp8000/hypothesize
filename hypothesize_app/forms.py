@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django import forms
 from django.forms import ModelForm
 from django.utils.safestring import mark_safe
-from hypothesize_app.models import Document, Node
+from hypothesize_app.models import Document, Topic
 
 MAX_HIT_OPTIONS = [(20, 20), (50, 50), (100, 100)]
 
@@ -22,20 +22,20 @@ class DocumentForm(ModelForm):
         }
 
 
-class NodeForm(ModelForm):
+class TopicForm(ModelForm):
     """
-    Form for changing a node's contents.
+    Form for changing a topic's contents.
     """
 
     class Meta:
 
-        model = Node
+        model = Topic
         fields = ['id', 'text']
         labels = {
             'id': 'ID',
             'text': mark_safe(
                 'Text'
-                '&nbsp; &nbsp; <span id="node_save_status"></span><br />'),
+                '&nbsp; &nbsp; <span id="topic_save_status"></span><br />'),
         }
         widgets = {
             'text': forms.Textarea(attrs={'rows': 60, 'cols': 120})
@@ -51,10 +51,10 @@ class DocumentSearchForm(forms.Form):
     max_hits = forms.ChoiceField(label='max_hits', choices=MAX_HIT_OPTIONS)
 
 
-class NodeSearchForm(forms.Form):
+class TopicSearchForm(forms.Form):
     """
-    Form for searching node database.
+    Form for searching topic database.
     """
 
-    query = forms.CharField(label='node_query', max_length=500)
+    query = forms.CharField(label='topic_query', max_length=500)
     max_hits = forms.ChoiceField(label='max_hits', choices=MAX_HIT_OPTIONS)

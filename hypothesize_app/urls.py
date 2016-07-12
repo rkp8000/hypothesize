@@ -11,14 +11,14 @@ urlpatterns = [
     url(r'^document/(?P<pk>.+)/delete/$', views.DocumentDelete.as_view(), name='document_delete'),
     url(r'^document/add/$', views.DocumentCreate.as_view(), name='document_create'),
 
-    url(r'^node/search/$', views.NodeSearch.as_view(), name='node_search'),
-    url(r'^node/(?P<pk>.+)/detail/$', views.NodeDetail.as_view(), name='node_detail'),
-    url(r'^node/(?P<pk>.+)/change/$', views.NodeChange.as_view(), name='node_change'),
-    url(r'^node/(?P<pk>.+)/delete/$', views.NodeDelete.as_view(), name='node_delete'),
-    url(r'^node/new/$', views.NodeCreate.as_view(), name='node_create'),
+    url(r'^topic/search/$', views.TopicSearch.as_view(), name='topic_search'),
+    url(r'^topic/(?P<pk>.+)/detail/$', views.TopicDetail.as_view(), name='topic_detail'),
+    url(r'^topic/(?P<pk>.+)/change/$', views.TopicChange.as_view(), name='topic_change'),
+    url(r'^topic/(?P<pk>.+)/delete/$', views.TopicDelete.as_view(), name='topic_delete'),
+    url(r'^topic/new/$', views.TopicCreate.as_view(), name='topic_create'),
 
     url(r'^ajax/link_fetcher', views.AjaxLinkFetcher.as_view(), name='ajax_link_fetcher'),
-    url(r'^ajax/node_saver', views.AjaxNodeSaver.as_view(), name='ajax_node_saver'),
+    url(r'^ajax/topic_saver', views.AjaxTopicSaver.as_view(), name='ajax_topic_saver'),
 
     url(r'^database_backup/$', views.DatabaseBackup.as_view(), name='database_backup'),
 ]

@@ -4,4 +4,4 @@ import models
 
 admin.site.register(models.Author)
 admin.site.register(models.Document)
-admin.site.register(models.Node)
+admin.site.register(models.Topic)

@@ -7,9 +7,9 @@ Set all of your personal settings here.
 USERNAME = ''
 PASSWORD = ''
 
-# where to save files corresponding to nodes
+# where to save files corresponding to topics
 
-NODE_DIRECTORY = ''
+TOPIC_DIRECTORY = ''
 
 # where to store database backups
 

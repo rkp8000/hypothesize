@@ -64,20 +64,20 @@ def document_query(query):
     return list(unique_everseen(documents))
 
 
-def node_query(query):
+def topic_query(query):
     """
-    Return the nodes indexed by a given query.
+    Return the topics indexed by a given query.
     :param query: search query (str)
-    :return: list of nodes
+    :return: list of topics
     """
 
     if query:
 
-        nodes = []
+        topics = []
 
         try:
 
-            nodes += list(models.Node.objects.filter(id__iexact=query).all())
+            topics += list(models.Topic.objects.filter(id__iexact=query).all())
 
         except ObjectDoesNotExist:
 
@@ -85,7 +85,7 @@ def node_query(query):
 
         try:
 
-            nodes += list(models.Node.objects.filter(id__contains=query).all())
+            topics += list(models.Topic.objects.filter(id__contains=query).all())
 
         except ObjectDoesNotExist:
 
@@ -93,7 +93,7 @@ def node_query(query):
 
         try:
 
-            nodes += list(models.Node.objects.filter(text__contains=query).all())
+            topics += list(models.Topic.objects.filter(text__contains=query).all())
 
         except ObjectDoesNotExist:
 
@@ -101,6 +101,6 @@ def node_query(query):
 
     else:
 
-        nodes = models.Node.objects.all().order_by('-last_viewed')
+        topics = models.Topic.objects.all().order_by('-last_viewed')
 
-    return list(unique_everseen(nodes))
+    return list(unique_everseen(topics))

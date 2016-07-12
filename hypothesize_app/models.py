@@ -6,7 +6,7 @@ from django.db import models
 from django.utils import timezone
 
 import document_processing
-import node_processing
+import topic_processing
 
 
 class Author(models.Model):
@@ -87,29 +87,29 @@ class Document(models.Model):
         super(Document, self).save(*args, **kwargs)
 
 
-class Node(models.Model):
-    """Node class."""
+class Topic(models.Model):
+    """Topic class."""
 
     id = models.CharField(max_length=1000, primary_key=True)
     text = models.TextField(blank=True, default='')
     last_viewed = models.DateTimeField(default=timezone.now, blank=True)
-    nodes = models.ManyToManyField('self', symmetrical=False, blank=True)
+    topics = models.ManyToManyField('self', symmetrical=False, blank=True)
     documents = models.ManyToManyField(Document, blank=True)
 
     def save(self, *args, **kwargs):
         """
-        Override default method to do additional node processing.
+        Override default method to do additional topic processing.
         """
 
-        # save the node so we can bind other things to it
+        # save the topic so we can bind other things to it
 
-        super(Node, self).save(*args, **kwargs)
+        super(Topic, self).save(*args, **kwargs)
 
-        node_processing.update_text_file(self)
+        topic_processing.update_text_file(self)
 
-        node_processing.bind_linked_objects(self, document_model=Document, node_model=Node)
+        topic_processing.bind_linked_objects(self, document_model=Document, topic_model=Topic)
 
-        super(Node, self).save(*args, **kwargs)
+        super(Topic, self).save(*args, **kwargs)
 
     def __unicode__(self):
 
@@ -123,8 +123,8 @@ class Node(models.Model):
     @property
     def html(self):
 
-        return node_processing.text_to_html(self.text)
+        return topic_processing.text_to_html(self.text)
 
     def get_absolute_url(self):
 
-        return reverse('hypothesize_app:node_detail', kwargs={'pk': self.id})
+        return reverse('hypothesize_app:topic_detail', kwargs={'pk': self.id})

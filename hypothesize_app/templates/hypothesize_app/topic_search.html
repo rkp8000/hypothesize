@@ -1,0 +1,50 @@
+<html>
+
+<head>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/skin.css" %}"/>
+
+    <title>search topics</title>
+</head>
+
+<body>
+
+    <h3>
+        <a href="{% url 'hypothesize_app:topic_search' %}" style="color: black;">search topics</a>
+    </h3>
+
+    <form action="{% url 'hypothesize_app:topic_search' %}" method="get">
+        {{ topic_search_form.query }}
+        <input type="submit" value="search" />
+        <br />
+        Show top {{ topic_search_form.max_hits }} results.
+    </form>
+
+    <a href="{% url 'hypothesize_app:document_search' %}">search documents</a>
+    &nbsp;&nbsp;&nbsp;
+    <a href="{% url 'hypothesize_app:topic_create' %}">add new topic</a>
+    &nbsp;&nbsp;&nbsp;
+    <a href="{% url 'hypothesize_app:database_backup' %}">back up database</a><br /><br />
+
+{% if topics %}
+    {% for topic in topics %}
+    <div class="topic_search_result search_result">
+        <a href="{% url 'hypothesize_app:topic_detail' topic.id %}">
+        <span class="topic_title"><strong>{{topic.title}}</strong></span></a>
+        <br />
+        <span class="topic_path">({{topic.id}})</span>
+        <br />
+        <span class="topic_last_viewed">(last viewed {{topic.last_viewed}})</span>
+        <br />
+        <div class="topic_teaser">
+            {{topic.text | truncatewords:"50" }}
+        </div>
+        <span class="topic_id" hidden="hidden">{{ topic.id }}</span>
+
+    </div>
+    {% endfor %}
+{% endif %}
+
+</body>
+
+</html>

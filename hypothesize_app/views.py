@@ -10,7 +10,7 @@ from django.views import generic
 import backup
 import forms
 import models
-import node_processing
+import topic_processing
 import search
 
 
@@ -134,70 +134,70 @@ class DocumentDelete(generic.DeleteView):
     success_url = reverse_lazy('hypothesize_app:document_search')
 
 
-class NodeSearch(generic.ListView):
+class TopicSearch(generic.ListView):
 
-    template_name = 'hypothesize_app/node_search.html'
-    context_object_name = 'nodes'
+    template_name = 'hypothesize_app/topic_search.html'
+    context_object_name = 'topics'
 
     def get_context_data(self, **kwargs):
         """We'll use this to bulk up later maybe."""
 
-        context = super(NodeSearch, self).get_context_data(**kwargs)
+        context = super(TopicSearch, self).get_context_data(**kwargs)
 
-        context['node_search_form'] = forms.NodeSearchForm(self.request.GET)
+        context['topic_search_form'] = forms.TopicSearchForm(self.request.GET)
 
         return context
 
     def get_queryset(self):
 
-        full_list = search.node_query(self.request.GET.get('query', ''))
+        full_list = search.topic_query(self.request.GET.get('query', ''))
 
         return full_list[:int(self.request.GET.get('max_hits', 20))]
 
 
-class NodeDetail(generic.DetailView):
+class TopicDetail(generic.DetailView):
     """
-    Automatically look for template "node_detail.html".
+    Automatically look for template "topic_detail.html".
     To change this, change the template_name class variable.
     """
-    model = models.Node
+    model = models.Topic
 
     def get_object(self):
 
-        node = models.Node.objects.get(pk=self.kwargs['pk'])
+        topic = models.Topic.objects.get(pk=self.kwargs['pk'])
 
-        node.last_viewed = datetime.now()
+        topic.last_viewed = datetime.now()
 
-        node.save()
+        topic.save()
 
-        return node
+        return topic
 
 
-class NodeChange(generic.UpdateView):
+class TopicChange(generic.UpdateView):
 
-    template_name = 'hypothesize_app/node_form.html'
-    form_class = forms.NodeForm
+    template_name = 'hypothesize_app/topic_form.html'
+    form_class = forms.TopicForm
 
     def get_object(self):
 
-        node = models.Node.objects.get(pk=self.kwargs['pk'])
+        topic = models.Topic.objects.get(pk=self.kwargs['pk'])
 
-        node.last_viewed = datetime.now()
+        topic.last_viewed = datetime.now()
 
-        node.save()
+        topic.save()
 
-        return node
+        return topic
 
     def get_context_data(self, **kwargs):
 
         # get baseline context variables
 
-        context = super(NodeChange, self).get_context_data(**kwargs)
+        context = super(TopicChange, self).get_context_data(**kwargs)
 
         # add in tab complete options
 
-        context['tab_complete_options'] = node_processing.make_tab_complete_options(
-            document_model=models.Document, node_model=models.Node,
+        context['tab_complete_options'] = topic_processing.make_tab_complete_options(
+            document_model=models.Document, topic_model=models.Topic,
         )
 
         # add in deletion option
@@ -207,30 +207,30 @@ class NodeChange(generic.UpdateView):
         return context
 
 
-class NodeCreate(generic.CreateView):
+class TopicCreate(generic.CreateView):
 
-    template_name = 'hypothesize_app/node_form.html'
-    form_class = forms.NodeForm
+    template_name = 'hypothesize_app/topic_form.html'
+    form_class = forms.TopicForm
 
     def get_context_data(self, **kwargs):
 
         # get baseline context variables
 
-        context = super(NodeCreate, self).get_context_data(**kwargs)
+        context = super(TopicCreate, self).get_context_data(**kwargs)
 
         # add in tab complete options
 
-        context['tab_complete_options'] = node_processing.make_tab_complete_options(
-            document_model=models.Document, node_model=models.Node,
+        context['tab_complete_options'] = topic_processing.make_tab_complete_options(
+            document_model=models.Document, topic_model=models.Topic,
         )
 
         return context
 
 
-class NodeDelete(generic.DeleteView):
+class TopicDelete(generic.DeleteView):
 
-    model = models.Node
-    success_url = reverse_lazy('hypothesize_app:node_search')
+    model = models.Topic
+    success_url = reverse_lazy('hypothesize_app:topic_search')
 
 
 class AjaxLinkFetcher(generic.View):
@@ -251,13 +251,13 @@ class AjaxLinkFetcher(generic.View):
 
             html = render_to_string('hypothesize_app/document_detail_content_only.html', context)
 
-        elif link_type == 'node':
+        elif link_type == 'topic':
 
-            obj = models.Node.objects.get(pk=link_pk)
+            obj = models.Topic.objects.get(pk=link_pk)
 
-            context['node'] = obj
+            context['topic'] = obj
 
-            html = render_to_string('hypothesize_app/node_detail_content_only.html', context)
+            html = render_to_string('hypothesize_app/topic_detail_content_only.html', context)
 
         anchor = '<a href="{}">(open as new page)</a>'.format(obj.get_absolute_url())
 
@@ -269,50 +269,50 @@ class AjaxLinkFetcher(generic.View):
         return JsonResponse(data)
 
 
-class AjaxNodeSaver(generic.View):
+class AjaxTopicSaver(generic.View):
     """
-    View for saving nodes without reloading page.
+    View for saving topics without reloading page.
     """
 
     def get(self, request):
 
-        # make sure node has ID
+        # make sure topic has ID
 
         if not self.request.GET['id']:
 
             return JsonResponse(
-                {'node_save_message': '(Error: you must provide an ID.)'}
+                {'topic_save_message': '(Error: you must provide an ID.)'}
             )
 
-        # get original node or try to make a new one
+        # get original topic or try to make a new one
 
         if self.request.GET['id'] == self.request.GET['initial_id']:
 
-            node = models.Node.objects.get(pk=self.request.GET['id'])
+            topic = models.Topic.objects.get(pk=self.request.GET['id'])
 
         else:
 
-            # attempt to create new node
+            # attempt to create new topic
 
             try:
 
-                models.Node.objects.get(pk=self.request.GET['id'])
+                models.Topic.objects.get(pk=self.request.GET['id'])
 
                 return JsonResponse(
-                    {'node_save_message': '(Error: a node with that ID already exists.)'})
+                    {'topic_save_message': '(Error: a topic with that ID already exists.)'})
 
             except:
 
-                node = models.Node(id=self.request.GET['id'])
+                topic = models.Topic(id=self.request.GET['id'])
 
-        node.text = self.request.GET['text']
+        topic.text = self.request.GET['text']
 
-        node.save()
+        topic.save()
 
-        node_save_message = datetime.now().strftime('(node last saved at %H:%M:%S on %Y-%m-%d)')
+        topic_save_message = datetime.now().strftime('(topic last saved at %H:%M:%S on %Y-%m-%d)')
 
         json_response = JsonResponse(
-            {'node_save_message': node_save_message, 'new_id': node.id})
+            {'topic_save_message': topic_save_message, 'new_id': topic.id})
 
         return json_response
 
