@@ -19,9 +19,7 @@
             });
         });
     </script>
-    <script>
 
-    </script>
     <script>
         function save_node() {
             $.ajax({
@@ -70,6 +68,8 @@
         {% endif %}
     </title>
 </head>
+
+<a href="{% url 'hypothesize_app:node_search' %}">return to search</a><br />
 
 <form action="" method="post">
     {% csrf_token %}
