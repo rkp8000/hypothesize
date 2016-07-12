@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django import forms
 from django.forms import ModelForm
 from django.utils.safestring import mark_safe
-from hypothesize_app.models import Document, Node, NodeType
+from hypothesize_app.models import Document, Node
 
 MAX_HIT_OPTIONS = [(20, 20), (50, 50), (100, 100)]
 
@@ -30,30 +30,15 @@ class NodeForm(ModelForm):
     class Meta:
 
         model = Node
-        fields = ['id', 'type', 'text']
+        fields = ['id', 'text']
         labels = {
             'id': 'ID',
-            'type': 'Type',
             'text': mark_safe(
                 'Text'
                 '&nbsp; &nbsp; <span id="node_save_status"></span><br />'),
         }
         widgets = {
             'text': forms.Textarea(attrs={'rows': 60, 'cols': 120})
-        }
-
-
-class NodeTypeForm(ModelForm):
-    """
-    Form for changing a node type's contents.
-    """
-
-    class Meta:
-
-        model = NodeType
-        fields = ['id', 'description', 'text_template']
-        widgets = {
-            'text': forms.Textarea(attrs={'rows': 10, 'cols': 120})
         }
 
 

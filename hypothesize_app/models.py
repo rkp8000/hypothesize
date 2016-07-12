@@ -87,29 +87,10 @@ class Document(models.Model):
         super(Document, self).save(*args, **kwargs)
 
 
-class NodeType(models.Model):
-    """
-    Node type class.
-    """
-
-    id = models.CharField(max_length=100, primary_key=True)
-    description = models.TextField(blank=True, default='')
-    text_template = models.TextField(blank=True, default='')
-
-    def __unicode__(self):
-
-        return self.id
-
-    def get_absolute_url(self):
-
-        return reverse('hypothesize_app:node_type_detail', kwargs={'pk': self.id})
-
-
 class Node(models.Model):
     """Node class."""
 
     id = models.CharField(max_length=1000, primary_key=True)
-    type = models.ForeignKey(NodeType, null=True, blank=True, on_delete=models.SET_NULL)
     text = models.TextField(blank=True, default='')
     last_viewed = models.DateTimeField(default=timezone.now, blank=True)
     nodes = models.ManyToManyField('self', symmetrical=False, blank=True)

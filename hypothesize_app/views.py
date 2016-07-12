@@ -233,58 +233,6 @@ class NodeDelete(generic.DeleteView):
     success_url = reverse_lazy('hypothesize_app:node_search')
 
 
-class NodeTypeSearch(generic.ListView):
-
-    template_name = 'hypothesize_app/node_type_search.html'
-    context_object_name = 'node_types'
-
-    def get_queryset(self):
-
-        return models.NodeType.objects.all()
-
-
-class NodeTypeDetail(generic.DetailView):
-
-    template_name = 'hypothesize_app/node_type_detail.html'
-    model = models.NodeType
-    context_object_name = 'node_type'
-
-
-class NodeTypeChange(generic.UpdateView):
-
-    template_name = 'hypothesize_app/node_type_form.html'
-    form_class = forms.NodeTypeForm
-
-    def get_object(self):
-
-        return models.NodeType.objects.get(pk=self.kwargs['pk'])
-
-    def get_context_data(self, **kwargs):
-
-        # get baseline context variables
-
-        context = super(NodeTypeChange, self).get_context_data(**kwargs)
-
-        # add deletion option
-
-        context['include_delete'] = True
-
-        return context
-
-
-class NodeTypeCreate(generic.CreateView):
-
-    template_name = 'hypothesize_app/node_type_form.html'
-    form_class = forms.NodeTypeForm
-
-
-class NodeTypeDelete(generic.DeleteView):
-
-    template_name = 'hypothesize_app/node_type_confirm_delete.html'
-    model = models.NodeType
-    success_url = reverse_lazy('hypothesize_app:node_type_search')
-
-
 class AjaxLinkFetcher(generic.View):
 
     def get(self, request):

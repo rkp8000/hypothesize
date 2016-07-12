@@ -17,12 +17,6 @@ urlpatterns = [
     url(r'^node/(?P<pk>.+)/delete/$', views.NodeDelete.as_view(), name='node_delete'),
     url(r'^node/new/$', views.NodeCreate.as_view(), name='node_create'),
 
-    url(r'^node_type/search/$', views.NodeTypeSearch.as_view(), name='node_type_search'),
-    url(r'^node_type/(?P<pk>.+)/detail/$', views.NodeTypeDetail.as_view(), name='node_type_detail'),
-    url(r'^node_type/(?P<pk>.+)/change/$', views.NodeTypeChange.as_view(), name='node_type_change'),
-    url(r'^node_type/(?P<pk>.+)/delete/$', views.NodeTypeDelete.as_view(), name='node_type_delete'),
-    url(r'^node_type/new/$', views.NodeTypeCreate.as_view(), name='node_type_create'),
-
     url(r'^ajax/link_fetcher', views.AjaxLinkFetcher.as_view(), name='ajax_link_fetcher'),
     url(r'^ajax/node_saver', views.AjaxNodeSaver.as_view(), name='ajax_node_saver'),
 
