@@ -39,6 +39,7 @@
 
                     if ('new_id' in json) {
                         $('#initial_id').val(json['new_id']);
+                        $('title').html('EDIT: ' + json['new_id']);
                     }
                 },
 
