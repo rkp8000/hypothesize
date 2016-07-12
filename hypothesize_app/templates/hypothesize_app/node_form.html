@@ -36,6 +36,10 @@
 
                 success: function(json){
                     $('#node_save_status').html(json['node_save_message']);
+
+                    if ('new_id' in json) {
+                        $('#initial_id').val(json['new_id']);
+                    }
                 },
 
                 failure: function(json){
