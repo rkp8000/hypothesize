@@ -363,7 +363,10 @@ class AjaxNodeSaver(generic.View):
 
         node_save_message = datetime.now().strftime('(node last saved at %H:%M:%S on %Y-%m-%d)')
 
-        return JsonResponse({'node_save_message': node_save_message})
+        json_response = JsonResponse(
+            {'node_save_message': node_save_message, 'new_id': node.id})
+
+        return json_response
 
 
 class DatabaseBackup(generic.TemplateView):
