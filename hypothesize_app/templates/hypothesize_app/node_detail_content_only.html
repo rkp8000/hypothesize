@@ -2,16 +2,12 @@
 <hr />
 
 {{ node.html | safe }}
-
-<br /><br />
-<hr />
-
+<br />
 {% if node.node_set.all %}
-   <h4>upstream nodes (nodes linking to this node)</h4>
+   <hr />
+   <strong>upstream nodes (nodes linking to this node):</strong>
    {% for us_node in node.node_set.all %}
    <a href="{% url 'hypothesize_app:node_detail' us_node.id %}" class="internal-link" data-linkpk="node-{{us_node.id}}">
       {{us_node.id}}</a>
    {% endfor %}
 {% endif %}
-
-<hr />

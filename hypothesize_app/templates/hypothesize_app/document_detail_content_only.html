@@ -26,36 +26,31 @@ AUTHORS:<br />
     {{author.id}}<br />
 {% endfor %}
 
-<br /><br />
+<br />
 
 <hr />
-
 {% if document.linked_documents.all %}
-    <h4>downstream documents (documents linked to by this document)</h4>
+    <strong>downstream documents (documents linked to by this document):</strong>
     {% for ds_doc in document.linked_documents.all %}
     <a href="{% url 'hypothesize_app:document_detail' ds_doc.id %}" class="internal-link"
        data-linkpk="document-{{ds_doc.id}}">
-       {{ds_doc.id}}
-    </a>
+       {{ds_doc.id}}</a>
     {% endfor %}
 {% endif %}
 
 {% if document.document_set.all %}
-    <h4>upstream documents (documents linking to this document)</h4>
+    <strong>upstream documents (documents linking to this document):</strong>
     {% for us_doc in document.document_set.all %}
     <a href="{% url 'hypothesize_app:document_detail' us_doc.id %}" class="internal-link"
        data-linkpk="document-{{us_doc.id}}">
-       {{us_doc.id}}
-    </a>
+       {{us_doc.id}}</a>
     {% endfor %}
 {% endif %}
 
 {% if document.node_set.all %}
-<h4>upstream nodes (nodes linking to this document)</h4>
-{% for us_node in document.node_set.all %}
-<a href="{% url 'hypothesize_app:node_detail' us_node.id %}" class="internal-link" data-linkpk="node-{{us_node.id}}">
-   {{us_node.id}}
-</a>
-{% endfor %}
+<strong>upstream nodes (nodes linking to this document):</strong>
+    {% for us_node in document.node_set.all %}
+    <a href="{% url 'hypothesize_app:node_detail' us_node.id %}" class="internal-link" data-linkpk="node-{{us_node.id}}">
+       {{us_node.id}}</a>
+    {% endfor %}
 {% endif %}
-<hr />
