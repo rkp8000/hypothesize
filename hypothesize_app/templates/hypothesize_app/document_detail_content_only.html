@@ -14,7 +14,8 @@
     {% else %}
         <strong>{{document.id}}</strong>
     {% endif %}
-    <a href="{% url 'hypothesize_app:document_change' document.id %}">(change)</a>
+    (<a href="{% url 'hypothesize_app:document_change' document.id %}">change</a>)
+    (<a href="{% url 'hypothesize_app:document_search' %}">return to search</a>)
 </h3>
 
 "{{document.title}}"<br />

@@ -1,4 +1,5 @@
-<h3>{{ node.title }} <a href="{% url 'hypothesize_app:node_change' node.id %}">(change)</a></h3>
+<h3>{{ node.title }} (<a href="{% url 'hypothesize_app:node_change' node.id %}">change</a>)
+   (<a href="{% url 'hypothesize_app:node_search' %}">return to search</a>)</h3>
 <hr />
 
 {{ node.html | safe }}
