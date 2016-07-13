@@ -29,7 +29,7 @@ class Document(models.Model):
     year = models.SmallIntegerField(null=True, blank=True)
     abstract = models.TextField(blank=True, default='')
     web_link = models.CharField(max_length=500, blank=True, default='')
-    last_viewed = models.DateTimeField(default=timezone.now, blank=True)
+    last_saved = models.DateTimeField(default=timezone.now, blank=True)
     uploaded = models.DateTimeField(default=timezone.now, blank=True)
     file = models.FileField(upload_to='documents', null=True, blank=True)
     linked_document_text = models.TextField(blank=True, default='')
@@ -83,6 +83,10 @@ class Document(models.Model):
         document_processing.bind_authors(self, author_model=Author)
 
         document_processing.bind_linked_documents(self, document_model=Document)
+
+        # update last saved time
+
+        self.last_saved = timezone.now()
 
         super(Document, self).save(*args, **kwargs)
 
