@@ -2,19 +2,19 @@
     {% if document.file %}
         {% if file_server_address %}
             <a href="{{file_server_address}}/{{document.file.name}}">
-                <strong>{{document.id}}</strong>
+                <strong>{{document.key}}</strong>
             </a>
         {% else %}
             <a href="{{ MEDIA_URL }}{{document.file}}">
-                <strong>{{document.id}}</strong>
+                <strong>{{document.key}}</strong>
             </a>
         {% endif %}
     {% elif document.primary_external_link %}
-        <a href="{{document.primary_external_link}}"><strong>{{document.id}}</strong></a>
+        <a href="{{document.primary_external_link}}"><strong>{{document.key}}</strong></a>
     {% else %}
-        <strong>{{document.id}}</strong>
+        <strong>{{document.key}}</strong>
     {% endif %}
-    (<a href="{% url 'hypothesize_app:document_change' document.id %}">change</a>)
+    (<a href="{% url 'hypothesize_app:document_change' document.key %}">change</a>)
     (<a href="{% url 'hypothesize_app:document_search' %}">return to search</a>)
 </h3>
 
@@ -24,7 +24,7 @@ Abstract:<br />
 {{document.abstract}}<br /><br />
 AUTHORS:<br />
 {% for author in document.authors.all %}
-    {{author.id}}<br />
+    {{author.name}}<br />
 {% endfor %}
 
 <br />
@@ -33,25 +33,25 @@ AUTHORS:<br />
 {% if document.linked_documents.all %}
     <strong>downstream documents (documents linked to by this document):</strong>
     {% for ds_doc in document.linked_documents.all %}
-    <a href="{% url 'hypothesize_app:document_detail' ds_doc.id %}" class="internal-link"
-       data-linkpk="document-{{ds_doc.id}}">
-       {{ds_doc.id}}</a>
+    <a href="{% url 'hypothesize_app:document_detail' ds_doc.key %}" class="internal-link"
+       data-linkkey="document-{{ds_doc.key}}">
+       {{ds_doc.key}}</a>
     {% endfor %}
 {% endif %}
 
 {% if document.document_set.all %}
     <strong>upstream documents (documents linking to this document):</strong>
     {% for us_doc in document.document_set.all %}
-    <a href="{% url 'hypothesize_app:document_detail' us_doc.id %}" class="internal-link"
-       data-linkpk="document-{{us_doc.id}}">
-       {{us_doc.id}}</a>
+    <a href="{% url 'hypothesize_app:document_detail' us_doc.key %}" class="internal-link"
+       data-linkkey="document-{{us_doc.key}}">
+       {{us_doc.key}}</a>
     {% endfor %}
 {% endif %}
 
 {% if document.topic_set.all %}
 <strong>upstream topics (topics linking to this document):</strong>
     {% for us_topic in document.topic_set.all %}
-    <a href="{% url 'hypothesize_app:topic_detail' us_topic.id %}" class="internal-link" data-linkpk="topic-{{us_topic.id}}">
-       {{us_topic.id}}</a>
+    <a href="{% url 'hypothesize_app:topic_detail' us_topic.key %}" class="internal-link" data-linkkey="topic-{{us_topic.key}}">
+       {{us_topic.key}}</a>
     {% endfor %}
 {% endif %}

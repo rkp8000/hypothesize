@@ -8,7 +8,7 @@
 <body>
 
     <h3>
-        <a href="{% url 'hypothesize_app:document_search' %}" style="color: black;">search scientific documents</a>
+        <a href="{% url 'hypothesize_app:document_search' %}" style="color: black;">search documents</a>
     </h3>
 
     <form action="{% url 'hypothesize_app:document_search' %}" method="get">
@@ -28,21 +28,21 @@
         {% for document in documents %}
             <div class="document_search_result search_result">
 
-                <a href="{% url 'hypothesize_app:document_detail' document.id %}">
+                <a href="{% url 'hypothesize_app:document_detail' document.key %}">
 
-                <span class="document_id"><strong>{{document.id}}</strong></span>
-                <span class="document_last_viewed">({{document.last_viewed}})</span>
+                <span class="document_key"><strong>{{document.key}}</strong></span>
+                <span class="document_last_saved">({{document.last_saved}})</span>
                     <br />
                 <span class="document_title">{{document.title}}</span></a>
                     <br />
 
                 <div class="document_abstract">
-                    <a href="{% url 'hypothesize_app:document_detail' document.id %}">
+                    <a href="{% url 'hypothesize_app:document_detail' document.key %}">
                     {{document.abstract}}
                     </a>
                 </div>
 
-                <span class="document_id" hidden="hidden">{{ document.id }}</span>
+                <span class="document_key" hidden="hidden">{{ document.key }}</span>
 
             </div>
         {% endfor %}

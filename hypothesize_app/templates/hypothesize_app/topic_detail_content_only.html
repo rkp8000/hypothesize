@@ -1,4 +1,4 @@
-<h3>{{ topic.title }} (<a href="{% url 'hypothesize_app:topic_change' topic.id %}">change</a>)
+<h3>{{ topic.title }} (<a href="{% url 'hypothesize_app:topic_change' topic.key %}">change</a>)
    (<a href="{% url 'hypothesize_app:topic_search' %}">return to search</a>)</h3>
 <hr />
 
@@ -8,7 +8,7 @@
    <hr />
    <strong>upstream topics:</strong>
    {% for us_topic in topic.topic_set.all %}
-   <a href="{% url 'hypothesize_app:topic_detail' us_topic.id %}" class="internal-link" data-linkpk="topic-{{us_topic.id}}">
-      {{us_topic.id}}</a>
+   <a href="{% url 'hypothesize_app:topic_detail' us_topic.key %}" class="internal-link" data-linkkey="topic-{{us_topic.key}}">
+      {{us_topic.key}}</a>
    {% endfor %}
 {% endif %}

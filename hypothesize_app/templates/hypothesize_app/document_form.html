@@ -12,7 +12,7 @@
         $.fn.asuggest.defaults.minChunkSize = 1;
         $("#id_linked_document_text").asuggest(suggests_documents);
 
-        var suggests_authors = {{ author_pk_list | safe }};
+        var suggests_authors = {{ author_name_list | safe }};
         $("#id_author_text").asuggest(suggests_authors);
 
         var suggests_publication = {{ publication_name_list | safe }};
@@ -39,6 +39,6 @@
 
 <br />
 
-<a href="{% url 'hypothesize_app:document_delete' document.id %}">delete this document</a>
+<a href="{% url 'hypothesize_app:document_delete' document.key %}">delete this document</a>
 
 {% endif %}

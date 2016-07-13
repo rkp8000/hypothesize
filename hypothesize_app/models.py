@@ -12,7 +12,7 @@ import topic_processing
 class Author(models.Model):
     """Author class."""
 
-    name = models.CharField(max_length=255, db_index=True)
+    name = models.CharField(max_length=255, db_index=True, default='')
 
     def __unicode__(self):
 
@@ -22,7 +22,7 @@ class Author(models.Model):
 class Document(models.Model):
     """Article class."""
 
-    key = models.CharField(max_length=255, unique=True)
+    key = models.CharField(max_length=255, unique=True, default='')
     title = models.CharField(max_length=255, default='')
     author_text = models.TextField(blank=True, default='')
     publication = models.CharField(max_length=100, blank=True, default='')
@@ -94,7 +94,7 @@ class Document(models.Model):
 class Topic(models.Model):
     """Topic class."""
 
-    key = models.CharField(max_length=255, unique=True)
+    key = models.CharField(max_length=255, unique=True, default='')
     text = models.TextField(blank=True, default='')
     last_saved = models.DateTimeField(default=timezone.now, blank=True)
     topics = models.ManyToManyField('self', symmetrical=False, blank=True)

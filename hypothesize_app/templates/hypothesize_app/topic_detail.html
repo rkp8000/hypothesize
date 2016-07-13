@@ -15,7 +15,7 @@
             $.ajax({
                 url: "{% url 'hypothesize_app:ajax_link_fetcher' %}",
                 type: "GET",
-                data: {'linkpk': el.attr("data-linkpk")},
+                data: {'linkkey': el.attr("data-linkkey")},
 
                 success: function(json){
                     inside_div = json.html;
@@ -51,7 +51,7 @@
         });
     </script>
 
-    <title>{{topic.id}}</title>
+    <title>{{topic.key}}</title>
 
 </head>
 

@@ -26,18 +26,16 @@
                 url: "{% url 'hypothesize_app:ajax_topic_saver' %}",
                 type: "GET",
                 data: {
-                    'initial_id': $("#initial_id").val(),
                     'id': $("#id_id").val(),
-                    'type': $("#id_type").val(),
+                    'key': $("#id_key").val(),
                     'text': $("#id_text").val()
                 },
 
                 success: function(json){
                     $('#topic_save_status').html(json['topic_save_message']);
 
-                    if ('new_id' in json) {
-                        $('#initial_id').val(json['new_id']);
-                        $('title').html('EDIT: ' + json['new_id']);
+                    if ('new_key' in json) {
+                        $('title').html('EDIT: ' + json['new_key']);
                     }
                 },
 
@@ -62,7 +60,7 @@
 
     <title>
         {% if topic %}
-            EDIT: {{ topic.id }}
+            EDIT: {{ topic.key }}
         {% else %}
             add new topic
         {% endif %}
@@ -74,12 +72,12 @@
 <form action="" method="post">
     {% csrf_token %}
     {{form.as_p}}
-    <input id="initial_id" type="hidden" value="{{ topic.id }}" />
+    <input id="id_id" type="hidden" value="{{ topic.id }}" />
     <input type="submit" value="Save" />
 </form>
 
 {% if include_delete %}
 <br />
 
-<a href="{% url 'hypothesize_app:topic_delete' topic.id %}">delete this topic</a>
+<a href="{% url 'hypothesize_app:topic_delete' topic.key %}">delete this topic</a>
 {% endif %}

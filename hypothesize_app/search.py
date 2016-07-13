@@ -59,7 +59,7 @@ def document_query(query):
 
     else:
 
-        documents = models.Document.objects.all().order_by('-last_viewed')
+        documents = models.Document.objects.all().order_by('-last_saved')
 
     return list(unique_everseen(documents))
 
@@ -101,6 +101,6 @@ def topic_query(query):
 
     else:
 
-        topics = models.Topic.objects.all().order_by('-last_viewed')
+        topics = models.Topic.objects.all().order_by('-last_saved')
 
     return list(unique_everseen(topics))
