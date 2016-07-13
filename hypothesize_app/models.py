@@ -12,17 +12,17 @@ import topic_processing
 class Author(models.Model):
     """Author class."""
 
-    id = models.CharField(max_length=255, primary_key=True)
+    name = models.CharField(max_length=255, db_index=True)
 
     def __unicode__(self):
 
-        return self.id
+        return self.name
 
 
 class Document(models.Model):
     """Article class."""
 
-    id = models.CharField(max_length=100, primary_key=True)
+    key = models.CharField(max_length=255, unique=True)
     title = models.CharField(max_length=255, default='')
     author_text = models.TextField(blank=True, default='')
     publication = models.CharField(max_length=100, blank=True, default='')
@@ -38,7 +38,7 @@ class Document(models.Model):
 
     def __unicode__(self):
 
-        return self.id
+        return self.key
 
     @property
     def primary_external_link(self):
@@ -53,28 +53,28 @@ class Document(models.Model):
 
     def get_absolute_url(self):
 
-        return reverse('hypothesize_app:document_detail', kwargs={'pk': self.id})
+        return reverse('hypothesize_app:document_detail', kwargs={'key': self.key})
 
     def save(self, *args, **kwargs):
         """
         Override basic save method to extract linked documents.
         """
 
-        # generate id if there wasn't one before
+        # generate key if there wasn't one before
 
-        if not self.id:
+        if not self.key:
 
-            document_processing.bind_primary_key(self, document_model=Document)
+            self.key = document_processing.make_key(self, document_model=Document)
 
         else:
 
-            # change document id if primary key base has changed
+            # change document key if base key has changed
 
-            pk_base = document_processing.get_primary_key_base(self.id)
+            base_key = document_processing.get_base_key(self.key)
 
-            if pk_base != document_processing.make_candidate_primary_key(self):
+            if base_key != document_processing.make_base_key(self):
 
-                document_processing.bind_primary_key(self, document_model=Document)
+                self.key = document_processing.make_key(self, document_model=Document)
 
         # save the document so we can bind other things to it
 
@@ -90,7 +90,7 @@ class Document(models.Model):
 class Topic(models.Model):
     """Topic class."""
 
-    id = models.CharField(max_length=1000, primary_key=True)
+    key = models.CharField(max_length=255, unique=True)
     text = models.TextField(blank=True, default='')
     last_viewed = models.DateTimeField(default=timezone.now, blank=True)
     topics = models.ManyToManyField('self', symmetrical=False, blank=True)
@@ -113,12 +113,12 @@ class Topic(models.Model):
 
     def __unicode__(self):
 
-        return self.id
+        return self.key
 
     @property
     def title(self):
 
-        return os.path.basename(self.id)
+        return os.path.basename(self.key)
 
     @property
     def html(self):
@@ -127,4 +127,4 @@ class Topic(models.Model):
 
     def get_absolute_url(self):
 
-        return reverse('hypothesize_app:topic_detail', kwargs={'pk': self.id})
+        return reverse('hypothesize_app:topic_detail', kwargs={'key': self.key})
