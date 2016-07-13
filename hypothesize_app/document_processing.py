@@ -119,7 +119,7 @@ def make_key(document, document_model):
 
     if not conflicting_keys:
 
-        key = conflicting_keys
+        return base_key
 
     else:
 
