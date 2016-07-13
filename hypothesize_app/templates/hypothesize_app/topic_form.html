@@ -34,8 +34,12 @@
                 success: function(json){
                     $('#topic_save_status').html(json['topic_save_message']);
 
-                    if ('new_key' in json) {
-                        $('title').html('EDIT: ' + json['new_key']);
+                    if ('key' in json) {
+                        $('title').html('EDIT: ' + json['key']);
+                    }
+
+                    if ('new_id' in json) {
+                        $('#id_id').val(json['new_id']);
                     }
                 },
 
