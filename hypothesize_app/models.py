@@ -96,7 +96,7 @@ class Topic(models.Model):
 
     key = models.CharField(max_length=255, unique=True)
     text = models.TextField(blank=True, default='')
-    last_viewed = models.DateTimeField(default=timezone.now, blank=True)
+    last_saved = models.DateTimeField(default=timezone.now, blank=True)
     topics = models.ManyToManyField('self', symmetrical=False, blank=True)
     documents = models.ManyToManyField(Document, blank=True)
 
@@ -112,6 +112,8 @@ class Topic(models.Model):
         topic_processing.update_text_file(self)
 
         topic_processing.bind_linked_objects(self, document_model=Document, topic_model=Topic)
+
+        self.last_saved = timezone.now()
 
         super(Topic, self).save(*args, **kwargs)
 
