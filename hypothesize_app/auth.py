@@ -16,6 +16,10 @@ class BasicAuthMiddleware(object):
 
     def process_request(self,request):
 
+        if not (settings.BASICAUTH_USERNAME and settings.BASICAUTH_PASSWORD):
+
+            return None
+
         if not request.META.has_key('HTTP_AUTHORIZATION'):
 
             return self.unauthed()

@@ -30,21 +30,8 @@ ALLOWED_HOSTS = ['*']
 
 # set default settings or override with user-defined settings in my_settings.py
 
-if my_settings.USERNAME:
-
-    BASICAUTH_USERNAME = my_settings.USERNAME
-
-else:
-
-    BASICAUTH_USERNAME = 'user'
-
-if my_settings.PASSWORD:
-
-    BASICAUTH_PASSWORD = my_settings.PASSWORD
-
-else:
-
-    BASICAUTH_PASSWORD = 'pass'
+BASICAUTH_USERNAME = my_settings.USERNAME
+BASICAUTH_PASSWORD = my_settings.PASSWORD
 
 if my_settings.TOPIC_DIRECTORY:
 
