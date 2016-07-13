@@ -64,6 +64,10 @@ else:
 
 DATABASE_BACKUP_INTERVAL_SECONDS = 24 * 60 * 60
 
+TOPIC_KEY_CHARACTER_WHITELIST = list('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') + \
+    [';', ',', '.', '?', '[', ']', '{', '}', "'", '"'] + \
+    ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+']
+
 # Application definition
 
 INSTALLED_APPS = (
