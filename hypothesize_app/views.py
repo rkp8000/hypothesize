@@ -261,24 +261,64 @@ class AjaxTopicSaver(generic.View):
 
         # make sure topic has key
 
-        if not self.request.GET['key']:
+        key = self.request.GET['key']
+
+        json_response = {'key': key}
+
+        if not key:
 
             return JsonResponse(
-                {'topic_save_message': '(Error: you must provide a key.)'}
+                {'topic_save_message': '(error: you must provide a key)'}
             )
+
+        # get list of existing keys
+
+        keys_existing = list(models.Topic.objects.values_list('key', flat=True))
+
+        # get the topic if it exists, otherwise attempt to make a new one
+
+        if self.request.GET['id']:
+
+            topic = models.Topic.objects.get(pk=self.request.GET['id'])
+
+            # make sure key is not taken by anything other than fetched topic
+
+            if key in keys_existing and key != topic.key:
+
+                return JsonResponse(
+                    {'topic_save_message': '(error: that key is already taken)'}
+                )
 
         else:
 
-            return JsonResponse(
-                {'topic_save_message': 'AJAX working but topic not saved.'}
-            )
+            # make sure key is not already taken
 
-        #topic_save_message = datetime.now().strftime('(topic last saved at %H:%M:%S on %Y-%m-%d)')
+            if key in keys_existing:
 
-        #json_response = JsonResponse(
-        #    {'topic_save_message': topic_save_message, 'new_id': topic.id})
+                return JsonResponse(
+                    {'topic_save_message': '(error: that key is already taken)'}
+                )
 
-        #return json_response
+            # make a new topic
+
+            topic = models.Topic(key=key)
+
+            topic.save()
+
+            json_response['new_id'] = topic.id
+
+        # bind key and text to topic
+
+        topic.key = key
+        topic.text = self.request.GET['text']
+
+        topic.save()
+
+        topic_save_message = datetime.now().strftime('(topic last saved at %H:%M:%S on %Y-%m-%d)')
+
+        json_response['topic_save_message'] = topic_save_message
+
+        return JsonResponse(json_response)
 
 
 class DatabaseBackup(generic.TemplateView):
