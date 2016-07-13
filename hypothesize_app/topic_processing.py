@@ -120,7 +120,7 @@ def document_link_to_html(match):
 
         url = '#'
 
-    html = '<a href="{}" class="internal-link" data-link-key="document-{}">{}</a>'.format(
+    html = '<a href="{}" class="internal-link" data-linkkey="document-{}">{}</a>'.format(
         url, document_key, text_to_display)
 
     return html
@@ -153,7 +153,7 @@ def topic_link_to_html(match):
 
         url = '#'
 
-    html = '<a href="{}" class="internal-link" data-link-key="topic-{}">{}</a>'.format(
+    html = '<a href="{}" class="internal-link" data-linkkey="topic-{}">{}</a>'.format(
         url, topic_key, text_to_display)
 
     return html
