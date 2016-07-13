@@ -271,6 +271,19 @@ class AjaxTopicSaver(generic.View):
                 {'topic_save_message': '(error: you must provide a key)'}
             )
 
+        # make sure key is valid
+
+        invalid_chars = ['"' + char + '"' for char in topic_processing.get_invalid_key_characters(key)]
+
+        if invalid_chars:
+
+            invalid_str = ', '.join(invalid_chars)
+
+            topic_save_message = '(error: the characters {} cannot be used in a key)'.format(invalid_str)
+
+            return JsonResponse(
+                {'topic_save_message': topic_save_message})
+
         # get list of existing keys
 
         keys_existing = list(models.Topic.objects.values_list('key', flat=True))

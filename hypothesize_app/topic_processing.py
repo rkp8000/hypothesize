@@ -24,6 +24,16 @@ def make_topic_save_directory(path):
         os.makedirs(path)
 
 
+def get_invalid_key_characters(key):
+    """
+    Make sure the topic key includes only characters in the topic key character whitelist.
+    :param key: topic key
+    :return: list of characters not in whitelist
+    """
+
+    return set([char for char in key if char not in settings.TOPIC_KEY_CHARACTER_WHITELIST])
+
+
 def update_text_file(topic):
     """
     Update the text file corresponding to an updated topic.
