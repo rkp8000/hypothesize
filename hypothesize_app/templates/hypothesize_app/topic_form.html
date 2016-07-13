@@ -71,13 +71,14 @@
     </title>
 </head>
 
+<a href="#" onclick="save_topic()">save</a>&nbsp;
+<a href="#">view</a>&nbsp;
 <a href="{% url 'hypothesize_app:topic_search' %}">return to search</a><br />
 
 <form action="" method="post">
     {% csrf_token %}
     {{form.as_p}}
     <input id="id_id" type="hidden" value="{{ topic.id }}" />
-    <input type="submit" value="Save" />
 </form>
 
 {% if include_delete %}
