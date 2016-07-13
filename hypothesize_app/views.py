@@ -50,13 +50,7 @@ class DocumentDetail(generic.DetailView):
 
     def get_object(self):
 
-        doc = models.Document.objects.get(pk=self.kwargs['pk'])
-
-        doc.last_viewed = datetime.now()
-
-        doc.save()
-
-        return doc
+        return models.Document.objects.get(key=self.kwargs['key'])
 
 
 class DocumentChange(generic.UpdateView):
@@ -69,10 +63,9 @@ class DocumentChange(generic.UpdateView):
 
     def get_object(self):
 
-        doc = models.Document.objects.get(pk=self.kwargs['pk'])
+        doc = models.Document.objects.get(key=self.kwargs['key'])
 
-        doc.last_viewed = datetime.now()
-
+        # TODO: is this save necessary?
         doc.save()
 
         return doc
@@ -85,8 +78,8 @@ class DocumentChange(generic.UpdateView):
 
         # add in tab complete options
 
-        context['document_pk_list'] = [str(pk) for pk in models.Document.objects.values_list('id', flat=True)]
-        context['author_pk_list'] = [str(pk) for pk in models.Author.objects.values_list('id', flat=True)]
+        context['document_key_list'] = [str(key) for key in models.Document.objects.values_list('key', flat=True)]
+        context['author_name_list'] = [str(name) for name in models.Author.objects.values_list('name', flat=True)]
         context['publication_name_list'] = [
             str(unidecode(pub))
             for pub in models.Document.objects.values_list('publication', flat=True).distinct()
@@ -115,8 +108,8 @@ class DocumentCreate(generic.CreateView):
 
         # add in tab complete options
 
-        context['document_pk_list'] = [str(pk) for pk in models.Document.objects.values_list('id', flat=True)]
-        context['author_pk_list'] = [str(pk) for pk in models.Author.objects.values_list('id', flat=True)]
+        context['document_key_list'] = [str(key) for key in models.Document.objects.values_list('key', flat=True)]
+        context['author_name_list'] = [str(name) for name in models.Author.objects.values_list('name', flat=True)]
         context['publication_name_list'] = [
             str(unidecode(pub))
             for pub in models.Document.objects.values_list('publication', flat=True).distinct()
@@ -164,13 +157,7 @@ class TopicDetail(generic.DetailView):
 
     def get_object(self):
 
-        topic = models.Topic.objects.get(pk=self.kwargs['pk'])
-
-        topic.last_viewed = datetime.now()
-
-        topic.save()
-
-        return topic
+        return models.Topic.objects.get(key=self.kwargs['key'])
 
 
 class TopicChange(generic.UpdateView):
@@ -180,9 +167,7 @@ class TopicChange(generic.UpdateView):
 
     def get_object(self):
 
-        topic = models.Topic.objects.get(pk=self.kwargs['pk'])
-
-        topic.last_viewed = datetime.now()
+        topic = models.Topic.objects.get(key=self.kwargs['key'])
 
         topic.save()
 
@@ -197,8 +182,7 @@ class TopicChange(generic.UpdateView):
         # add in tab complete options
 
         context['tab_complete_options'] = topic_processing.make_tab_complete_options(
-            document_model=models.Document, topic_model=models.Topic,
-        )
+            document_model=models.Document, topic_model=models.Topic)
 
         # add in deletion option
 
@@ -221,8 +205,7 @@ class TopicCreate(generic.CreateView):
         # add in tab complete options
 
         context['tab_complete_options'] = topic_processing.make_tab_complete_options(
-            document_model=models.Document, topic_model=models.Topic,
-        )
+            document_model=models.Document, topic_model=models.Topic)
 
         return context
 
@@ -237,7 +220,7 @@ class AjaxLinkFetcher(generic.View):
 
     def get(self, request):
 
-        link_type, link_pk = request.GET['linkpk'].split('-', 1)
+        link_type, key = request.GET['linkkey'].split('-', 1)
 
         context = {
             'MEDIA_URL': '/media/',
@@ -245,7 +228,7 @@ class AjaxLinkFetcher(generic.View):
 
         if link_type == 'document':
 
-            obj = models.Document.objects.get(pk=link_pk)
+            obj = models.Document.objects.get(key=key)
 
             context['document'] = obj
 
@@ -253,7 +236,7 @@ class AjaxLinkFetcher(generic.View):
 
         elif link_type == 'topic':
 
-            obj = models.Topic.objects.get(pk=link_pk)
+            obj = models.Topic.objects.get(key=key)
 
             context['topic'] = obj
 
@@ -276,45 +259,26 @@ class AjaxTopicSaver(generic.View):
 
     def get(self, request):
 
-        # make sure topic has ID
+        # make sure topic has key
 
-        if not self.request.GET['id']:
+        if not self.request.GET['key']:
 
             return JsonResponse(
-                {'topic_save_message': '(Error: you must provide an ID.)'}
+                {'topic_save_message': '(Error: you must provide a key.)'}
             )
-
-        # get original topic or try to make a new one
-
-        if self.request.GET['id'] == self.request.GET['initial_id']:
-
-            topic = models.Topic.objects.get(pk=self.request.GET['id'])
 
         else:
 
-            # attempt to create new topic
+            return JsonResponse(
+                {'topic_save_message': 'AJAX working but topic not saved.'}
+            )
 
-            try:
+        #topic_save_message = datetime.now().strftime('(topic last saved at %H:%M:%S on %Y-%m-%d)')
 
-                models.Topic.objects.get(pk=self.request.GET['id'])
+        #json_response = JsonResponse(
+        #    {'topic_save_message': topic_save_message, 'new_id': topic.id})
 
-                return JsonResponse(
-                    {'topic_save_message': '(Error: a topic with that ID already exists.)'})
-
-            except:
-
-                topic = models.Topic(id=self.request.GET['id'])
-
-        topic.text = self.request.GET['text']
-
-        topic.save()
-
-        topic_save_message = datetime.now().strftime('(topic last saved at %H:%M:%S on %Y-%m-%d)')
-
-        json_response = JsonResponse(
-            {'topic_save_message': topic_save_message, 'new_id': topic.id})
-
-        return json_response
+        #return json_response
 
 
 class DatabaseBackup(generic.TemplateView):
