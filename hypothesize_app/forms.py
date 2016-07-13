@@ -30,9 +30,9 @@ class TopicForm(ModelForm):
     class Meta:
 
         model = Topic
-        fields = ['id', 'text']
+        fields = ['key', 'text']
         labels = {
-            'id': 'ID',
+            'key': 'key',
             'text': mark_safe(
                 'Text'
                 '&nbsp; &nbsp; <span id="topic_save_status"></span><br />'),

@@ -9,16 +9,16 @@ import models
 
 class DocumentProcessingTestCase(TestCase):
 
-    def test_get_primary_key_base_works_correctly_on_examples(self):
+    def test_get_key_base_works_correctly_on_examples(self):
 
         pass
 
 
 class DocumentChangingTestCase(TestCase):
 
-    def test_basic_primary_key_is_created_correctly(self):
+    def test_basic_key_is_created_correctly(self):
         """
-        Make sure primary keys for documents combine first author last name and year.
+        Make sure keys for documents combine first author last name and year.
         """
 
         doc = models.Document(
@@ -31,11 +31,11 @@ class DocumentChangingTestCase(TestCase):
 
         doc.save()
 
-        self.assertEqual(doc.id, 'Johnson2005')
+        self.assertEqual(doc.key, 'Johnson2005')
 
-    def test_basic_overlapping_primary_keys_are_sorted_correctly(self):
+    def test_basic_overlapping_keys_are_sorted_correctly(self):
         """
-        Make sure if default primary key is already taken, A, B, etc., gets tagged onto new primary key.
+        Make sure if base key is already taken, A, B, etc., gets tagged onto new key.
         """
 
         doc_1 = models.Document(
@@ -68,14 +68,14 @@ class DocumentChangingTestCase(TestCase):
 
         doc_3.save()
 
-        self.assertEqual(doc_1.id, 'Johnson2005')
-        self.assertEqual(doc_2.id, 'Johnson2005A')
-        self.assertEqual(doc_3.id, 'Johnson2005B')
+        self.assertEqual(doc_1.key, 'Johnson2005')
+        self.assertEqual(doc_2.key, 'Johnson2005A')
+        self.assertEqual(doc_3.key, 'Johnson2005B')
 
-    def test_primary_key_with_nonalpha_first_author_name_is_created_correctly(self):
+    def test_key_with_nonalpha_first_author_name_is_created_correctly(self):
         """
         Make sure if first author last name has spaces and periods, these are removed in the creation of
-        the primary key.
+        the key.
         """
 
         doc = models.Document(
@@ -88,9 +88,9 @@ class DocumentChangingTestCase(TestCase):
 
         doc.save()
 
-        self.assertEqual(doc.id, 'VanJosephJr2010')
+        self.assertEqual(doc.key, 'VanJosephJr2010')
 
-    def test_primary_key_with_accented_first_author_name_is_created_correctly(self):
+    def test_key_with_accented_first_author_name_is_created_correctly(self):
         """
         Make sure that accents, etc., are removed from first author names when creating primary key.
         """
@@ -105,9 +105,9 @@ class DocumentChangingTestCase(TestCase):
 
         doc.save()
 
-        self.assertEqual(doc.id, 'VanDuberveckJr2010')
+        self.assertEqual(doc.key, 'VanDuberveckJr2010')
 
-    def test_primary_key_defaults_work_if_name_or_year_not_given(self):
+    def test_key_defaults_work_if_name_or_year_not_given(self):
         """
         If the author name is not given, it should be replaced with Unknown. If the year is not given it should
         be replaced with 0000.
@@ -122,7 +122,7 @@ class DocumentChangingTestCase(TestCase):
 
         doc.save()
 
-        self.assertEqual(doc.id, 'Johnson0000')
+        self.assertEqual(doc.key, 'Johnson0000')
 
         doc = models.Document(
             publication='Nature',
@@ -133,7 +133,7 @@ class DocumentChangingTestCase(TestCase):
 
         doc.save()
 
-        self.assertEqual(doc.id, 'Unknown2005')
+        self.assertEqual(doc.key, 'Unknown2005')
 
     def test_authors_are_extracted_correctly_and_bound_to_document(self):
         """
@@ -150,10 +150,10 @@ class DocumentChangingTestCase(TestCase):
 
         doc.save()
 
-        bound_author_ids = [author.id for author in doc.authors.all()]
-        bound_author_ids_correct = ['van Joseph Jr., Vierden', 'Doo, Yabadaba']
+        bound_author_names = [author.name for author in doc.authors.all()]
+        bound_author_names_correct = ['van Joseph Jr., Vierden', 'Doo, Yabadaba']
 
-        self.assertEqual(set(bound_author_ids), set(bound_author_ids_correct))
+        self.assertEqual(set(bound_author_names), set(bound_author_names_correct))
 
     def test_downstream_documents_are_extracted_correctly_and_bound_to_document(self):
 

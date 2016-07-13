@@ -19,7 +19,7 @@ def document_query(query):
 
         try:
 
-            documents += list(models.Document.objects.filter(id__iexact=query).all())
+            documents += list(models.Document.objects.filter(key__iexact=query).all())
 
         except ObjectDoesNotExist:
 
@@ -35,7 +35,7 @@ def document_query(query):
 
         try:
 
-            documents += list(models.Document.objects.filter(id__contains=query).all())
+            documents += list(models.Document.objects.filter(key__contains=query).all())
 
         except ObjectDoesNotExist:
 
@@ -77,7 +77,7 @@ def topic_query(query):
 
         try:
 
-            topics += list(models.Topic.objects.filter(id__iexact=query).all())
+            topics += list(models.Topic.objects.filter(key__iexact=query).all())
 
         except ObjectDoesNotExist:
 
@@ -85,7 +85,7 @@ def topic_query(query):
 
         try:
 
-            topics += list(models.Topic.objects.filter(id__contains=query).all())
+            topics += list(models.Topic.objects.filter(key__contains=query).all())
 
         except ObjectDoesNotExist:
 
