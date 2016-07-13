@@ -34,7 +34,7 @@ def update_text_file(topic):
 
     make_topic_save_directory(topic_save_directory)
 
-    path = os.path.join(topic_save_directory, topic.id)
+    path = os.path.join(topic_save_directory, topic.key)
 
     if not os.path.exists(os.path.dirname(path)):
 
@@ -59,17 +59,17 @@ def extract_linked_objects(text, document_model, topic_model):
     # extract documents
 
     document_links = re.findall(DOCUMENT_LINK_PATTERN, text)
-    document_ids = [link.split('|')[0].strip() for link in document_links]
+    document_keys = [link.split('|')[0].strip() for link in document_links]
 
-    documents = [document_model.objects.filter(id=document_id).first() for document_id in document_ids]
+    documents = [document_model.objects.filter(key=document_key).first() for document_key in document_keys]
     documents = [document for document in documents if document is not None]
 
     # extract topic links
 
     topic_links = re.findall(TOPIC_LINK_PATTERN, text)
-    topic_ids = [link.split('|')[0].strip() for link in topic_links]
+    topic_keys = [link.split('|')[0].strip() for link in topic_links]
 
-    topics = [topic_model.objects.filter(id=topic_id).first() for topic_id in topic_ids]
+    topics = [topic_model.objects.filter(key=topic_key).first() for topic_key in topic_keys]
     topics = [topic for topic in topics if topic is not None]
 
     return documents, topics
@@ -77,7 +77,7 @@ def extract_linked_objects(text, document_model, topic_model):
 
 def bind_linked_objects(topic, document_model, topic_model):
     """
-    Bind all of the documents and topics that a topic links to itself in the database.
+    Bind all documents and topics linked to by a topic to that topic.
 
     :param topic: topic
     :param document_model: models.Document
@@ -102,7 +102,7 @@ def document_link_to_html(match):
 
     fragments = match.group()[2:-2].split('|', 1)
 
-    document_id = fragments[0]
+    document_key = fragments[0]
 
     if len(fragments) == 1:
 
@@ -114,14 +114,14 @@ def document_link_to_html(match):
 
     try:
 
-        url = reverse('hypothesize_app:document_detail', args=(document_id.strip(),))
+        url = reverse('hypothesize_app:document_detail', args=(document_key.strip(),))
 
     except NoReverseMatch:
 
         url = '#'
 
-    html = '<a href="{}" class="internal-link" data-linkpk="document-{}">{}</a>'.format(
-        url, document_id, text_to_display)
+    html = '<a href="{}" class="internal-link" data-link-key="document-{}">{}</a>'.format(
+        url, document_key, text_to_display)
 
     return html
 
@@ -135,7 +135,7 @@ def topic_link_to_html(match):
 
     fragments = match.group()[2:-2].split('|', 1)
 
-    topic_id = fragments[0]
+    topic_key = fragments[0]
 
     if len(fragments) == 1:
 
@@ -147,14 +147,14 @@ def topic_link_to_html(match):
 
     try:
 
-        url = reverse('hypothesize_app:topic_detail', args=(topic_id.strip(),))
+        url = reverse('hypothesize_app:topic_detail', args=(topic_key.strip(),))
 
     except NoReverseMatch:
 
         url = '#'
 
-    html = '<a href="{}" class="internal-link" data-linkpk="topic-{}">{}</a>'.format(
-        url, topic_id, text_to_display)
+    html = '<a href="{}" class="internal-link" data-link-key="topic-{}">{}</a>'.format(
+        url, topic_key, text_to_display)
 
     return html
 
@@ -169,7 +169,6 @@ def text_to_md(text):
     # replace document links and topic links in text with markdown
 
     temp = re.compile(DOCUMENT_LINK_PATTERN_FULL).sub(document_link_to_html, text)
-
     md = re.compile(TOPIC_LINK_PATTERN_FULL).sub(topic_link_to_html, temp)
 
     return md
@@ -194,7 +193,7 @@ def make_tab_complete_options(document_model, topic_model):
     :return list of strings for tab completion
     """
 
-    document_strings = [str(doc_id) for doc_id in document_model.objects.values_list('id', flat=True)]
-    topic_strings = [str(topic_id) for topic_id in topic_model.objects.values_list('id', flat=True)]
+    document_strings = [str(doc_key) for doc_key in document_model.objects.values_list('key', flat=True)]
+    topic_strings = [str(topic_key) for topic_key in topic_model.objects.values_list('key', flat=True)]
 
     return document_strings + topic_strings

@@ -11,9 +11,8 @@ ALPHABET = string.ascii_uppercase
 def bind_authors(document, author_model):
     """
     Read a document's author text and bind the appropriate authors.
-    :param document:
-    :param author_model:
-    :return:
+    :param document: document
+    :param author_model: models.Author
     """
 
     # get author strings from author text
@@ -30,7 +29,7 @@ def bind_authors(document, author_model):
 
             # get or create new author (with pk as unicode author string) and add it to the document
 
-            author = author_model.objects.get_or_create(id=unidecode.unidecode(author_string))[0]
+            author = author_model.objects.get_or_create(name=unidecode.unidecode(author_string))[0]
 
             document.authors.add(author)
 
@@ -42,24 +41,24 @@ def bind_linked_documents(document, document_model):
     :param document_model: models.Document
     """
 
-    candidate_pks = [el.strip() for el in document.linked_document_text.split(' ')]
+    candidate_keys = [el.strip() for el in document.linked_document_text.split(' ')]
 
-    linked_documents = [document_model.objects.get(pk=pk) for pk in candidate_pks if pk]
+    linked_documents = [document_model.objects.get(key=key) for key in candidate_keys if key]
 
     document.linked_documents.clear()
     document.linked_documents.add(*linked_documents)
 
 
-def make_candidate_primary_key(document):
+def make_base_key(document):
     """
-    Create the candidate primary key for a document given its first author and year.
-    The candidate primary key is the last name of the first author concatenated with the year.
+    Create the base key for a document, which is the last name of the first author
+    concatenated with the year.
 
     :param document: document in question
-    :return: candidate primary key
+    :return: base key
     """
 
-    # generate processed version of first author's last name
+    # generate processed version of first author's last name (alphabetic characters only)
 
     first_author_last_name = document.author_text.split(';')[0].split(',')[0].strip()
 
@@ -73,37 +72,37 @@ def make_candidate_primary_key(document):
 
         processed_name = 'Unknown'
 
-    # add year to get candidate primary key
+    # add year to get base key
 
     if document.year:
 
-        candidate_pk = '{}{}'.format(processed_name, document.year)
+        base_key = '{}{}'.format(processed_name, document.year)
 
     else:
 
-        candidate_pk = '{}0000'.format(processed_name)
+        base_key = '{}0000'.format(processed_name)
 
-    return candidate_pk
+    return base_key
 
 
-def get_primary_key_base(pk):
+def get_base_key(key):
     """
     Remove duplicate-indicating primary key extensions.
 
     E.g., convert Smith2001A to Smith2001
 
-    :param pk: AuthorYEAR primary key
-    :return: stripped primary key
+    :param key: AuthorYEARC key with potential suffix
+    :return: stripped base key
     """
 
-    pk_base_pattern = '[a-zA-z]+\d+'
+    base_key_pattern = '[a-zA-z]+\d+'
 
-    return re.search(pk_base_pattern, pk).group(0)
+    return re.search(base_key_pattern, key).group(0)
 
 
-def bind_primary_key(document, document_model):
+def make_key(document, document_model):
     """
-    Generate a unique primary key and bind it to the document.
+    Generate a unique key for a document.
     The primary key will be the last name of the first author (minus any spaces or fancy characters)
     and the year the article was published, with A, B, ... following that if there already exists a
     document with the given primary key.
@@ -112,34 +111,30 @@ def bind_primary_key(document, document_model):
     :param document_model: models.Document
     """
 
-    candidate_pk = make_candidate_primary_key(document)
+    base_key = make_base_key(document)
 
-    # find all documents that start with this primary key
+    # find all documents that start with this base key
 
-    conflicting_pks = document_model.objects.filter(id__startswith=candidate_pk).values_list('id', flat=True)
+    conflicting_keys = document_model.objects.filter(key__startswith=base_key).values_list('key', flat=True)
 
-    if not conflicting_pks:
+    if not conflicting_keys:
 
-        pk = candidate_pk
+        key = conflicting_keys
 
     else:
 
         # TODO: go on to AA, BB, ... if more than 26 conflicting pks exist
         suffix_list = [''] + list(ALPHABET)
 
-        # find the next available pk
+        # find the next available key
 
         for suffix in suffix_list:
 
-            candidate_pk_next = '{}{}'.format(candidate_pk, suffix)
+            next_key = '{}{}'.format(base_key, suffix)
 
-            if candidate_pk_next not in conflicting_pks:
+            if next_key not in conflicting_keys:
 
-                pk = candidate_pk_next
-
-                break
-
-    document.id = pk
+                return next_key
 
 
 def google_scholar_search_url(document):
