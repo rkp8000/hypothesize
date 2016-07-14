@@ -31,7 +31,14 @@
 
 <form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{form.as_p}}
+    Title <br /> {{ form.title }} <br />
+    Authors <br /> {{ form.author_text }} <br />
+    Publication <br /> {{ form.publication }} <br />
+    Year <br /> {{ form.year }} <br />
+    Abstract <br /> {{ form.abstract }} <br />
+    File <br /> {{ form.file }} <br />
+    Webpage <br /> {{ form.web_link }} <br />
+    Downstream documents <br /> {{ form.linked_document_text }} <br />
     <input type="submit" value="Save" />
 </form>
 
