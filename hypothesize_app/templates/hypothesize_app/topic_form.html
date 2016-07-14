@@ -37,11 +37,14 @@
                     if ('key' in json) {
                         $('title').html('EDIT: ' + json['key']);
                         var detail_url = "{% url 'hypothesize_app:topic_detail' 'key' %}".replace('key', json['key']);
-                        $('#detail-view-link').attr('href', detail_url);
+                        $('#detail-link').attr('href', detail_url);
                     }
 
                     if ('new_id' in json) {
                         $('#id_id').val(json['new_id']);
+                        var delete_url = "{% url 'hypothesize_app:topic_delete' 'id' %}".replace('id', json['new_id']);
+                        $('#delete-link').attr('href', delete_url);
+
                     }
                 },
 
@@ -74,7 +77,11 @@
 </head>
 
 <a href="#" onclick="save_topic()">save</a>&nbsp;
-<a id="detail-view-link" href="{% url 'hypothesize_app:topic_detail' topic.key %}">view</a>&nbsp;
+{% if topic.key %}
+    <a id="detail-link" href="{% url 'hypothesize_app:topic_detail' topic.key %}">view</a>&nbsp;
+{% else %}
+    <a id="detail-link" href="#">view</a>&nbsp;
+{% endif %}
 <a href="{% url 'hypothesize_app:topic_search' %}">return to search</a><br />
 
 <form action="" method="post">
@@ -83,8 +90,8 @@
     <input id="id_id" type="hidden" value="{{ topic.id }}" />
 </form>
 
-{% if include_delete %}
-<br />
-
-<a href="{% url 'hypothesize_app:topic_delete' topic.key %}">delete this topic</a>
+{% if topic.key %}
+    <a id="delete-link" href="{% url 'hypothesize_app:topic_delete' topic.id %}">delete this topic</a>
+{% else %}
+    <a id="delete-link">delete this topic</a>
 {% endif %}

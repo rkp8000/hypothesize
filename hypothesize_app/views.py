@@ -207,6 +207,10 @@ class TopicCreate(generic.CreateView):
         context['tab_complete_options'] = topic_processing.make_tab_complete_options(
             document_model=models.Document, topic_model=models.Topic)
 
+        # add in deletion option
+
+        context['include_delete'] = True
+
         return context
 
 
