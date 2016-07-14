@@ -1,4 +1,5 @@
 from __future__ import print_function, unicode_literals
+import json
 import os
 
 from django.core.urlresolvers import reverse
@@ -29,9 +30,10 @@ class Document(models.Model):
     year = models.SmallIntegerField(null=True, blank=True)
     abstract = models.TextField(blank=True, default='')
     web_link = models.CharField(max_length=500, blank=True, default='')
-    last_saved = models.DateTimeField(default=timezone.now, blank=True)
-    uploaded = models.DateTimeField(default=timezone.now, blank=True)
     file = models.FileField(upload_to='documents', null=True, blank=True)
+    crossref = models.TextField(blank=True, default='{}')
+    uploaded = models.DateTimeField(default=timezone.now, blank=True)
+    last_saved = models.DateTimeField(default=timezone.now, blank=True)
     linked_document_text = models.TextField(blank=True, default='')
     linked_documents = models.ManyToManyField('self', symmetrical=False, blank=True)
     authors = models.ManyToManyField(Author, blank=True)
@@ -96,6 +98,7 @@ class Topic(models.Model):
 
     key = models.CharField(max_length=255, unique=True, default='')
     text = models.TextField(blank=True, default='')
+    created = models.DateTimeField(default=timezone.now, blank=True)
     last_saved = models.DateTimeField(default=timezone.now, blank=True)
     topics = models.ManyToManyField('self', symmetrical=False, blank=True)
     documents = models.ManyToManyField(Document, blank=True)
