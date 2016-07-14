@@ -36,6 +36,8 @@
 
                     if ('key' in json) {
                         $('title').html('EDIT: ' + json['key']);
+                        var detail_url = "{% url 'hypothesize_app:topic_detail' 'key' %}".replace('key', json['key']);
+                        $('#detail-view-link').attr('href', detail_url);
                     }
 
                     if ('new_id' in json) {
@@ -72,7 +74,7 @@
 </head>
 
 <a href="#" onclick="save_topic()">save</a>&nbsp;
-<a href="#">view</a>&nbsp;
+<a id="detail-view-link" href="{% url 'hypothesize_app:topic_detail' topic.key %}">view</a>&nbsp;
 <a href="{% url 'hypothesize_app:topic_search' %}">return to search</a><br />
 
 <form action="" method="post">
