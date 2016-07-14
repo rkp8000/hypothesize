@@ -11,6 +11,7 @@
 
     <h3>
         <a href="{% url 'hypothesize_app:topic_search' %}" style="color: black;">search topics</a>
+        (<a href="{% url 'hypothesize_app:document_search' %}">search documents</a>)
     </h3>
 
     <form action="{% url 'hypothesize_app:topic_search' %}" method="get">
@@ -20,8 +21,6 @@
         Show top {{ topic_search_form.max_hits }} results.
     </form>
 
-    <a href="{% url 'hypothesize_app:document_search' %}">search documents</a>
-    &nbsp;&nbsp;&nbsp;
     <a href="{% url 'hypothesize_app:topic_create' %}">add new topic</a>
     &nbsp;&nbsp;&nbsp;
     <a href="{% url 'hypothesize_app:database_backup' %}">back up database</a><br /><br />
