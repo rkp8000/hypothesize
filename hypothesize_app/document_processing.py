@@ -147,7 +147,7 @@ def google_scholar_search_url(document):
 
     if document.title:
 
-        suffix = urllib.urlencode({'hl': 'en', 'q': document.title})
+        suffix = urllib.urlencode({'hl': 'en', 'q': document.title.encode('utf-8')})
 
     else:
 
