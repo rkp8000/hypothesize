@@ -86,7 +86,9 @@
 
 <form action="" method="post">
     {% csrf_token %}
-    {{form.as_p}}
+    <br />
+    key: {{ form.key }} <br /><br />
+    content <span id="topic_save_status"></span><br /> {{ form.text }}
     <input id="id_id" type="hidden" value="{{ topic.id }}" />
 </form>
 

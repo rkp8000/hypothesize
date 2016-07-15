@@ -39,12 +39,6 @@ class TopicForm(ModelForm):
 
         model = Topic
         fields = ['key', 'text']
-        labels = {
-            'key': 'key',
-            'text': mark_safe(
-                'Text'
-                '&nbsp; &nbsp; <span id="topic_save_status"></span><br />'),
-        }
         widgets = {
             'text': forms.Textarea(attrs={'rows': 60, 'cols': 120})
         }
