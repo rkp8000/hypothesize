@@ -82,9 +82,21 @@ class Document(models.Model):
 
         super(Document, self).save(*args, **kwargs)
 
-        document_processing.bind_authors(self, author_model=Author)
+        try:
 
-        document_processing.bind_linked_documents(self, document_model=Document)
+            document_processing.bind_authors(self, author_model=Author)
+
+        except:
+
+            pass
+
+        try:
+
+            document_processing.bind_linked_documents(self, document_model=Document)
+
+        except:
+
+            passc
 
         # update last saved time
 

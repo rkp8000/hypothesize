@@ -41,7 +41,7 @@ def bind_linked_documents(document, document_model):
     :param document_model: models.Document
     """
 
-    candidate_keys = [el.strip() for el in document.linked_document_text.split(' ')]
+    candidate_keys = [el.strip() for el in document.linked_document_text.split(',')]
 
     linked_documents = [document_model.objects.get(key=key) for key in candidate_keys if key]
 
