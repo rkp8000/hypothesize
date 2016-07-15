@@ -31,7 +31,7 @@ class Document(models.Model):
     abstract = models.TextField(blank=True, default='')
     web_link = models.CharField(max_length=500, blank=True, default='')
     file = models.FileField(upload_to='documents', null=True, blank=True)
-    crossref = models.TextField(blank=True, default='{}')
+    crossref = models.TextField(blank=True, default='')
     uploaded = models.DateTimeField(default=timezone.now, blank=True)
     last_saved = models.DateTimeField(default=timezone.now, blank=True)
     linked_document_text = models.TextField(blank=True, default='')

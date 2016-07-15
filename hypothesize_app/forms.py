@@ -14,12 +14,11 @@ class DocumentForm(ModelForm):
     class Meta:
 
         model = Document
-        fields = ['title', 'author_text', 'publication', 'year', 'abstract', 'file', 'web_link', 'linked_document_text']
-        labels = {
-            'author_text': 'Authors',
-            'web_link': 'Webpage',
-            'linked_document_text': 'Downstream documents',
-        }
+        fields = [
+            'title', 'author_text', 'publication', 'year',
+            'abstract', 'file', 'web_link', 'linked_document_text',
+            'crossref'
+        ]
 
 
 class TopicForm(ModelForm):

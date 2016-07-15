@@ -348,13 +348,13 @@ class AjaxDocumentAutofiller(generic.View):
 
         try:
 
-            metadata = crossref_search.get_metadata_from_title(self.request.GET['title'])
+            metadata = crossref_search.get_metadata_from_title_json(self.request.GET['title'])
 
-            return JsonResponse({'response': 'The following was fetched {}'.format(metadata)})
+            return JsonResponse(metadata)
 
         except:
 
-            return JsonResponse({'response': 'There was an error on the server side.'})
+            return JsonResponse({'error message': 'There was an error fetching.'})
 
 
 class DatabaseBackup(generic.TemplateView):
