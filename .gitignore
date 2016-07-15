@@ -12,3 +12,6 @@ migrations
 env
 .idea
 topics
+
+.ipynb_checkpoints
+*.ipynb
