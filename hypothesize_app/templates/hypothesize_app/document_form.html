@@ -19,11 +19,12 @@
                     $('#autofill_message').html(json['error_message']);
                 }
                 else {
-                    $('#autofill_message').html('search completed');
+                    $('#autofill_message').html('search completed (note: abstract and file not autofilled)');
 
                     // fill in results
 
                     $('#id_title').val(json['title']);
+                    $('#id_web_link').val(json['web_link']);
                     $('#id_publication').val(json['publication']);
                     $('#id_year').val(json['year']);
                     $('#id_author_text').val(json['author_text']);
@@ -77,17 +78,18 @@
     {% csrf_token %}
     <input type="submit" value="Save" />(<a href="{% url 'hypothesize_app:document_search' %}">return to search</a>)
     <br /><br />
-    title {{ form.title }} <br />
+    title <br />{{ form.title }} <br />
     (<a id="autofill_button" href="#">attempt to autofill from title using CrossRef</a>)
-    <span id="autofill_message"></span><br />
-    publication {{ form.publication }} <br />
-    year {{ form.year }} <br />
-    file {{ form.file }} <br />
-    webpage {{ form.web_link }} <br />
-    authors <br /> {{ form.author_text }} <br />
-    abstract <br /> {{ form.abstract }} <br />
-    CrossRef metadata string <br /> {{ form.crossref }} <br />
-    downstream documents <br /> {{ form.linked_document_text }}
+    <span id="autofill_message"></span><br /><br />
+    webpage <br />{{ form.web_link }} <br /><br />
+    publication <br />{{ form.publication }} <br /><br />
+    year <br />{{ form.year }} <br /><br />
+    file <br />{{ form.file }} <br /><br />
+    authors (family name first, multiple authors separated by semicolon, e.g., "Smith, John; Lee, R.G.")<br /> {{ form.author_text }}
+    <br /><br />
+    abstract <br /> {{ form.abstract }} <br /><br />
+    CrossRef metadata string <br /> {{ form.crossref }} <br /><br />
+    downstream documents (separated by commas) <br /> {{ form.linked_document_text }}
 </form>
 
 {% if include_delete %}

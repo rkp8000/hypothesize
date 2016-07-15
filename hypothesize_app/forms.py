@@ -19,6 +19,15 @@ class DocumentForm(ModelForm):
             'abstract', 'file', 'web_link', 'linked_document_text',
             'crossref'
         ]
+        widgets = {
+            'title': forms.TextInput(attrs={'size': 80}),
+            'web_link': forms.TextInput(attrs={'size': 80}),
+            'publication': forms.TextInput(attrs={'size': 40}),
+            'author_text': forms.Textarea(attrs={'rows': 4, 'cols': 80}),
+            'abstract': forms.Textarea(attrs={'rows': 10, 'cols': 80}),
+            'crossref': forms.Textarea(attrs={'rows': 4, 'cols': 80}),
+            'linked_document_text': forms.Textarea(attrs={'rows': 4, 'cols': 80}),
+        }
 
 
 class TopicForm(ModelForm):
