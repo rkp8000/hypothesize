@@ -14,20 +14,28 @@
             },
 
             success: function(json){
-                $('#autofill_message').html('search completed');
 
-                // fill in results
+                if ('error_message' in json) {
+                    $('#autofill_message').html(json['error_message']);
+                }
+                else {
+                    $('#autofill_message').html('search completed');
 
-                $('#id_title').val(json['title']);
-                $('#id_publication').val(json['publication']);
-                $('#id_year').val(json['year']);
-                $('#id_author_text').val(json['author_text']);
-                $('#id_crossref').val(json['crossref']);
+                    // fill in results
+
+                    $('#id_title').val(json['title']);
+                    $('#id_publication').val(json['publication']);
+                    $('#id_year').val(json['year']);
+                    $('#id_author_text').val(json['author_text']);
+                    $('#id_crossref').val(json['crossref']);
+                }
+
+
 
             },
 
             failure: function(json){
-                $('#autofill_message').html(json['error_message']);
+                $('#autofill_message').html('error: could not connect to server');
             }
         });
     }

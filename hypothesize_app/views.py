@@ -354,7 +354,7 @@ class AjaxDocumentAutofiller(generic.View):
 
         except:
 
-            return JsonResponse({'error message': 'There was an error fetching.'})
+            return JsonResponse({'error_message': 'an error occurred'})
 
 
 class DatabaseBackup(generic.TemplateView):
