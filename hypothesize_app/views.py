@@ -8,6 +8,7 @@ from django.template.loader import render_to_string
 from django.views import generic
 
 import backup
+import crossref_search
 import forms
 import models
 import topic_processing
@@ -336,6 +337,24 @@ class AjaxTopicSaver(generic.View):
         json_response['topic_save_message'] = topic_save_message
 
         return JsonResponse(json_response)
+
+
+class AjaxDocumentAutofiller(generic.View):
+    """
+    View for autofilling document metadata using CrossRef.
+    """
+
+    def get(self, request):
+
+        try:
+
+            metadata = crossref_search.get_metadata_from_title(self.request.GET['title'])
+
+            return JsonResponse({'response': 'The following was fetched {}'.format(metadata)})
+
+        except:
+
+            return JsonResponse({'response': 'There was an error on the server side.'})
 
 
 class DatabaseBackup(generic.TemplateView):

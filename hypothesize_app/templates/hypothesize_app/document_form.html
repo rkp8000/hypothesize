@@ -5,6 +5,25 @@
     <script src="{% static "js/jquery.a-tools-1.4.1.js" %}"></script>
     <script src="{% static "js/jquery.asuggest.js" %}"></script>
     <script>
+    function fetch_document_metadata(document_title) {
+        alert('Fetching metadata for "' + document_title + '".');
+        $.ajax({
+            url: "{% url 'hypothesize_app:ajax_document_autofiller' %}",
+            type: "GET",
+            data: {
+                'title': document_title
+            },
+
+            success: function(json){
+                alert('Server response: ' + json['response']);
+            },
+
+            failure: function(json){
+                alert('Error fetching metadata!');
+            }
+        });
+    }
+
     $(document).ready(function(){
 
         //var suggests = ['elephant', 'rhino', 'elephino'];
@@ -22,7 +41,7 @@
 
         $(document).on('click', '#autofill_button', function() {
             event.preventDefault();
-            alert('This will attempt to autofill the document form.');
+            fetch_document_metadata($('#id_title').val());
         });
     });
     </script>
