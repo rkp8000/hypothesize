@@ -55,7 +55,16 @@ def author_text_from_crossref_item(item):
     :return: single string containing all authors with last name first, separated by semicolons
     """
 
-    return 'Author, Fake; Writer, Phony'
+    try:
+
+        author_strings = [', '.join([a['family'], a['given']]) for a in item['author']]
+
+        return '; '.join(author_strings)
+
+    except:
+
+        return ''
+
 
 def get_metadata_from_title_json(title):
     """
