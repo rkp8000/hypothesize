@@ -30,22 +30,47 @@ ALLOWED_HOSTS = ['*']
 
 # set default settings or override with user-defined settings in my_settings.py
 
-BASICAUTH_USERNAME = my_settings.USERNAME
-BASICAUTH_PASSWORD = my_settings.PASSWORD
+try:
 
-if my_settings.TOPIC_DIRECTORY:
+    BASICAUTH_USERNAME = my_settings.USERNAME
 
-    TOPIC_SAVE_DIRECTORY = my_settings.TOPIC_DIRECTORY
+except:
 
-else:
+    BASICAUTH_USERNAME = ''
+
+try:
+
+    BASICAUTH_PASSWORD = my_settings.PASSWORD
+
+except:
+
+    BASICAUTH_USERNAME = ''
+
+try:
+
+    if my_settings.TOPIC_DIRECTORY:
+
+        TOPIC_SAVE_DIRECTORY = my_settings.TOPIC_DIRECTORY
+
+    else:
+
+        TOPIC_SAVE_DIRECTORY = os.path.join(BASE_DIR, 'topics')
+
+except:
 
     TOPIC_SAVE_DIRECTORY = os.path.join(BASE_DIR, 'topics')
 
-if my_settings.DATABASE_BACKUP_DIRECTORY:
+try:
 
-    DATABASE_BACKUP_DIRECTORY = my_settings.DATABASE_BACKUP_DIRECTORY
+    if my_settings.DATABASE_BACKUP_DIRECTORY:
 
-else:
+        DATABASE_BACKUP_DIRECTORY = my_settings.DATABASE_BACKUP_DIRECTORY
+
+    else:
+
+        DATABASE_BACKUP_DIRECTORY = os.path.join(BASE_DIR, 'db_backups')
+
+except:
 
     DATABASE_BACKUP_DIRECTORY = os.path.join(BASE_DIR, 'db_backups')
 
@@ -113,13 +138,6 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-# Try to import local settings
-
-try:
-    from local_settings import *
-except ImportError:
-    pass
 
 # Finally, if there is no secret key defined, create one now.
 
