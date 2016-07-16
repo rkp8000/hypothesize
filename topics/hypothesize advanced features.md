@@ -1,1 +1,0 @@
-To really make hypothesize shine, take advantage of some of these advanced features.
