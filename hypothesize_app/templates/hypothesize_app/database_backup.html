@@ -3,17 +3,18 @@
     <title>database backup</title>
 </head>
 
-{% if backup_result %}
-    Database successfully backed up at <br /> "{{ backup_result }}".
-    <br />
-{% endif %}
-
 Back up your document and topic database?
 <a href="{% url 'hypothesize_app:database_backup' %}?backup=TRUE">Go!</a>
 <br /><br />
+
+{% if backup_result %}
+    Database successfully backed up at <br /><br /> "{{ backup_result }}".
+    <br /><br />
+{% endif %}
+
 To restore the database from a backup simply copy your desired backup file (located in the directory "")
 into the directory "" and change the filename to "db.sqlite3".
 <br /><br />
-<a href="{% url 'hypothesize_app:document_search' %}">return to document search</a>
-<br />
+
+<a href="{% url 'hypothesize_app:document_search' %}">return to document search</a><br />
 <a href="{% url 'hypothesize_app:topic_search' %}">return to topic search</a>
