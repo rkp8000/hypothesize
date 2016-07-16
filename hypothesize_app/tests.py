@@ -5,13 +5,104 @@ from django.test import TestCase
 import models
 
 
-# Create your tests here.
+# AUTOMATED TESTS:
+
+## document tests
+
+### document processing
 
 class DocumentProcessingTestCase(TestCase):
 
-    def test_get_key_base_works_correctly_on_examples(self):
+    pass
+
+### document add
+
+class DocumentAddTestCase(TestCase):
+
+    def test_new_document_is_stored_correctly(self):
 
         pass
+    
+    def test_two_documents_with_same_base_key_dont_throw_error(self):
+
+        pass
+
+### document change
+
+class DocumentChangeTestCase(TestCase):
+
+    def test_changing_document_base_key_components_doesnt_throw_error(self):
+
+        pass
+
+### document delete
+
+class DocumentDeleteTestCase(TestCase):
+
+    pass
+
+### document search
+
+class DocumentSearchTestCase(TestCase):
+
+    pass
+
+## topic tests
+
+### topic processing
+
+class TopicProcessingTestCase(TestCase):
+
+    pass
+
+### topic add
+
+class TopicAddTestCase(TestCase):
+
+    pass
+
+### topic change
+
+class TopicChangeTestCase(TestCase):
+
+    pass
+
+### topic delete
+
+class TopicDeleteTestCase(TestCase):
+
+    pass
+
+### topic search
+
+class TopicSearchTestCase(TestCase):
+
+    pass
+
+## database backup tests
+
+class DatabaseBackupTestCase(TestCase):
+
+    pass
+
+## crossref search tests
+
+class CrossRefSearchTestCase(TestCase):
+
+    pass
+
+
+# USER INTERFACE TESTS
+
+## document tests
+
+## topic tests
+
+## database backup tests
+
+## crossref search tests
+
+## messed up my_settings.py tests
 
 
 class DocumentChangingTestCase(TestCase):
@@ -173,21 +264,3 @@ class DocumentTopicMarkdownTestCase(TestCase):
     def test_markdown_is_converted_correctly_with_unfound_document(self):
 
         pass
-
-
-
-# document add
-## basic
-## with weird author names
-## with no authors
-# document change
-## basic
-## with weird author names
-## rearrange authors
-# primary key overlap/absence issues
-
-
-# topic add
-# topic change
-# primary key overlap/absence issues
-# topic text update with and without save directory declared
