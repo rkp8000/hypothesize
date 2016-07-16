@@ -12,8 +12,8 @@ Back up your document and topic database?
     <br /><br />
 {% endif %}
 
-To restore the database from a backup simply copy your desired backup file (located in the directory "")
-into the directory "" and change the filename to "db.sqlite3".
+To restore the database from a backup simply copy your desired backup file (located in the directory
+"{{ db_backup_dir }}") into the directory "{{ db_dir }}" and change the filename to "db.sqlite3".
 <br /><br />
 
 <a href="{% url 'hypothesize_app:document_search' %}">return to document search</a><br />
