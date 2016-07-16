@@ -1,7 +1,9 @@
 from __future__ import division, print_function, unicode_literals
 from datetime import datetime
+import os
 from unidecode import unidecode
 
+from django.conf import settings
 from django.core.urlresolvers import reverse_lazy
 from django.http import JsonResponse
 from django.template.loader import render_to_string
@@ -364,6 +366,9 @@ class DatabaseBackup(generic.TemplateView):
     def get_context_data(self, **kwargs):
 
         context = super(DatabaseBackup, self).get_context_data(**kwargs)
+
+        context['db_backup_dir'] = settings.DATABASE_BACKUP_DIRECTORY
+        context['db_dir'] = os.path.dirname(settings.DATABASES['default']['NAME'])
 
         if self.request.GET.get('backup', False) == 'TRUE':
 
