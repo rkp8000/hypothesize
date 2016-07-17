@@ -96,7 +96,7 @@ class Document(models.Model):
 
         except:
 
-            passc
+            pass
 
         # update last saved time
 
