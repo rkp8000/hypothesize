@@ -1,14 +1,12 @@
 # README
 
-*hypothesize* is a minimalistic academic note-taking application designed to keep your notes and ideas as close to the corpus of published literature as possible. To this end, it is based on the principle that referencing journal articles in notes and accessing them at a later time should require no more than a single click or a couple of keystrokes. Check out the video below to view *hypothesize* in action.
+*hypothesize* is a combined note-taking and reference-management application. Its design enables a flexible, wiki-like of notes and ideas that are easy to navigate and are always only a single click or a couple of keystrokes away from the existing scholarly literature.
 
-### Demo video
+### Basic features
 
-Insert demo video here.
+*hypothesize* uses two fundamental objects: documents and topics. Documents are typically published journal articles or reports, and topics are simple webpages that contain your notes and ideas. 
 
-### How *hypothesize* works
-
-Structurally, *hypothesize* is nothing more than a glorified wiki. The *pages* that *hypothesize* links together, however, come in two varieties: documents and nodes. Documents are published journal articles, etc., usually represented with some meta information (title, authors, abstract, ...) and either a pdf file or a link to an external website. Nodes, on the other hand (named for their role in a network), are arbitrary text files, except that they can contain hyperlinks to documents as well as other nodes. Importantly, each document and each node is assigned a unique, unchanging ID. When composing a node, this allows unambiguous referencing of documents and other nodes through a simple, wiki-inspired syntax (e.g., "[[Smith1988]]" would link to journal article with the ID "Smith1988"). Each node can link to many documents and nodes, and each document and node can be linked to by many nodes. This allows a much more flexible organization of ideas and literature than, say, organizing documents or text files in a hierarchy of directories, tagging documents with specific tags, or attaching specific notes to specific documents.
+### Advanced features
 
 You interface with *hypothesize* through the web browser. Because of this, you should find navigating its components quite natural and intuitive. For example, hyperlinks to nodes and documents are quite literally hyperlinks. Further, when composing nodes you can use all the standard markdown syntax, which gets rendered as cleanly formatted html by the browser, and you can include inline and block equations written in TeX by surrounding them with "$..$" (inline) or "$$...$$" (block).
 
