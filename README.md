@@ -10,10 +10,11 @@ were..."
 3. Activate the virtual environment (`source env/bin/activate`) and install the relevant requirements: `pip install -r requirements.txt`.
 4. Start the server: `python manage.py runserver`. 
 5. Open any web browser and navigate to "localhost:8000/hypothesize".
+6. To stop *hypothesize* enter CTRL + c in the terminal window in which the server is running.
 
 ### Basic features
 
-*hypothesize* is founded on a few basic principles.
+*hypothesize* is founded on a few basic principles:
 
 #### Documents and topics
 
@@ -25,12 +26,17 @@ So that they can be unambiguously referenced, each topic and each document must 
 
 #### Linking topics and documents
 
-Within the text of a topic you can reference documents *inline* by surrounding the document key by double square brackets, (e.g., "...it was shown in [[Shannon1948]] that a logarithmic measure of information was a very useful quantity..."). 
+Within the text of a topic you can reference documents *inline* by surrounding the document key by double square brackets, e.g., "...it was shown in [[Shannon1948]] that a logarithmic measure of information was a very useful quantity...". 
 
 When you save the topic to render it as a webpage, [[Shannon1948]] becomes a hyperlink that when clicked expands into a small paragraph containing the metadata for the article (such as its publication and abstract) and a link to the primary source (such as a local pdf or an external website). In this way, one topic can reference many documents and one document can be referenced by many topics (and whenever a document's metadata is viewed it is accompanied by links to all the topics that reference it). 
 
-Topics can also reference other topics by surrounding the topic key by double parentheses (e.g., "...information theory and ((dynamical systems theory)) became major players in theoretical neuroscience..."). When a topic reference is saved and rendered it similarly becomes a hyperlink that when clicked opens up the referenced topic inline with the original one.
+Topics can also reference other topics by surrounding the topic key by double parentheses e.g., "...information theory and ((dynamical systems theory)) became major players in theoretical neuroscience...". When a topic reference is saved and rendered it similarly becomes a hyperlink that when clicked opens up the referenced topic inline with the original one.
 
+When you edit a topic and start typing out the key for a document or topic reference, *hypothesize* will try to guess which key you're thinking of so you don't have to remember the exact spelling or phrasing.
+
+#### Topic flexibility
+
+Because topics are just text files with inline links to documents and other topics, they are extremely flexible. For example, you can use a topic as notes about a journal article in relation to other articles, as notes about several articles, as simply a list of related articles, as notes about a general idea that references journal articles or other ideas, as notes about a talk or seminar, as a list of related topics, as a list of talks or seminars (e.g., when attending a conference), as an outline for code, or as anything else you might think of.
 
 ### Advanced features
 
