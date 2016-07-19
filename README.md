@@ -14,7 +14,7 @@ So that they can be unambiguously referenced, each topic and each document must 
 
 #### Linking topics and documents
 
-Topics can reference documents *inline* by surrounding the document key by double square brackets, e.g., ("...it was shown in [[Shannon1948]] that a logarithmic measure of information was a very useful quantity..."). 
+Within the text of a topic you can reference documents *inline* by surrounding the document key by double square brackets, (e.g., "...it was shown in [[Shannon1948]] that a logarithmic measure of information was a very useful quantity..."). When you save the topic to render it as a webpage, [[Shannon1948]] becomes a hyperlink that when clicked expands into a small paragraph containing the metadata for the article and a link to the primary source (such as a local pdf or an external website). In this way, one topic can reference many documents and one document can be referenced by many topics (and whenever a document's metadata is viewed it is accompanied by links to all the topics that reference it). Topics can also reference other topics by surrounding the topic key by double parentheses (e.g., "...information theory and ((dynamical systems theory)) were..."
 
 ### To download and start hypothesize on your local computer
 
