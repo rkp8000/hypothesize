@@ -4,7 +4,7 @@
 
 ### Basic features
 
-In *hypothesize* there are two fundamental: *documents* and *topics*. Documents are typically published journal articles or reports, and topics are text files for your notes and ideas that get rendered into simple webpages every time you save them. 
+In *hypothesize* there are two fundamental objects: *documents* and *topics*. Documents are typically published journal articles or reports, and topics are text files for your notes and ideas that get rendered into simple webpages every time you save them. 
 
 ### Advanced features
 
