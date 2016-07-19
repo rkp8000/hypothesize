@@ -1,8 +1,19 @@
 # README
 
 *hypothesize* is a combined note-taking and reference-management app designed for the efficient synthesis of new ideas informed by scholarly literature. Its wiki-like structure enables you to flexibly organize and cross-reference your notes and journal articles and to nimbly navigate among them without ever losing track of where you came from. *hypothesize* is free to all to download and welcomes contributions from those interested in developing it further.
+were..."
+
+### To download and start hypothesize on your local computer
+
+1. Clone the repository onto your local computer (`git clone https://github.com/rkp8000/hypothesize2`) and cd into it (`cd hypothesize2`).
+2. Create a virtual environment: `virtualenv env`. (Note that this may give you problems if you have the current version of [conda](http://conda.pydata.org/docs/) installed, in which case you should make a virtual environment using conda itself.)
+3. Activate the virtual environment (`source env/bin/activate`) and install the relevant requirements: `pip install -r requirements.txt`.
+4. Start the server: `python manage.py runserver`. 
+5. Open any web browser and navigate to "localhost:8000/hypothesize".
 
 ### Basic features
+
+*hypothesize* is founded on a few basic principles.
 
 #### Documents and topics
 
@@ -14,18 +25,14 @@ So that they can be unambiguously referenced, each topic and each document must 
 
 #### Linking topics and documents
 
-Within the text of a topic you can reference documents *inline* by surrounding the document key by double square brackets, (e.g., "...it was shown in [[Shannon1948]] that a logarithmic measure of information was a very useful quantity..."). When you save the topic to render it as a webpage, [[Shannon1948]] becomes a hyperlink that when clicked expands into a small paragraph containing the metadata for the article and a link to the primary source (such as a local pdf or an external website). In this way, one topic can reference many documents and one document can be referenced by many topics (and whenever a document's metadata is viewed it is accompanied by links to all the topics that reference it). Topics can also reference other topics by surrounding the topic key by double parentheses (e.g., "...information theory and ((dynamical systems theory)) were..."
+Within the text of a topic you can reference documents *inline* by surrounding the document key by double square brackets, (e.g., "...it was shown in [[Shannon1948]] that a logarithmic measure of information was a very useful quantity..."). 
 
-### To download and start hypothesize on your local computer
+When you save the topic to render it as a webpage, [[Shannon1948]] becomes a hyperlink that when clicked expands into a small paragraph containing the metadata for the article (such as its publication and abstract) and a link to the primary source (such as a local pdf or an external website). In this way, one topic can reference many documents and one document can be referenced by many topics (and whenever a document's metadata is viewed it is accompanied by links to all the topics that reference it). 
 
-1. Clone the repository onto your local computer (`git clone https://github.com/rkp8000/hypothesize2`) and cd into it (`cd hypothesize2`).
-2. Create a virtual environment: `virtualenv env`. (Note that this may give you problems if you have the current version of [conda](http://conda.pydata.org/docs/) installed, in which case you should make a virtual environment using conda itself.)
-3. Activate the virtual environment (`source env/bin/activate`) and install the relevant requirements: `pip install -r requirements.txt`.
-4. Start the server: `python manage.py runserver`. 
-5. Open any web browser and navigate to "localhost:8000/hypothesize".
+Topics can also reference other topics by surrounding the topic key by double parentheses (e.g., "...information theory and ((dynamical systems theory)) became major players in theoretical neuroscience..."). When a topic reference is saved and rendered it similarly becomes a hyperlink that when clicked opens up the referenced topic inline with the original one.
 
 
-### More advanced
+### Advanced features
 
 6. This starts the server and connects it to port 8000 by default. To specify a specific port user: `python manage.py runserver host:port`, e.g., `python manage.py runserver 0.0.0.0:9000`.
 7. Navigate to 'localhost:8000/hypothesize' to begin (substitute a different port number if you started the server on a different port). Here you will be asked to enter a username and password. The defaults are 'user' and 'pass', respectively, but these can be changed in the file hypothesize/settings.py.
