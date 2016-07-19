@@ -23,12 +23,16 @@ You interface with *hypothesize* through the web browser. Because of this, you s
 
 ### To download and start hypothesize on your local computer
 
-1. Clone the repository (`git clone https://github.com/rkp8000/hypothesize2`).
-2. Set your username and password in the file 'hypothesize/settings.py'. To do this, uncomment the lines `# BASICAUTH_USERNAME = 'my_username'` and `# BASICAUTH_PASSWORD = 'my_password'` and fill in what you want your username and password to be. You can also store your username and password in the environment variables 'HYPOTHESIZE_USER' and 'HYPOTHESIZE_PATH'. Note: **neither of these passwords are securely stored since they're stored in plain text, so don't use the same password you use for anything important!**
-3. *Optional*: create and activate a virtual environment. [Click for instructions on how to do this](https://virtualenv.pypa.io/en/latest/).
-4. Install the relevant requirements: `pip install -r requirements.txt`.
-5. Make sure you are in the root directory of the repository and make the database migrations: `python manage.py makemigrations`. Then make the database: `python manage.py migrate`. This will create a database called db.sqlite3, which is where all your data will be stored. The files associated with documents will be stored in the "media" directory, and text files corresponding to your nodes will be stored in the "nodes" directory.
-6. Start the server: `python manage.py runserver`. This starts the server and connects it to port 8000 by default. To specify a specific port user: `python manage.py runserver host:port`, e.g., `python manage.py runserver 0.0.0.0:9000`.
+1. Clone the repository onto your local computer (`git clone https://github.com/rkp8000/hypothesize2`) and cd into it (`cd hypothesize2`).
+2. Create a virtual environment: `virtualenv env`. (Note that this may give you problems if you have the current version of [conda](http://conda.pydata.org/docs/) installed, in which case you should make a virtual environment using conda itself.)
+3. Activate the virtual environment (`source env/bin/activate`) and install the relevant requirements: `pip install -r requirements.txt`.
+4. Start the server: `python manage.py runserver`. 
+5. Open any web browser and navigate to "localhost:8000/hypothesize".
+
+
+### More advanced
+
+6. This starts the server and connects it to port 8000 by default. To specify a specific port user: `python manage.py runserver host:port`, e.g., `python manage.py runserver 0.0.0.0:9000`.
 7. Navigate to 'localhost:8000/hypothesize' to begin (substitute a different port number if you started the server on a different port). Here you will be asked to enter a username and password. The defaults are 'user' and 'pass', respectively, but these can be changed in the file hypothesize/settings.py.
 8. Begin sciencing!
 
