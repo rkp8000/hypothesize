@@ -1,10 +1,10 @@
 # README
 
-*hypothesize* is a combined note-taking and reference-management application. Its design enables a flexible, wiki-like of notes and ideas that are easy to navigate and are always only a single click or a couple of keystrokes away from the existing scholarly literature.
+*hypothesize* is a combined note-taking and reference-management application designed for the efficient synthesis of new ideas that are informed by the corpus of scholarly literature. Its wiki-like structure enables you to flexibly organize and cross-reference your notes and documents and to nimbly navigate among them without ever losing track of where you came from, and its interface is the familiar web browser. *hypothesize* is free for all to use and welcomes contributions with an interest in helping to develop it further.
 
 ### Basic features
 
-*hypothesize* uses two fundamental objects: documents and topics. Documents are typically published journal articles or reports, and topics are simple webpages that contain your notes and ideas. 
+In *hypothesize* there are two fundamental: *documents* and *topics*. Documents are typically published journal articles or reports, and topics are text files for your notes and ideas that get rendered into simple webpages every time you save them. 
 
 ### Advanced features
 
