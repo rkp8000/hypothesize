@@ -17,7 +17,7 @@
 
 #### Documents and topics
 
-In *hypothesize* there are two kinds of objects: *documents* and *topics*. Documents are typically published journal articles or reports, and topics are text files for your notes and ideas that get rendered into simple webpages when you save them.
+First, there are two kinds of objects to work with: *documents* and *topics*. Documents are typically published journal articles or reports, and topics are text files for your notes and organization that get rendered into simple webpages when you save them.
 
 #### Keys
 
@@ -25,13 +25,13 @@ So that they can be unambiguously referenced, each topic and each document must 
 
 #### Linking topics and documents
 
-Within the text of a topic you can reference documents *inline* by surrounding the document key by double square brackets, e.g., "...it was shown in [[Shannon1948]] that a logarithmic measure of information was a very useful quantity...". 
+Within the text of a topic you can reference documents *inline* by surrounding the document key by double square brackets, e.g., "...it was shown in [[Shannon1948]] that a logarithmic measure of information was a very useful quantity...". In this way, one topic can reference many documents and one document can be referenced by many topics.
 
-When you save the topic to render it as a webpage, [[Shannon1948]] becomes a hyperlink that when clicked expands into a small paragraph containing the metadata for the article (such as its publication and abstract) and a link to the primary source (such as a local pdf or an external website). In this way, one topic can reference many documents and one document can be referenced by many topics (and whenever a document's metadata is viewed it is accompanied by links to all the topics that reference it). 
+When you save the topic to render it as a webpage, "[[Shannon1948]]" becomes a hyperlink that when clicked expands into a small inline box containing the metadata for the article (such as its publication and abstract) and a link to the primary source (such as a local pdf or an external website). 
 
-Topics can also reference other topics by surrounding the topic key by double parentheses e.g., "...information theory and ((dynamical systems theory)) became major players in theoretical neuroscience...". When a topic reference is saved and rendered it similarly becomes a hyperlink that when clicked opens up the referenced topic inline with the original one.
+Topics can also reference other topics by surrounding the topic key by double parentheses e.g., "...information theory and ((dynamical systems theory)) became major players in theoretical neuroscience...". When you edit a topic and start typing out the key for a document or topic reference, *hypothesize* will try to guess which key you're thinking of so you don't have to remember the exact spelling or phrasing. When a topic reference is saved and rendered it similarly becomes a hyperlink that when clicked opens up the referenced topic inline with the original one.
 
-When you edit a topic and start typing out the key for a document or topic reference, *hypothesize* will try to guess which key you're thinking of so you don't have to remember the exact spelling or phrasing.
+Inline navigation through your wiki-like network of topics and documents makes it so you never have to switch or reload tabs when moving among related objects, so you never lose track of where you are.
 
 #### Topic flexibility
 
