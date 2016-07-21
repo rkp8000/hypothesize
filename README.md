@@ -2,7 +2,7 @@
 
 *hypothesize* is a combined note-taking and reference-management app designed for the efficient synthesis of new ideas informed by scholarly literature. Its wiki-like structure enables you to flexibly organize and cross-reference your notes and journal articles and to nimbly navigate among them without ever losing track of where you came from. *hypothesize* is free to all to download and welcomes contributions from those interested in developing it further.
 
-### To download and start hypothesize on your local computer
+## To download and start hypothesize on your local computer
 
 1. Clone the repository onto your local computer (`git clone https://github.com/rkp8000/hypothesize2`) and cd into it (`cd hypothesize2`).
 2. Create a virtual environment: `virtualenv env`. (Note that this may give you problems if you have the current version of [conda](http://conda.pydata.org/docs/) installed, in which case you should make a virtual environment using conda itself.)
@@ -11,13 +11,11 @@
 5. Open any web browser and navigate to "localhost:8000/hypothesize".
 6. To stop *hypothesize* enter CTRL + c in the terminal window in which the server is running.
 
-### Basic features
-
-*hypothesize* is founded on a few basic principles:
+## Basic usage
 
 #### Documents and topics
 
-First, there are two kinds of objects to work with: *documents* and *topics*. Documents are typically published journal articles or reports, and topics are text files for your notes and organization that get rendered into simple webpages when you save them.
+*hypothesize* uses two kinds of objects: *documents* and *topics*. Documents are typically published journal articles or reports, and topics are text files for your notes and organization that get rendered into simple webpages when you save them. You can search, browse, or add new documents on the *document search page* and you can search, browse, or add new topics on the *topic search page*.
 
 #### Keys
 
@@ -29,7 +27,7 @@ Within the text of a topic you can reference documents *inline* by surrounding t
 
 When you save the topic to render it as a webpage, "[[Shannon1948]]" becomes a hyperlink that when clicked expands into a small inline box containing the metadata for the article (such as its publication and abstract) and a link to the primary source (such as a local pdf or an external website). 
 
-Topics can also reference other topics by surrounding the topic key by double parentheses e.g., "...information theory and ((dynamical systems theory)) became major players in theoretical neuroscience...". When you edit a topic and start typing out the key for a document or topic reference, *hypothesize* will try to guess which key you're thinking of so you don't have to remember the exact spelling or phrasing. When a topic reference is saved and rendered it similarly becomes a hyperlink that when clicked opens up the referenced topic inline with the original one.
+Topics can also reference other topics using double parentheses e.g., "...information theory and ((dynamical systems theory)) became major players in theoretical neuroscience...". When you edit a topic and start typing out the key for a document or topic reference, *hypothesize* will try to guess which key you're thinking of so you don't have to remember the exact spelling or phrasing. When a topic reference is saved and rendered it similarly becomes a hyperlink that when clicked opens up the referenced topic inline with the original one.
 
 Inline navigation through your wiki-like network of topics and documents makes it so you never have to switch or reload tabs when moving among related objects, so you never lose track of where you are.
 
@@ -37,7 +35,9 @@ Inline navigation through your wiki-like network of topics and documents makes i
 
 Because topics are just text files with inline links to documents and other topics, they are extremely flexible. For example, you can use a topic as notes about a journal article in relation to other articles, as notes about several articles, as simply a list of related articles, as notes about a general idea that references journal articles or other ideas, as notes about a talk or seminar, as a list of related topics, as a list of talks or seminars (e.g., when attending a conference), as an outline for code, or as anything else you might think of.
 
-### Advanced features
+## Advanced usage
+
+
 
 6. This starts the server and connects it to port 8000 by default. To specify a specific port user: `python manage.py runserver host:port`, e.g., `python manage.py runserver 0.0.0.0:9000`.
 7. Navigate to 'localhost:8000/hypothesize' to begin (substitute a different port number if you started the server on a different port). Here you will be asked to enter a username and password. The defaults are 'user' and 'pass', respectively, but these can be changed in the file hypothesize/settings.py.
