@@ -13,15 +13,15 @@
 
 ## Basic usage
 
-#### Documents and topics
+### Documents and topics
 
 *hypothesize* uses two kinds of objects: *documents* and *topics*. Documents are typically published journal articles or reports, and topics are text files for your notes and organization that get rendered into simple webpages when you save them. You can search, browse, or add new documents on the *document search page* and you can search, browse, or add new topics on the *topic search page*.
 
-#### Keys
+### Keys
 
 So that they can be unambiguously referenced, each topic and each document must have its own key, or unique label. Topic keys are simply the title of the topic's text file and document keys are the last name of first author combined with the publication year (e.g., Shannon1948). 
 
-#### Linking topics and documents
+### Linking topics and documents
 
 Within the text of a topic you can reference documents *inline* by surrounding the document key by double square brackets, e.g., "...it was shown in [[Shannon1948]] that a logarithmic measure of information was a very useful quantity...". In this way, one topic can reference many documents and one document can be referenced by many topics.
 
@@ -31,13 +31,27 @@ Topics can also reference other topics using double parentheses e.g., "...inform
 
 Inline navigation through your wiki-like network of topics and documents makes it so you never have to switch or reload tabs when moving among related objects, so you never lose track of where you are.
 
-#### Topic flexibility
+### Topic flexibility
 
 Because topics are just text files with inline links to documents and other topics, they are extremely flexible. For example, you can use a topic as notes about a journal article in relation to other articles, as notes about several articles, as simply a list of related articles, as notes about a general idea that references journal articles or other ideas, as notes about a talk or seminar, as a list of related topics, as a list of talks or seminars (e.g., when attending a conference), as an outline for code, or as anything else you might think of.
 
 ## Advanced usage
 
+### Document creation
 
+One nice thing about hypothesize is that when adding a new document you don't have to type in all the metadata yourself. If you instead just type in a guess at the title you can click "attempt to fill in article metadata using CrossRef" to fill in the rest of the form. Note, however, that this does not fill in the abstract (work on this is in progress) or the PDF file.
+
+Although this wasn't mentioned above, documents can also link to other documents. To create a link between two documents, simply edit the document that is doing the linking and type in a list of document keys that you want it to link to in the "downstream documents" text box. As before, you don't need to know the whole key; *hypothesize* will try to guess the rest you've entered When viewed, documents will always show the
+
+### Advanced topic editing
+
+### Backing up your database and restoring from a backup
+
+### Setting a username and password
+
+### Running hypothesize on a different port
+
+### Running hypothesize on a remote server
 
 6. This starts the server and connects it to port 8000 by default. To specify a specific port user: `python manage.py runserver host:port`, e.g., `python manage.py runserver 0.0.0.0:9000`.
 7. Navigate to 'localhost:8000/hypothesize' to begin (substitute a different port number if you started the server on a different port). Here you will be asked to enter a username and password. The defaults are 'user' and 'pass', respectively, but these can be changed in the file hypothesize/settings.py.
