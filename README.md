@@ -49,59 +49,31 @@ Although this wasn't mentioned above, documents can also link to other documents
 
 In addition to the special syntax for linking to documents and topics, the text of a topic admits numerous other syntactical shortcuts. Most notably, topics are completely Markdown compatible. For instance: ```*this text in italics*``` gets rendered as *this text in italics* and ```[my link](https://github.com/rkp8000/hypothesize2)``` gets rendered as [my link](https://github.com/rkp8000/hypothesize2). Check out this [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) to see what else you can do with Markdown.
 
-You can also include TeX equations in a topic's text file, which get nicely typeset when you save and render the topic. You can include an inline equation by surrounding it with single $'s and a block equation by surrounding it with $$'s. For instance, ```$y = \sum_i x_i$``` gets rendered as $y = \sum_i x_i$
+You can also include TeX equations in a topic's text file, which get nicely typeset when you save and render the topic. You can include an inline equation by surrounding it with single $'s and a block equation by surrounding it with $$'s. For instance, ```$y = \sum_i x_i$``` would get rendered inline and ```$$y = \sum_i x_i$$``` would get rendered in its own block. At this point, equation typesetting will only work if you have an internet connection, since it is done by remotely loading the [MathJax](https://www.mathjax.org) javascript library.
 
 ### Backing up your database and restoring from a backup
 
+You can backup your database by clicking the "back up database" link on either the document or topic search page. By default, database backups will get stored inside a directory called "backups" that lives inside the main *hypothesize* folder but you can specify an alternative path by editing the ```DATABASE_BACKUP_DIRECTORY``` setting in the file ```hypothesize/my_settings.py``` to path on your computer. Note that backing up the database in this way does not back up the files associated with documents, since they will generally take up a significant amount of memory. It only backs up all of your document metadata and all of your topics.
+
+To restore from an old backup, simply copy the backup file that you want to restore to the main hypothesize directory and change its name to ```db.sqlite3``` (you will have to remove the old one first, so be sure you know what you're doing!).
+
 ### Setting a username and password
+
+You can set up simple authentication for hypothesize (so that you have to enter a username and password in order to access your documents and topics) by changing the ```USERNAME``` and ```PASSWORD``` settings in ```hypothesize/my_settings.py```. Note that this is not at all secure at this point, since the username and password are stored as plain text, so it is not advisable to use it to protect any confidential information.
 
 ### Running hypothesize on a different port
 
 ### Running hypothesize on a remote server
 
-6. This starts the server and connects it to port 8000 by default. To specify a specific port user: `python manage.py runserver host:port`, e.g., `python manage.py runserver 0.0.0.0:9000`.
-7. Navigate to 'localhost:8000/hypothesize' to begin (substitute a different port number if you started the server on a different port). Here you will be asked to enter a username and password. The defaults are 'user' and 'pass', respectively, but these can be changed in the file hypothesize/settings.py.
-8. Begin sciencing!
+### Keyboard navigability
 
-### How to upload a document
 
-Click on 'add new document'. Fill in the form with as much information as you please and click save, including a file
- (e.g., a pdf) if you have it.
-
-  To add authors to the document, enter them in the 'author text' field, separated by semi-colons (e.g.,
- 'Smith, John D.; Winkelmann, Andreas; Erdos, Paul').
-
- The document will be automatically be assigned a *document ID* consisting of the first word of the author text and the year of publication. For example, if a document has the author text 'Smith, John D.; Winkelmann, Andreas; Erdos, Paul' and the year 2004, the document ID will become Smith2004. If the assigned ID is already taken, the ID will be augmented with a capital letter. E.g., if Smith2004 is taken, the article will be assigned Smith2004A. Each document can be uniquely referenced using its ID.
-
-### How to create a new node
-
-Nodes are very simple. They have an ID, a type, and text. To add a new node, click 'add new node'.
-
-Pick whatever you like for the node ID, as long as it hasn't been used before. Like the document ids, a node id allows you to uniquely reference the node.
-
-Node types help you organize your nodes by category. For example, you might have a node type for talks/lectures, a node type for notes about a specific article, a node type for algorithm details, etc. To add a new node type, click on 'edit node types'. See below for full list of recommended node types.
-
-The rest of the node is simply text that gets rendered to html upon saving. Node text is fully markdown compatible. For example, you can specify a size-3 header with '### my header', italics with '*my text in italics*', etc. For a full catalog of markdown syntax, see ...
-
-Importantly, in addition to markdown, there also exists simple syntax for linking to documents and other nodes. Document links are specified as '[[Smith2004]]', etc. Node links are specified as '((my other node))'. If you can't quite remember the ids of the documents or nodes, hypothesize will help out a little. Once the node is saved, the links will be rendered as hyperlinks.
-
-You can also include equations in your nodes by surrounding them with '$...$' for inline equations or '$$...$$' for equations that get their own line. These will be typeset using the MathJax library, which requires an internet connection.
-
-In addition to being store in a database, nodes are also stored in a folder called 'nodes', located in the *hypothesize* directory you downloaded. This way you can version control your work more easily.
-
-### Examples of useful node types
-
-* talk: for taking notes in markdown and TeX during seminars
-* meeting notes: for taking notes in a meeting
-* document notes: for taking notes on a single document
-* document group: for compiling a collection of links to related documents
-* node group: for compiling a collection of links to related nodes
-* code outline: for outlining code to be used in a project
-
-## Running hypothesize on a remote server
+#### Running hypothesize on a remote server
 
 Since hypothesize is powered by a web server, this means it can take advantage of all the technologies associated with web servers, the most important being the ability to run it on one computer while accessing it on another. Doing this is super easy. On the computer on which you wish to run hypothesize (for example a computer in your lab that is always on, or on some other remote server -- call this the host computer), simply `cd` into the directory and at the command prompt enter `python manage.py runserver 0.0.0.0:8000` (replacing "8000" by whichever port you'd like to run it on, though 8000 is a good default). Then, on any computer with a web browser that's connected to the internet, simply navigate to the ip of the host computer, followed by the port number and '/hypothesize'. E.g., if the host's IP is d-121-55-191-111.mydomain.com, navigate to d-121-55-191-111.mydomain.com:8000/hypothesize.
 
-## Contributing to hypothesize
+# Contributing to hypothesize
 
-This project is completely open source and nonprofit and all that good stuff. My motivation for making it was that I wanted a piece of minimalistic software that allowed me to efficiently navigate through hundreds to thousands of scientific documents stored on my local machine, as well as my notes about those documents or about other projects. I've put enough time into it to make it at least reasonably functional. That said, I really have no idea what I'm doing. I've tried to follow best practices when possible and done what I can to make it work, but I would love some more help. Therefore, if you are interested in contributing to this project you should feel free to open issues and pull requests.
+This project is completely open source and free for all to use and modify. My motivation for making it was that I wanted a piece of minimalistic software that allowed me to efficiently navigate through hundreds to thousands of scientific documents stored on my local machine, as well as my notes about those documents or about other projects. I've tried to make it at least reasonably functional and to follow best practices when possible, but that said, I really have very little idea what I'm doing, and I would love some more help. Therefore, if you are interested in contributing to this project you should feel free to open issues and pull requests.
+
+Happy sciencing!
