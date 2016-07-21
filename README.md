@@ -35,15 +35,23 @@ Inline navigation through your wiki-like network of topics and documents makes i
 
 Because topics are just text files with inline links to documents and other topics, they are extremely flexible. For example, you can use a topic as notes about a journal article in relation to other articles, as notes about several articles, as simply a list of related articles, as notes about a general idea that references journal articles or other ideas, as notes about a talk or seminar, as a list of related topics, as a list of talks or seminars (e.g., when attending a conference), as an outline for code, or as anything else you might think of.
 
+In addition to topics containing inline links to other documents and topics, documents and topics also always show the other topics that link *to* them, so that you can easily navigate upstream as well.
+
 ## Advanced usage
 
 ### Document creation
 
 One nice thing about hypothesize is that when adding a new document you don't have to type in all the metadata yourself. If you instead just type in a guess at the title you can click "attempt to fill in article metadata using CrossRef" to fill in the rest of the form. Note, however, that this does not fill in the abstract (work on this is in progress) or the PDF file.
 
-Although this wasn't mentioned above, documents can also link to other documents. To create a link between two documents, simply edit the document that is doing the linking and type in a list of document keys that you want it to link to in the "downstream documents" text box. As before, you don't need to know the whole key; *hypothesize* will try to guess the rest you've entered When viewed, documents will always show the
+Although this wasn't mentioned above, documents can also link to other documents. To create a link between two documents, simply edit the document that is doing the linking and type in a list of document keys that you want it to link to in the "downstream documents" text box. As before, you don't need to know the whole key; *hypothesize* will try to guess the rest you've entered. When you view a document, you will see the documents that that document links to, as well as all the documents that link to it.
 
 ### Advanced topic editing
+
+In addition to the special syntax for linking to documents and topics, the text of a topic admits numerous other syntactical shortcuts. Most notably, topics are completely markdown compatible. For instance:
+
+* <pre>"*this text in italics*"</pre> gets rendered as *this text in italics*
+* and <pre>"[my link](https://github.com/rkp8000/hypothesize2)"</pre> gets rendered as [my link](https://github.com/rkp8000/hypothesize2)
+* Check out this [markdown cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) to see what else you can do with markdown
 
 ### Backing up your database and restoring from a backup
 
