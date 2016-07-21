@@ -49,9 +49,9 @@ Although this wasn't mentioned above, documents can also link to other documents
 
 In addition to the special syntax for linking to documents and topics, the text of a topic admits numerous other syntactical shortcuts. Most notably, topics are completely markdown compatible. For instance:
 
-* <pre>"*this text in italics*"</pre> gets rendered as *this text in italics*
-* and <pre>"[my link](https://github.com/rkp8000/hypothesize2)"</pre> gets rendered as [my link](https://github.com/rkp8000/hypothesize2)
-* Check out this [markdown cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) to see what else you can do with markdown
+* <pre>*this text in italics*</pre> gets rendered as *this text in italics*
+* and <div>[my link](https://github.com/rkp8000/hypothesize2)</div> gets rendered as [my link](https://github.com/rkp8000/hypothesize2)
+* Check out this [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) to see what else you can do with markdown
 
 ### Backing up your database and restoring from a backup
 
