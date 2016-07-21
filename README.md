@@ -47,11 +47,9 @@ Although this wasn't mentioned above, documents can also link to other documents
 
 ### Advanced topic editing
 
-In addition to the special syntax for linking to documents and topics, the text of a topic admits numerous other syntactical shortcuts. Most notably, topics are completely markdown compatible. For instance:
+In addition to the special syntax for linking to documents and topics, the text of a topic admits numerous other syntactical shortcuts. Most notably, topics are completely Markdown compatible. For instance: ```*this text in italics*``` gets rendered as *this text in italics* and ```[my link](https://github.com/rkp8000/hypothesize2)``` gets rendered as [my link](https://github.com/rkp8000/hypothesize2). Check out this [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) to see what else you can do with Markdown.
 
-* <pre>*this text in italics*</pre> gets rendered as *this text in italics*
-* and <div>[my link](https://github.com/rkp8000/hypothesize2)</div> gets rendered as [my link](https://github.com/rkp8000/hypothesize2)
-* Check out this [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) to see what else you can do with markdown
+You can also include TeX equations in a topic's text file, which get nicely typeset when you save and render the topic. You can include an inline equation by surrounding it with single $'s and a block equation by surrounding it with $$'s. For instance, ```$y = \sum_i x_i$``` gets rendered as $y = \sum_i x_i$
 
 ### Backing up your database and restoring from a backup
 
