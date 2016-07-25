@@ -63,7 +63,11 @@ You can set up simple authentication for hypothesize (so that you have to enter 
 
 ### Running hypothesize on a different port
 
+By default *hypothesize* runs on port 8000. This is why you navigate to "localhost:*8000*/hypothesize" to access the application's browser interface. If you don't wish to use that port you can specify another when you start the server. For example, ```python manage.py runserver localhost:8080``` will run *hypothesize* on port 8080 and you can access the application by navigating to "localhost:*8000*/hypothesize" in your web browser.
+
 ### Running hypothesize on a remote server
+
+Running *hypothesize* on a remote server is also very easy. On the host computer (e.g., a lab computer that remains on) simply start *hypothesize* using ```python manage.py runserver 0.0.0.0:8000```.
 
 ### Keyboard navigability
 
