@@ -63,18 +63,13 @@ You can set up simple authentication for hypothesize (so that you have to enter 
 
 ### Running hypothesize on a different port
 
-By default *hypothesize* runs on port 8000. This is why you navigate to "localhost:*8000*/hypothesize" to access the application's browser interface. If you don't wish to use that port you can specify another when you start the server. For example, ```python manage.py runserver localhost:8080``` will run *hypothesize* on port 8080 and you can access the application by navigating to "localhost:*8000*/hypothesize" in your web browser.
+By default *hypothesize* runs on port 8000. This is why you navigate to "localhost:*8000*/hypothesize" to access the application's browser interface. If you don't wish to use that port you can specify another when you start the server. For example, ```python manage.py runserver localhost:8080``` will run *hypothesize* on port 8080 and you can access the application by navigating to "localhost:8080/hypothesize" in your web browser.
 
 ### Running hypothesize on a remote server
 
-Running *hypothesize* on a remote server is also very easy. On the host computer (e.g., a lab computer that remains on) simply start *hypothesize* using ```python manage.py runserver 0.0.0.0:8000```.
+Running *hypothesize* on a remote server is also very easy. On the host computer (e.g., a lab computer that remains on and has a static IP address) simply start *hypothesize* using ```python manage.py runserver 0.0.0.0:8000```. Then, on any computer with a web browser that's connected to the internet, simply navigate to the ip of the host computer, followed by the port number and '/hypothesize'. E.g., if the host is usually accessed through "mycomputer.myuniversity.edu", navigate to "mycomputer.myuniversity.edu:8000/hypothesize".
 
-### Keyboard navigability
-
-
-#### Running hypothesize on a remote server
-
-Since hypothesize is powered by a web server, this means it can take advantage of all the technologies associated with web servers, the most important being the ability to run it on one computer while accessing it on another. Doing this is super easy. On the computer on which you wish to run hypothesize (for example a computer in your lab that is always on, or on some other remote server -- call this the host computer), simply `cd` into the directory and at the command prompt enter `python manage.py runserver 0.0.0.0:8000` (replacing "8000" by whichever port you'd like to run it on, though 8000 is a good default). Then, on any computer with a web browser that's connected to the internet, simply navigate to the ip of the host computer, followed by the port number and '/hypothesize'. E.g., if the host's IP is d-121-55-191-111.mydomain.com, navigate to d-121-55-191-111.mydomain.com:8000/hypothesize.
+### Keyboard
 
 # Contributing to hypothesize
 
