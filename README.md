@@ -69,7 +69,7 @@ By default *hypothesize* runs on port 8000. This is why you navigate to "localho
 
 Running *hypothesize* on a remote server is also very easy. On the host computer (e.g., a lab computer that remains on and has a static IP address) simply start *hypothesize* using ```python manage.py runserver 0.0.0.0:8000```. Then, on any computer with a web browser that's connected to the internet, simply navigate to the ip of the host computer, followed by the port number and '/hypothesize'. E.g., if the host is usually accessed through "mycomputer.myuniversity.edu", navigate to "mycomputer.myuniversity.edu:8000/hypothesize".
 
-### Keyboard
+### Keyboard navigability
 
 # Contributing to hypothesize
 
