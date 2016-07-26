@@ -40,6 +40,7 @@ class ThreadForm(ModelForm):
         model = Thread
         fields = ['key', 'text']
         widgets = {
+            'key': forms.TextInput(attrs={'size': 80}),
             'text': forms.Textarea(attrs={'rows': 60, 'cols': 120})
         }
 
