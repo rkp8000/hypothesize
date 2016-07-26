@@ -1,0 +1,14 @@
+<h3>{{ thread.title }} (<a href="{% url 'hypothesize_app:thread_change' thread.key %}">edit</a>)
+   (<a href="{% url 'hypothesize_app:thread_search' %}">return to search</a>)</h3>
+<hr />
+
+{{ thread.html | safe }}
+<br />
+{% if thread.thread_set.all %}
+   <hr />
+   <strong>upstream threads:</strong>
+   {% for us_thread in thread.thread_set.all %}
+   <a href="{% url 'hypothesize_app:thread_detail' us_thread.key %}" class="internal-link" data-linkkey="thread-{{us_thread.key}}">
+      {{us_thread.key}}</a>
+   {% endfor %}
+{% endif %}

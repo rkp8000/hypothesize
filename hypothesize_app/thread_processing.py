@@ -13,9 +13,9 @@ DOCUMENT_LINK_PATTERN_FULL = r'\[\[.*?\]\]'
 TOPIC_LINK_PATTERN_FULL = r'\(\(.*?\)\)'
 
 
-def make_topic_save_directory(path):
+def make_thread_save_directory(path):
     """
-    Make a new directory for saving topics in.
+    Make a new directory for saving threads in.
     :param path: path to directory
     """
 
@@ -26,25 +26,25 @@ def make_topic_save_directory(path):
 
 def get_invalid_key_characters(key):
     """
-    Make sure the topic key includes only characters in the topic key character whitelist.
-    :param key: topic key
+    Make sure the thread key includes only characters in the thread key character whitelist.
+    :param key: thread key
     :return: list of characters not in whitelist
     """
 
     return set([char for char in key if char not in settings.TOPIC_KEY_CHARACTER_WHITELIST])
 
 
-def update_text_file(topic):
+def update_text_file(thread):
     """
-    Update the text file corresponding to an updated topic.
-    :param topic: topic instance
+    Update the text file corresponding to an updated thread.
+    :param thread: thread instance
     """
 
-    topic_save_directory = settings.TOPIC_SAVE_DIRECTORY
+    thread_save_directory = settings.TOPIC_SAVE_DIRECTORY
 
-    make_topic_save_directory(topic_save_directory)
+    make_thread_save_directory(thread_save_directory)
 
-    path = os.path.join(topic_save_directory, topic.key)
+    path = os.path.join(thread_save_directory, thread.key)
 
     if not os.path.exists(os.path.dirname(path)):
 
@@ -52,18 +52,18 @@ def update_text_file(topic):
 
     with open('{}.md'.format(path), 'w') as f:
 
-        f.write(topic.text)
+        f.write(thread.text)
 
     return True
 
 
-def extract_linked_objects(text, document_model, topic_model):
+def extract_linked_objects(text, document_model, thread_model):
     """
-    Extract all of the linked objects from a topic's text.
+    Extract all of the linked objects from a thread's text.
     :param text: text
     :param document_model: models.Document
-    :param topic_model: models.Topic
-    :return: linked documents list, linked topics list
+    :param thread_model: models.Thread
+    :return: linked documents list, linked threads list
     """
 
     # extract documents
@@ -74,33 +74,33 @@ def extract_linked_objects(text, document_model, topic_model):
     documents = [document_model.objects.filter(key=document_key).first() for document_key in document_keys]
     documents = [document for document in documents if document is not None]
 
-    # extract topic links
+    # extract thread links
 
-    topic_links = re.findall(TOPIC_LINK_PATTERN, text)
-    topic_keys = [link.split('|')[0].strip() for link in topic_links]
+    thread_links = re.findall(TOPIC_LINK_PATTERN, text)
+    thread_keys = [link.split('|')[0].strip() for link in thread_links]
 
-    topics = [topic_model.objects.filter(key=topic_key).first() for topic_key in topic_keys]
-    topics = [topic for topic in topics if topic is not None]
+    threads = [thread_model.objects.filter(key=thread_key).first() for thread_key in thread_keys]
+    threads = [thread for thread in threads if thread is not None]
 
-    return documents, topics
+    return documents, threads
 
 
-def bind_linked_objects(topic, document_model, topic_model):
+def bind_linked_objects(thread, document_model, thread_model):
     """
-    Bind all documents and topics linked to by a topic to that topic.
+    Bind all documents and threads linked to by a thread to that thread.
 
-    :param topic: topic
+    :param thread: thread
     :param document_model: models.Document
-    :param topic_model: models.Topic
+    :param thread_model: models.Thread
     """
 
-    documents, topics = extract_linked_objects(topic.text, document_model, topic_model)
+    documents, threads = extract_linked_objects(thread.text, document_model, thread_model)
 
-    topic.documents.clear()
-    topic.documents.add(*documents)
+    thread.documents.clear()
+    thread.documents.add(*documents)
 
-    topic.topics.clear()
-    topic.topics.add(*topics)
+    thread.threads.clear()
+    thread.threads.add(*threads)
 
 
 def document_link_to_html(match):
@@ -136,16 +136,16 @@ def document_link_to_html(match):
     return html
 
 
-def topic_link_to_html(match):
+def thread_link_to_html(match):
     """
-    Convert topic link pattern to html.
+    Convert thread link pattern to html.
     :param match: regular expression match
     :return:
     """
 
     fragments = match.group()[2:-2].split('|', 1)
 
-    topic_key = fragments[0]
+    thread_key = fragments[0]
 
     if len(fragments) == 1:
 
@@ -157,35 +157,35 @@ def topic_link_to_html(match):
 
     try:
 
-        url = reverse('hypothesize_app:topic_detail', args=(topic_key.strip(),))
+        url = reverse('hypothesize_app:thread_detail', args=(thread_key.strip(),))
 
     except NoReverseMatch:
 
         url = '#'
 
-    html = '<a href="{}" class="internal-link" data-linkkey="topic-{}">{}</a>'.format(
-        url, topic_key, text_to_display)
+    html = '<a href="{}" class="internal-link" data-linkkey="thread-{}">{}</a>'.format(
+        url, thread_key, text_to_display)
 
     return html
 
 
 def text_to_md(text):
     """
-    Convert topic text to markdown, parsing all of the links.
-    :param text: topic text
-    :return topic markdown
+    Convert thread text to markdown, parsing all of the links.
+    :param text: thread text
+    :return thread markdown
     """
 
-    # replace document links and topic links in text with markdown
+    # replace document links and thread links in text with markdown
 
     temp = re.compile(DOCUMENT_LINK_PATTERN_FULL).sub(document_link_to_html, text)
-    md = re.compile(TOPIC_LINK_PATTERN_FULL).sub(topic_link_to_html, temp)
+    md = re.compile(TOPIC_LINK_PATTERN_FULL).sub(thread_link_to_html, temp)
 
     return md
 
 
 def text_to_html(text):
-    """Convert topic text to html."""
+    """Convert thread text to html."""
 
     # convert internal links to html
 
@@ -195,15 +195,15 @@ def text_to_html(text):
     return html
 
 
-def make_tab_complete_options(document_model, topic_model):
+def make_tab_complete_options(document_model, thread_model):
     """
     Generate a list of things that can be tab completed.
     :param document_model: models.Document,
-    :param topic_model: models.Topic
+    :param thread_model: models.Thread
     :return list of strings for tab completion
     """
 
     document_strings = [str(doc_key) for doc_key in document_model.objects.values_list('key', flat=True)]
-    topic_strings = [str(topic_key) for topic_key in topic_model.objects.values_list('key', flat=True)]
+    thread_strings = [str(thread_key) for thread_key in thread_model.objects.values_list('key', flat=True)]
 
-    return document_strings + topic_strings
+    return document_strings + thread_strings

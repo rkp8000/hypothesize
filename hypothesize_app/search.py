@@ -64,20 +64,20 @@ def document_query(query):
     return list(unique_everseen(documents))
 
 
-def topic_query(query):
+def thread_query(query):
     """
-    Return the topics indexed by a given query.
+    Return the threads indexed by a given query.
     :param query: search query (str)
-    :return: list of topics
+    :return: list of threads
     """
 
     if query:
 
-        topics = []
+        threads = []
 
         try:
 
-            topics += list(models.Topic.objects.filter(key__iexact=query).all())
+            threads += list(models.Thread.objects.filter(key__iexact=query).all())
 
         except ObjectDoesNotExist:
 
@@ -85,7 +85,7 @@ def topic_query(query):
 
         try:
 
-            topics += list(models.Topic.objects.filter(key__contains=query).all())
+            threads += list(models.Thread.objects.filter(key__contains=query).all())
 
         except ObjectDoesNotExist:
 
@@ -93,7 +93,7 @@ def topic_query(query):
 
         try:
 
-            topics += list(models.Topic.objects.filter(text__contains=query).all())
+            threads += list(models.Thread.objects.filter(text__contains=query).all())
 
         except ObjectDoesNotExist:
 
@@ -101,6 +101,6 @@ def topic_query(query):
 
     else:
 
-        topics = models.Topic.objects.all().order_by('-last_saved')
+        threads = models.Thread.objects.all().order_by('-last_saved')
 
-    return list(unique_everseen(topics))
+    return list(unique_everseen(threads))

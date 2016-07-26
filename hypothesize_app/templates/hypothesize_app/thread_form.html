@@ -14,16 +14,16 @@
 
             $('#id_text').bind('input propertychange', function() {
 
-                $('#topic_save_status').html('(unsaved changes -- press CTRL + S to save)');
+                $('#thread_save_status').html('(unsaved changes -- press CTRL + S to save)');
 
             });
         });
     </script>
 
     <script>
-        function save_topic() {
+        function save_thread() {
             $.ajax({
-                url: "{% url 'hypothesize_app:ajax_topic_saver' %}",
+                url: "{% url 'hypothesize_app:ajax_thread_saver' %}",
                 type: "GET",
                 data: {
                     'id': $("#id_id").val(),
@@ -32,24 +32,24 @@
                 },
 
                 success: function(json){
-                    $('#topic_save_status').html(json['topic_save_message']);
+                    $('#thread_save_status').html(json['thread_save_message']);
 
                     if ('key' in json) {
                         $('title').html('EDIT: ' + json['key']);
-                        var detail_url = "{% url 'hypothesize_app:topic_detail' 'key' %}".replace('key', json['key']);
+                        var detail_url = "{% url 'hypothesize_app:thread_detail' 'key' %}".replace('key', json['key']);
                         $('#detail-link').attr('href', detail_url);
                     }
 
                     if ('new_id' in json) {
                         $('#id_id').val(json['new_id']);
-                        var delete_url = "{% url 'hypothesize_app:topic_delete' 'id' %}".replace('id', json['new_id']);
+                        var delete_url = "{% url 'hypothesize_app:thread_delete' 'id' %}".replace('id', json['new_id']);
                         $('#delete-link').attr('href', delete_url);
 
                     }
                 },
 
                 failure: function(json){
-                    alert('Error saving topic!');
+                    alert('Error saving thread!');
                 }
             });
         }
@@ -60,7 +60,7 @@
 
             var evtobj = window.event? event : e
             if (evtobj.keyCode == 83 && evtobj.ctrlKey) {
-                save_topic();
+                save_thread();
             }
         }
 
@@ -68,32 +68,32 @@
     </script>
 
     <title>
-        {% if topic %}
-            EDIT: {{ topic.key }}
+        {% if thread %}
+            EDIT: {{ thread.key }}
         {% else %}
-            add new topic
+            add new thread
         {% endif %}
     </title>
 </head>
 
-<a href="#" onclick="save_topic()">save</a>&nbsp;
-{% if topic.key %}
-    <a id="detail-link" href="{% url 'hypothesize_app:topic_detail' topic.key %}">view</a>&nbsp;
+<a href="#" onclick="save_thread()">save</a>&nbsp;
+{% if thread.key %}
+    <a id="detail-link" href="{% url 'hypothesize_app:thread_detail' thread.key %}">view</a>&nbsp;
 {% else %}
     <a id="detail-link" href="#">view</a>&nbsp;
 {% endif %}
-<a href="{% url 'hypothesize_app:topic_search' %}">return to search</a><br />
+<a href="{% url 'hypothesize_app:thread_search' %}">return to search</a><br />
 
 <form action="" method="post">
     {% csrf_token %}
     <br />
     key: {{ form.key }} <br /><br />
-    content <span id="topic_save_status"></span><br /> {{ form.text }}
-    <input id="id_id" type="hidden" value="{{ topic.id }}" />
+    content <span id="thread_save_status"></span><br /> {{ form.text }}
+    <input id="id_id" type="hidden" value="{{ thread.id }}" />
 </form>
 
-{% if topic.key %}
-    <a id="delete-link" href="{% url 'hypothesize_app:topic_delete' topic.id %}">delete this topic</a>
+{% if thread.key %}
+    <a id="delete-link" href="{% url 'hypothesize_app:thread_delete' thread.id %}">delete this thread</a>
 {% else %}
-    <a id="delete-link">delete this topic</a>
+    <a id="delete-link">delete this thread</a>
 {% endif %}

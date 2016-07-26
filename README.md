@@ -13,29 +13,29 @@
 
 ## Basic usage
 
-### Documents and topics
+### Documents and threads
 
-*hypothesize* uses two kinds of objects: *documents* and *topics*. Documents are typically published journal articles or reports, and topics are text files for your notes and organization that get rendered into simple webpages when you save them. You can search, browse, or add new documents on the *document search page* and you can search, browse, or add new topics on the *topic search page*.
+*hypothesize* uses two kinds of objects: *documents* and *threads*. Documents are typically published journal articles or reports, and threads are text files for your notes and organization that get rendered into simple webpages when you save them. You can search, browse, or add new documents on the *document search page* and you can search, browse, or add new threads on the *thread search page*.
 
 ### Keys
 
-So that they can be unambiguously referenced, each topic and each document must have its own key, or unique label. Topic keys are simply the title of the topic's text file and document keys are the last name of first author combined with the publication year (e.g., Shannon1948). 
+So that they can be unambiguously referenced, each thread and each document must have its own key, or unique label. Thread keys are simply the title of the thread's text file and document keys are the last name of first author combined with the publication year (e.g., Shannon1948). 
 
-### Linking topics and documents
+### Linking threads and documents
 
-Within the text of a topic you can reference documents *inline* by surrounding the document key by double square brackets, e.g., "...it was shown in [[Shannon1948]] that a logarithmic measure of information was a very useful quantity...". In this way, one topic can reference many documents and one document can be referenced by many topics.
+Within the text of a thread you can reference documents *inline* by surrounding the document key by double square brackets, e.g., "...it was shown in [[Shannon1948]] that a logarithmic measure of information was a very useful quantity...". In this way, one thread can reference many documents and one document can be referenced by many threads.
 
-When you save the topic to render it as a webpage, "[[Shannon1948]]" becomes a hyperlink that when clicked expands into a small inline box containing the metadata for the article (such as its publication and abstract) and a link to the primary source (such as a local pdf or an external website). 
+When you save the thread to render it as a webpage, "[[Shannon1948]]" becomes a hyperlink that when clicked expands into a small inline box containing the metadata for the article (such as its publication and abstract) and a link to the primary source (such as a local pdf or an external website). 
 
-Topics can also reference other topics using double parentheses e.g., "...information theory and ((dynamical systems theory)) became major players in theoretical neuroscience...". When you edit a topic and start typing out the key for a document or topic reference, *hypothesize* will try to guess which key you're thinking of so you don't have to remember the exact spelling or phrasing. When a topic reference is saved and rendered it similarly becomes a hyperlink that when clicked opens up the referenced topic inline with the original one.
+Threads can also reference other threads using double parentheses e.g., "...information theory and ((dynamical systems theory)) became major players in theoretical neuroscience...". When you edit a thread and start typing out the key for a document or thread reference, *hypothesize* will try to guess which key you're thinking of so you don't have to remember the exact spelling or phrasing. When a thread reference is saved and rendered it similarly becomes a hyperlink that when clicked opens up the referenced thread inline with the original one.
 
-Inline navigation through your wiki-like network of topics and documents makes it so you never have to switch or reload tabs when moving among related objects, so you never lose track of where you are.
+Inline navigation through your wiki-like network of threads and documents makes it so you never have to switch or reload tabs when moving among related objects, so you never lose track of where you are.
 
-### Topic flexibility
+### Thread flexibility
 
-Because topics are just text files with inline links to documents and other topics, they are extremely flexible. For example, you can use a topic as notes about a journal article in relation to other articles, as notes about several articles, as simply a list of related articles, as notes about a general idea that references journal articles or other ideas, as notes about a talk or seminar, as a list of related topics, as a list of talks or seminars (e.g., when attending a conference), as an outline for code, or as anything else you might think of.
+Because threads are just text files with inline links to documents and other threads, they are extremely flexible. For example, you can use a thread as notes about a journal article in relation to other articles, as notes about several articles, as simply a list of related articles, as notes about a general idea that references journal articles or other ideas, as notes about a talk or seminar, as a list of related threads, as a list of talks or seminars (e.g., when attending a conference), as an outline for code, or as anything else you might think of.
 
-In addition to topics containing inline links to other documents and topics, documents and topics also always show the other topics that link *to* them, so that you can easily navigate upstream as well.
+In addition to threads containing inline links to other documents and threads, documents and threads also always show the other threads that link *to* them, so that you can easily navigate upstream as well.
 
 ## Advanced usage
 
@@ -45,21 +45,21 @@ One nice thing about hypothesize is that when adding a new document you don't ha
 
 Although this wasn't mentioned above, documents can also link to other documents. To create a link between two documents, simply edit the document that is doing the linking and type in a list of document keys that you want it to link to in the "downstream documents" text box. As before, you don't need to know the whole key; *hypothesize* will try to guess the rest you've entered. When you view a document, you will see the documents that that document links to, as well as all the documents that link to it.
 
-### Advanced topic editing
+### Advanced thread editing
 
-In addition to the special syntax for linking to documents and topics, the text of a topic admits numerous other syntactical shortcuts. Most notably, topics are completely Markdown compatible. For instance: ```*this text in italics*``` gets rendered as *this text in italics* and ```[my link](https://github.com/rkp8000/hypothesize2)``` gets rendered as [my link](https://github.com/rkp8000/hypothesize2). Check out this [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) to see what else you can do with Markdown.
+In addition to the special syntax for linking to documents and threads, the text of a thread admits numerous other syntactical shortcuts. Most notably, threads are completely Markdown compatible. For instance: ```*this text in italics*``` gets rendered as *this text in italics* and ```[my link](https://github.com/rkp8000/hypothesize2)``` gets rendered as [my link](https://github.com/rkp8000/hypothesize2). Check out this [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) to see what else you can do with Markdown.
 
-You can also include TeX equations in a topic's text file, which get nicely typeset when you save and render the topic. You can include an inline equation by surrounding it with single $'s and a block equation by surrounding it with $$'s. For instance, ```$y = \sum_i x_i$``` would get rendered inline and ```$$y = \sum_i x_i$$``` would get rendered in its own block. At this point, equation typesetting will only work if you have an internet connection, since it is done by remotely loading the [MathJax](https://www.mathjax.org) javascript library.
+You can also include TeX equations in a thread's text file, which get nicely typeset when you save and render the thread. You can include an inline equation by surrounding it with single $'s and a block equation by surrounding it with $$'s. For instance, ```$y = \sum_i x_i$``` would get rendered inline and ```$$y = \sum_i x_i$$``` would get rendered in its own block. At this point, equation typesetting will only work if you have an internet connection, since it is done by remotely loading the [MathJax](https://www.mathjax.org) javascript library.
 
 ### Backing up your database and restoring from a backup
 
-You can backup your database by clicking the "back up database" link on either the document or topic search page. By default, database backups will get stored inside a directory called "backups" that lives inside the main *hypothesize* folder but you can specify an alternative path by editing the ```DATABASE_BACKUP_DIRECTORY``` setting in the file ```hypothesize/my_settings.py``` to path on your computer. Note that backing up the database in this way does not back up the files associated with documents, since they will generally take up a significant amount of memory. It only backs up all of your document metadata and all of your topics.
+You can backup your database by clicking the "back up database" link on either the document or thread search page. By default, database backups will get stored inside a directory called "backups" that lives inside the main *hypothesize* folder but you can specify an alternative path by editing the ```DATABASE_BACKUP_DIRECTORY``` setting in the file ```hypothesize/my_settings.py``` to path on your computer. Note that backing up the database in this way does not back up the files associated with documents, since they will generally take up a significant amount of memory. It only backs up all of your document metadata and all of your threads.
 
 To restore from an old backup, simply copy the backup file that you want to restore to the main hypothesize directory and change its name to ```db.sqlite3``` (you will have to remove the old one first, so be sure you know what you're doing!).
 
 ### Setting a username and password
 
-You can set up simple authentication for hypothesize (so that you have to enter a username and password in order to access your documents and topics) by changing the ```USERNAME``` and ```PASSWORD``` settings in ```hypothesize/my_settings.py```. Note that this is not at all secure at this point, since the username and password are stored as plain text, so it is not advisable to use it to protect any confidential information.
+You can set up simple authentication for hypothesize (so that you have to enter a username and password in order to access your documents and threads) by changing the ```USERNAME``` and ```PASSWORD``` settings in ```hypothesize/my_settings.py```. Note that this is not at all secure at this point, since the username and password are stored as plain text, so it is not advisable to use it to protect any confidential information.
 
 ### Running hypothesize on a different port
 

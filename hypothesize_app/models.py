@@ -7,7 +7,7 @@ from django.db import models
 from django.utils import timezone
 
 import document_processing
-import topic_processing
+import thread_processing
 
 
 class Author(models.Model):
@@ -105,32 +105,32 @@ class Document(models.Model):
         super(Document, self).save(*args, **kwargs)
 
 
-class Topic(models.Model):
-    """Topic class."""
+class Thread(models.Model):
+    """Thread class."""
 
     key = models.CharField(max_length=255, unique=True, default='')
     text = models.TextField(blank=True, default='')
     created = models.DateTimeField(default=timezone.now, blank=True)
     last_saved = models.DateTimeField(default=timezone.now, blank=True)
-    topics = models.ManyToManyField('self', symmetrical=False, blank=True)
+    threads = models.ManyToManyField('self', symmetrical=False, blank=True)
     documents = models.ManyToManyField(Document, blank=True)
 
     def save(self, *args, **kwargs):
         """
-        Override default method to do additional topic processing.
+        Override default method to do additional thread processing.
         """
 
-        # save the topic so we can bind other things to it
+        # save the thread so we can bind other things to it
 
-        super(Topic, self).save(*args, **kwargs)
+        super(Thread, self).save(*args, **kwargs)
 
-        topic_processing.update_text_file(self)
+        thread_processing.update_text_file(self)
 
-        topic_processing.bind_linked_objects(self, document_model=Document, topic_model=Topic)
+        thread_processing.bind_linked_objects(self, document_model=Document, thread_model=Thread)
 
         self.last_saved = timezone.now()
 
-        super(Topic, self).save(*args, **kwargs)
+        super(Thread, self).save(*args, **kwargs)
 
     def __unicode__(self):
 
@@ -144,8 +144,8 @@ class Topic(models.Model):
     @property
     def html(self):
 
-        return topic_processing.text_to_html(self.text)
+        return thread_processing.text_to_html(self.text)
 
     def get_absolute_url(self):
 
-        return reverse('hypothesize_app:topic_detail', kwargs={'key': self.key})
+        return reverse('hypothesize_app:thread_detail', kwargs={'key': self.key})

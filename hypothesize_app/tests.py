@@ -113,35 +113,35 @@ class DocumentSearchTestCase(TestCase):
 
     pass
 
-## topic tests
+## thread tests
 
-### topic processing
+### thread processing
 
-class TopicProcessingTestCase(TestCase):
-
-    pass
-
-### topic add
-
-class TopicAddTestCase(TestCase):
+class ThreadProcessingTestCase(TestCase):
 
     pass
 
-### topic change
+### thread add
 
-class TopicChangeTestCase(TestCase):
-
-    pass
-
-### topic delete
-
-class TopicDeleteTestCase(TestCase):
+class ThreadAddTestCase(TestCase):
 
     pass
 
-### topic search
+### thread change
 
-class TopicSearchTestCase(TestCase):
+class ThreadChangeTestCase(TestCase):
+
+    pass
+
+### thread delete
+
+class ThreadDeleteTestCase(TestCase):
+
+    pass
+
+### thread search
+
+class ThreadSearchTestCase(TestCase):
 
     pass
 
@@ -190,7 +190,7 @@ class CrossRefSearchTestCase(TestCase):
 
 #
 
-## topic tests
+## thread tests
 
 ## database backup tests
 

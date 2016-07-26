@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django import forms
 from django.forms import ModelForm
 from django.utils.safestring import mark_safe
-from hypothesize_app.models import Document, Topic
+from hypothesize_app.models import Document, Thread
 
 MAX_HIT_OPTIONS = [(20, 20), (50, 50), (100, 100)]
 
@@ -30,14 +30,14 @@ class DocumentForm(ModelForm):
         }
 
 
-class TopicForm(ModelForm):
+class ThreadForm(ModelForm):
     """
-    Form for changing a topic's contents.
+    Form for changing a thread's contents.
     """
 
     class Meta:
 
-        model = Topic
+        model = Thread
         fields = ['key', 'text']
         widgets = {
             'text': forms.Textarea(attrs={'rows': 60, 'cols': 120})
@@ -53,10 +53,10 @@ class DocumentSearchForm(forms.Form):
     max_hits = forms.ChoiceField(label='max_hits', choices=MAX_HIT_OPTIONS)
 
 
-class TopicSearchForm(forms.Form):
+class ThreadSearchForm(forms.Form):
     """
-    Form for searching topic database.
+    Form for searching thread database.
     """
 
-    query = forms.CharField(label='topic_query', max_length=500)
+    query = forms.CharField(label='thread_query', max_length=500)
     max_hits = forms.ChoiceField(label='max_hits', choices=MAX_HIT_OPTIONS)

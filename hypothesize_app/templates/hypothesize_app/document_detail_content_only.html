@@ -50,10 +50,10 @@ AUTHORS:<br />
     <br />
 {% endif %}
 
-{% if document.topic_set.all %}
-<strong>upstream topics (topics linking to this document):</strong>
-    {% for us_topic in document.topic_set.all %}
-    <a href="{% url 'hypothesize_app:topic_detail' us_topic.key %}" class="internal-link" data-linkkey="topic-{{us_topic.key}}">
-       {{us_topic.key}}</a>
+{% if document.thread_set.all %}
+<strong>upstream threads (threads linking to this document):</strong>
+    {% for us_thread in document.thread_set.all %}
+    <a href="{% url 'hypothesize_app:thread_detail' us_thread.key %}" class="internal-link" data-linkkey="thread-{{us_thread.key}}">
+       {{us_thread.key}}</a>
     {% endfor %}
 {% endif %}
