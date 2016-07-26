@@ -8,9 +8,9 @@ from django.core.urlresolvers import reverse
 import markdown
 
 DOCUMENT_LINK_PATTERN = r'\[\[(.*?)\]\]'
-TOPIC_LINK_PATTERN = r'\(\((.*?)\)\)'
+THREAD_LINK_PATTERN = r'\(\((.*?)\)\)'
 DOCUMENT_LINK_PATTERN_FULL = r'\[\[.*?\]\]'
-TOPIC_LINK_PATTERN_FULL = r'\(\(.*?\)\)'
+THREAD_LINK_PATTERN_FULL = r'\(\(.*?\)\)'
 
 
 def make_thread_save_directory(path):
@@ -31,7 +31,7 @@ def get_invalid_key_characters(key):
     :return: list of characters not in whitelist
     """
 
-    return set([char for char in key if char not in settings.TOPIC_KEY_CHARACTER_WHITELIST])
+    return set([char for char in key if char not in settings.THREAD_KEY_CHARACTER_WHITELIST])
 
 
 def update_text_file(thread):
@@ -40,7 +40,7 @@ def update_text_file(thread):
     :param thread: thread instance
     """
 
-    thread_save_directory = settings.TOPIC_SAVE_DIRECTORY
+    thread_save_directory = settings.THREAD_SAVE_DIRECTORY
 
     make_thread_save_directory(thread_save_directory)
 
@@ -76,7 +76,7 @@ def extract_linked_objects(text, document_model, thread_model):
 
     # extract thread links
 
-    thread_links = re.findall(TOPIC_LINK_PATTERN, text)
+    thread_links = re.findall(THREAD_LINK_PATTERN, text)
     thread_keys = [link.split('|')[0].strip() for link in thread_links]
 
     threads = [thread_model.objects.filter(key=thread_key).first() for thread_key in thread_keys]
@@ -179,7 +179,7 @@ def text_to_md(text):
     # replace document links and thread links in text with markdown
 
     temp = re.compile(DOCUMENT_LINK_PATTERN_FULL).sub(document_link_to_html, text)
-    md = re.compile(TOPIC_LINK_PATTERN_FULL).sub(thread_link_to_html, temp)
+    md = re.compile(THREAD_LINK_PATTERN_FULL).sub(thread_link_to_html, temp)
 
     return md
 

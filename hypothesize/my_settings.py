@@ -7,9 +7,9 @@ Set all of your personal settings here.
 USERNAME = ''
 PASSWORD = ''
 
-# where to save files corresponding to topics
+# where to save files corresponding to threads
 
-TOPIC_DIRECTORY = ''
+THREAD_DIRECTORY = ''
 
 # where to store database backups
 

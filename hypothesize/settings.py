@@ -48,17 +48,17 @@ except:
 
 try:
 
-    if my_settings.TOPIC_DIRECTORY:
+    if my_settings.THREAD_DIRECTORY:
 
-        TOPIC_SAVE_DIRECTORY = my_settings.TOPIC_DIRECTORY
+        THREAD_SAVE_DIRECTORY = my_settings.THREAD_DIRECTORY
 
     else:
 
-        TOPIC_SAVE_DIRECTORY = os.path.join(BASE_DIR, 'topics')
+        THREAD_SAVE_DIRECTORY = os.path.join(BASE_DIR, 'topics')
 
 except:
 
-    TOPIC_SAVE_DIRECTORY = os.path.join(BASE_DIR, 'topics')
+    THREAD_SAVE_DIRECTORY = os.path.join(BASE_DIR, 'topics')
 
 try:
 
@@ -76,7 +76,7 @@ except:
 
 DATABASE_BACKUP_INTERVAL_SECONDS = 24 * 60 * 60
 
-TOPIC_KEY_CHARACTER_WHITELIST = list('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') + \
+THREAD_KEY_CHARACTER_WHITELIST = list('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') + \
     [' ', ';', ',', '.', '/', '?', '[', ']', '{', '}', "'", '"'] + \
     ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+']
 
