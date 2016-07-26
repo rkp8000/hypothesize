@@ -12,7 +12,13 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 import os
 
-import my_settings
+try:
+
+    import my_settings
+
+except:
+
+    pass
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
