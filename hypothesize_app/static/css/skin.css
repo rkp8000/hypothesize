@@ -12,3 +12,16 @@
     border-style: groove;
     border-width: 4px;
 }
+
+input {
+    font-size: 18px;
+}
+
+textarea {
+    font-size: 18px;
+}
+
+#id_text {
+    width: 50em;
+    height: 50em;
+}
