@@ -47,7 +47,9 @@ Although this wasn't mentioned above, documents can also link to other documents
 
 ### Advanced thread editing
 
-In addition to the special syntax for linking to documents and threads, the text of a thread admits numerous other syntactical shortcuts. Most notably, threads are completely Markdown compatible. For instance: ```*this text in italics*``` gets rendered as *this text in italics* and ```[my link](https://github.com/rkp8000/hypothesize2)``` gets rendered as [my link](https://github.com/rkp8000/hypothesize2). Check out this [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) to see what else you can do with Markdown.
+When linking to documents or threads from within a thread, if you do not want the text of the rendered hyperlink to be the document/thread key, you can replace it with anything you like using the ```|```. For example, ```[[Shannon1948|Shannon's paper on information theory]]``` would get rendered as [Shannon's paper on information theory](https://github.com/rkp8000/hypothesize) but would link to the document with key "Shannon1948". Similarly, ```((dynamical systems theory|another mathematical perspective))``` would get rendered as [another mathematical perspective](https://github.com/rkp8000/hypothesize) but would link to the thread with the key "dynamical systems theory".
+
+In addition to the special syntax for linking to documents and threads, the text of a thread admits numerous other syntactical shortcuts. Most notably, threads are completely Markdown compatible. For instance: ```*this text in italics*``` gets rendered as *this text in italics* and ```[my link](https://github.com/rkp8000/hypothesize)``` gets rendered as [my link](https://github.com/rkp8000/hypothesize). Check out this [Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) to see what else you can do with Markdown.
 
 You can also include TeX equations in a thread's text file, which get nicely typeset when you save and render the thread. You can include an inline equation by surrounding it with single $'s and a block equation by surrounding it with $$'s. For instance, ```$y = \sum_i x_i$``` would get rendered inline and ```$$y = \sum_i x_i$$``` would get rendered in its own block. At this point, equation typesetting will only work if you have an internet connection, since it is done by remotely loading the [MathJax](https://www.mathjax.org) javascript library.
 
@@ -71,8 +73,10 @@ Running *hypothesize* on a remote server is also very easy. On the host computer
 
 ### Keyboard navigability
 
+*hypothesize* is mostly keyboard navigable. One of its future goals is to be entirely keyboard navigable, so that editing notes and searching through articles can be done as efficiently as possible. In order to get the most out of *hypothesize* in its current incarnation, I recommend installing the [GleeBox](http://thegleebox.com) browser extension, which allows you to quickly jump between a website's hyperlinks without having to lift your hands from the keyboard.
+
 # Contributing to hypothesize
 
-This project is completely open source and free for all to use and modify. My motivation for making it was that I wanted a piece of minimalistic software that allowed me to efficiently navigate through hundreds to thousands of scientific documents stored on my local machine, as well as my notes about those documents or about other projects. I've tried to make it at least reasonably functional and to follow best practices when possible, but that said, I really have very little idea what I'm doing, and I would love some more help. Therefore, if you are interested in contributing to this project you should feel free to open issues and pull requests.
+This project is completely open source and free for all to use and modify. My motivation for making it was that I wanted a piece of minimalistic software that allowed me to efficiently navigate through thousands of scientific documents stored on my local machine, as well as my notes about those documents or about other projects. I've tried to make it at least reasonably functional and to follow best practices when possible, but that said, I really have very little idea what I'm doing, and I would love some more help. Therefore, if you are interested in contributing to this project you should feel free to open issues and pull requests.
 
 Happy sciencing!
