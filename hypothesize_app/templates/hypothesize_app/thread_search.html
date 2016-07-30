@@ -31,10 +31,6 @@
         <a href="{% url 'hypothesize_app:thread_detail' thread.key %}">
         <span class="thread_title"><strong>{{thread.title}}</strong></span></a>
         <br />
-        <span class="thread_path">({{thread.key}})</span>
-        <br />
-        <span class="thread_last_viewed">(last viewed {{thread.last_viewed}})</span>
-        <br />
         <div class="thread_teaser">
             {{thread.text | truncatewords:"50" }}
         </div>

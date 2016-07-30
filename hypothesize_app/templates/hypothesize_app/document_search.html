@@ -29,10 +29,11 @@
 
                 <a href="{% url 'hypothesize_app:document_detail' document.key %}">
 
-                <span class="document_key"><strong>{{document.key}}</strong></span>
+                <span class="document_key"><strong>{{document.key}}</strong></span></a>
                 <span class="document_last_saved">({{document.last_saved}})</span>
-                    <br />
-                <span class="document_title">{{document.title}}</span></a>
+
+                <br />
+                <span class="document_title">{{document.title}}</span>
                     <br />
 
                 <div class="document_abstract">

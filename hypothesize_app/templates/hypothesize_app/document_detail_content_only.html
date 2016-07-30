@@ -1,4 +1,4 @@
-<h3>
+<strong>
     {% if document.file %}
         {% if file_server_address %}
             <a href="{{file_server_address}}/{{document.file.name}}">
@@ -15,9 +15,8 @@
         <strong>{{document.key}}</strong>
     {% endif %}
     (<a href="{% url 'hypothesize_app:document_change' document.key %}">edit</a>)
-    (<a href="{% url 'hypothesize_app:document_search' %}">return to search</a>)
-</h3>
-
+</strong>
+<br />
 "{{document.title}}"<br />
 <em>{{document.publication}}</em> {{document.year}}<br />
 Abstract:<br />
@@ -27,31 +26,29 @@ AUTHORS:<br />
     {{author.name}}<br />
 {% endfor %}
 
-<br />
-
-<hr />
 {% if document.linked_documents.all %}
+    <br />
     <strong>downstream documents (documents linked to by this document):</strong>
     {% for ds_doc in document.linked_documents.all %}
     <a href="{% url 'hypothesize_app:document_detail' ds_doc.key %}" class="internal-link"
        data-linkkey="document-{{ds_doc.key}}">
        {{ds_doc.key}}</a>
     {% endfor %}
-    <br />
 {% endif %}
 
 {% if document.document_set.all %}
+    <br />
     <strong>upstream documents (documents linking to this document):</strong>
     {% for us_doc in document.document_set.all %}
     <a href="{% url 'hypothesize_app:document_detail' us_doc.key %}" class="internal-link"
        data-linkkey="document-{{us_doc.key}}">
        {{us_doc.key}}</a>
     {% endfor %}
-    <br />
 {% endif %}
 
 {% if document.thread_set.all %}
-<strong>upstream threads (threads linking to this document):</strong>
+    <br />
+    <strong>upstream threads (threads linking to this document):</strong>
     {% for us_thread in document.thread_set.all %}
     <a href="{% url 'hypothesize_app:thread_detail' us_thread.key %}" class="internal-link" data-linkkey="thread-{{us_thread.key}}">
        {{us_thread.key}}</a>
