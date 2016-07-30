@@ -19,7 +19,7 @@
 
                 success: function(json){
                     inside_div = json.html;
-                    html = '<div class="expanded-link">' + json.anchor + ' ' + inside_div + '</div>';
+                    html = '<div class="expanded-link">' + inside_div + '</div>';
                     $(html).insertAfter(el).hide().show("fast");
                 },
 

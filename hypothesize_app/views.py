@@ -249,11 +249,11 @@ class AjaxLinkFetcher(generic.View):
 
             html = render_to_string('hypothesize_app/thread_detail_content_only.html', context)
 
-        anchor = '<a href="{}">(open as new page)</a>'.format(obj.get_absolute_url())
+        is_internal_link = True
 
         data = {
             'html': html,
-            'anchor': anchor,
+            'is_internal_link': is_internal_link,
         }
 
         return JsonResponse(data)
