@@ -119,7 +119,13 @@ class DocumentSearchTestCase(TestCase):
 
 class ThreadProcessingTestCase(TestCase):
 
-    pass
+    def test_no_errors_when_linking_to_nonexistent_thread_or_document(self):
+
+        pass
+
+    def test_no_errors_when_linking_to_thread_with_weird_characters(self):
+
+        pass
 
 ### thread add
 
