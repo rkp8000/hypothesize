@@ -2,6 +2,7 @@ from __future__ import division, print_function, unicode_literals
 from datetime import datetime
 import os
 from unidecode import unidecode
+from urllib import quote
 
 from django.conf import settings
 from django.core.urlresolvers import reverse_lazy
@@ -279,7 +280,15 @@ class AjaxThreadSaver(generic.View):
 
         key = self.request.GET['key']
 
-        json_response = {'key': key}
+        try:
+
+            quoted_key = quote(key)
+
+        except Exception as e:
+
+            quoted_key = key
+
+        json_response = {'key': key, 'quoted_key': quoted_key}
 
         if not key:
 
