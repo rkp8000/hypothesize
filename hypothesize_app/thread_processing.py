@@ -52,7 +52,7 @@ def update_text_file(thread):
 
     with open('{}.md'.format(path), 'w') as f:
 
-        f.write(thread.text)
+        f.write(thread.text.encode('utf8'))
 
     return True
 
