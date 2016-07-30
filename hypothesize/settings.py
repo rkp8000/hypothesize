@@ -60,11 +60,11 @@ try:
 
     else:
 
-        THREAD_SAVE_DIRECTORY = os.path.join(BASE_DIR, 'topics')
+        THREAD_SAVE_DIRECTORY = os.path.join(BASE_DIR, 'threads')
 
 except:
 
-    THREAD_SAVE_DIRECTORY = os.path.join(BASE_DIR, 'topics')
+    THREAD_SAVE_DIRECTORY = os.path.join(BASE_DIR, 'threads')
 
 try:
 
@@ -83,8 +83,7 @@ except:
 DATABASE_BACKUP_INTERVAL_SECONDS = 24 * 60 * 60
 
 THREAD_KEY_CHARACTER_WHITELIST = list('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') + \
-    [' ', ';', ',', '.', '/', '?', '[', ']', '{', '}', "'", '"'] + \
-    ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+']
+    [' ', "'", ';', ',', '.', '/', '?', '!', '-', '_', '~', '=', '+', '*', '$']
 
 # Application definition
 
