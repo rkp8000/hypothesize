@@ -233,28 +233,37 @@ class AjaxLinkFetcher(generic.View):
             'MEDIA_URL': '/media/',
         }
 
-        if link_type == 'document':
+        try:
 
-            obj = models.Document.objects.get(key=key)
+            if link_type == 'document':
 
-            context['document'] = obj
+                obj = models.Document.objects.get(key=key)
 
-            html = render_to_string('hypothesize_app/document_detail_content_only.html', context)
+                context['document'] = obj
 
-        elif link_type == 'thread':
+                html = render_to_string('hypothesize_app/document_detail_content_only.html', context)
 
-            obj = models.Thread.objects.get(key=key)
+            elif link_type == 'thread':
 
-            context['thread'] = obj
+                obj = models.Thread.objects.get(key=key)
 
-            html = render_to_string('hypothesize_app/thread_detail_content_only.html', context)
+                context['thread'] = obj
 
-        is_internal_link = True
+                html = render_to_string('hypothesize_app/thread_detail_content_only.html', context)
 
-        data = {
-            'html': html,
-            'is_internal_link': is_internal_link,
-        }
+            is_internal_link = True
+
+            data = {
+                'html': html,
+                'is_internal_link': is_internal_link,
+            }
+
+        except Exception as e:
+
+            data = {
+                'html': None,
+                'is_internal_link': None,
+            }
 
         return JsonResponse(data)
 
