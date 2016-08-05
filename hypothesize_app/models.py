@@ -1,10 +1,9 @@
 from __future__ import print_function, unicode_literals
-import json
+from datetime import datetime
 import os
 
 from django.core.urlresolvers import reverse
 from django.db import models
-from django.utils import timezone
 
 import document_processing
 import thread_processing
@@ -32,8 +31,8 @@ class Document(models.Model):
     web_link = models.CharField(max_length=500, blank=True, default='')
     file = models.FileField(upload_to='documents', null=True, blank=True)
     crossref = models.TextField(blank=True, default='')
-    uploaded = models.DateTimeField(default=timezone.now, blank=True)
-    last_saved = models.DateTimeField(default=timezone.now, blank=True)
+    uploaded = models.DateTimeField(default=datetime.now, blank=True)
+    last_saved = models.DateTimeField(default=datetime.now, blank=True)
     linked_document_text = models.TextField(blank=True, default='')
     linked_documents = models.ManyToManyField('self', symmetrical=False, blank=True)
     authors = models.ManyToManyField(Author, blank=True)
@@ -100,7 +99,12 @@ class Document(models.Model):
 
         # update last saved time
 
-        self.last_saved = timezone.now()
+        TZ = os.environ['TZ']
+        del os.environ['TZ']
+
+        self.last_saved = datetime.now()
+
+        os.environ['TZ'] = TZ
 
         super(Document, self).save(*args, **kwargs)
 
@@ -110,8 +114,8 @@ class Thread(models.Model):
 
     key = models.CharField(max_length=255, unique=True, default='')
     text = models.TextField(blank=True, default='')
-    created = models.DateTimeField(default=timezone.now, blank=True)
-    last_saved = models.DateTimeField(default=timezone.now, blank=True)
+    created = models.DateTimeField(default=datetime.now, blank=True)
+    last_saved = models.DateTimeField(default=datetime.now, blank=True)
     threads = models.ManyToManyField('self', symmetrical=False, blank=True)
     documents = models.ManyToManyField(Document, blank=True)
 
@@ -128,7 +132,14 @@ class Thread(models.Model):
 
         thread_processing.bind_linked_objects(self, document_model=Document, thread_model=Thread)
 
-        self.last_saved = timezone.now()
+        # update last saved time
+
+        TZ = os.environ['TZ']
+        del os.environ['TZ']
+
+        self.last_saved = datetime.now()
+
+        os.environ['TZ'] = TZ
 
         super(Thread, self).save(*args, **kwargs)
 
