@@ -18,14 +18,14 @@
     (<a href="{% url 'hypothesize_app:document_change' document.key %}">edit</a>)
 </strong>
 <br />
-"{{document.title}}"<br />
-<em>{{document.publication}}</em> {{document.year}}<br />
-Abstract:<br />
-{{document.abstract}}<br /><br />
-AUTHORS:<br />
-{% for author in document.authors.all %}
-    {{author.name}}<br />
-{% endfor %}
+"{{ document.title }}"<br />
+<em>{{ document.publication }}</em> {{ document.year }}<br />
+
+<strong>abstract</strong><br />
+{{ document.abstract }}<br />
+
+<strong>authors</strong><br />
+{{ document.author_text }}<br />
 
 {% if document.linked_documents.all %}
     <br />
