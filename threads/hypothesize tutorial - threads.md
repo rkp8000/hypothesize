@@ -1,0 +1,1 @@
+Threads are the files for storing your notes and organizing your research. They are essentially text files that get rendered into simple webpages when you view them.

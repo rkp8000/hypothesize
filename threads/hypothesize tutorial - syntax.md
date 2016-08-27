@@ -1,4 +1,4 @@
-Edit this thread to view the syntax used to render the following styled elements:
+This thread demonstrates how to generate hyperlinks and styled elements. Click on the "edit" button above to see the syntax used for each special element.
 
 ### *hypothesize* syntax:
 
@@ -40,13 +40,6 @@ Ordered list
 ##### Header 5
 ###### Header 6
 
-TeX equations:
-
-* inline style: $x^2 + y^2 = z^2$
-* block style:
-
-$$r = \sum \limits_i \cfrac{1}{a_i^z}$$
-
 Link to external webpage with custom link text: [a fancier Markdown Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet).
 
 Embedded external image:
@@ -56,3 +49,14 @@ Embedded external image:
 Embedded external gif:
 
 ![alt text](https://upload.wikimedia.org/wikipedia/commons/1/16/Parallax-scroll-example.gif)
+
+TeX equations (note that in this version of *hypothesize* equations only render correctly if their container thread is opened as a new page):
+
+* inline style: $x^2 + y^2 = z^2$
+* block style:
+
+$$r = \sum \limits_i \cfrac{1}{a_i^z}$$
+
+Code:
+
+```x = 5; y = 6```
