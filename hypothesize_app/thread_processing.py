@@ -41,9 +41,15 @@ def check_for_invalid_components(key):
     :return: True if key is invalid, False otherwise
     """
 
-    if any([c == '' for c  in key.split('/')]):
+    for c in key.split('/'):
 
-        return True
+        if c == '':
+
+            return True
+
+        if not any([ch in settings.THREAD_KEY_COMPONENT_REQUIRED_CHARACTERS for ch in c]):
+
+            return True
 
     return False
 
