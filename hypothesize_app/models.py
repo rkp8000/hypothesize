@@ -153,6 +153,13 @@ class Thread(models.Model):
         return os.path.basename(self.key)
 
     @property
+    def directory(self):
+
+        if self.key != self.title:
+
+            return os.path.dirname(self.key)
+
+    @property
     def html(self):
 
         return thread_processing.text_to_html(self.text)
