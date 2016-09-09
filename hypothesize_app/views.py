@@ -274,11 +274,11 @@ class AjaxThreadSaver(generic.View):
     View for saving threads without reloading page.
     """
 
-    def get(self, request):
+    def post(self, request):
 
         # make sure thread has key
 
-        key = self.request.GET['key']
+        key = self.request.POST['key']
 
         try:
 
@@ -323,9 +323,9 @@ class AjaxThreadSaver(generic.View):
 
         # get the thread if it exists, otherwise attempt to make a new one
 
-        if self.request.GET['id']:
+        if self.request.POST['id']:
 
-            thread = models.Thread.objects.get(pk=self.request.GET['id'])
+            thread = models.Thread.objects.get(pk=self.request.POST['id'])
 
             # make sure key is not taken by anything other than fetched thread
 
@@ -356,7 +356,7 @@ class AjaxThreadSaver(generic.View):
         # bind key and text to thread
 
         thread.key = key
-        thread.text = self.request.GET['text']
+        thread.text = self.request.POST['text']
 
         thread.save()
 

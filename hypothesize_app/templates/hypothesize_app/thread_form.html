@@ -34,11 +34,12 @@
         function save_thread() {
             $.ajax({
                 url: "{% url 'hypothesize_app:ajax_thread_saver' %}",
-                type: "GET",
+                type: "POST",
                 data: {
                     'id': $("#id_id").val(),
                     'key': $("#id_key").val(),
-                    'text': $("#id_text").val()
+                    'text': $("#id_text").val(),
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
                 },
 
                 success: function(json){
