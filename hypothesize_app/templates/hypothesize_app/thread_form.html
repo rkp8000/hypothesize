@@ -16,7 +16,17 @@
 
                 $('#thread_save_status').html('(unsaved changes -- press CTRL + S to save)');
 
+                $('#id_saved').val('unsaved');
             });
+
+            window.onbeforeunload = function () {
+                if ($('#id_saved').val() == 'unsaved') {
+                    return "Leave page?";
+                }
+                else {
+                    return null;
+                }
+            };
         });
     </script>
 
@@ -46,6 +56,8 @@
                         $('#delete-link').attr('href', delete_url);
 
                     }
+
+                    $('#id_saved').val('saved');
                 },
 
                 failure: function(json){
@@ -90,6 +102,7 @@
     key<br /> {{ form.key }} <br /><br />
     content <span id="thread_save_status"></span><br /> {{ form.text }}
     <input id="id_id" type="hidden" value="{{ thread.id }}" />
+    <input id="id_saved" type="hidden" value="saved" />
 </form>
 
 {% if thread.key %}
