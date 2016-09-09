@@ -30,6 +30,9 @@
     <div class="thread_search_result search_result">
         <a href="{% url 'hypothesize_app:thread_detail' thread.key %}">
         <span class="thread_title"><strong>{{thread.title}}</strong></span></a>
+        {% if thread.directory %}
+            (in: {{thread.directory}})
+        {% endif %}
         <br />
         <div class="thread_teaser">
             {{thread.text | truncatewords:"50" }}

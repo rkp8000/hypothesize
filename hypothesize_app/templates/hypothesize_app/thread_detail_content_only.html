@@ -1,5 +1,10 @@
-<strong>{{ thread.title }} (<a href="{% url 'hypothesize_app:thread_detail' thread.key %}">open as new page</a>)
-(<a href="{% url 'hypothesize_app:thread_change' thread.key %}">edit</a>)</strong>
+<strong>{{ thread.title }}
+   {% if thread.directory %}
+      (in: {{ thread.directory }})
+   {% endif %}
+   (<a href="{% url 'hypothesize_app:thread_detail' thread.key %}">open as new page</a>)
+   (<a href="{% url 'hypothesize_app:thread_change' thread.key %}">edit</a>)
+</strong>
 <hr />
 
 {{ thread.html | safe }}
