@@ -34,6 +34,20 @@ def get_invalid_key_characters(key):
     return set([char for char in key if char not in settings.THREAD_KEY_CHARACTER_WHITELIST])
 
 
+def check_for_invalid_components(key):
+    """
+    Make sure all components of the key contain the minimal required characters.
+    :param key: thread key
+    :return: True if key is invalid, False otherwise
+    """
+
+    if any([c == '' for c  in key.split('/')]):
+
+        return True
+
+    return False
+
+
 def update_text_file(thread):
     """
     Update the text file corresponding to an updated thread.

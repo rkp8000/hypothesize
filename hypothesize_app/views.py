@@ -309,6 +309,14 @@ class AjaxThreadSaver(generic.View):
             return JsonResponse(
                 {'thread_save_message': thread_save_message})
 
+        # make all components of thread key have minimum required characters
+
+        if thread_processing.check_for_invalid_components(key):
+
+            return JsonResponse(
+                {'thread_save_message': '(error: that key not valid)'},
+            )
+
         # get list of existing keys
 
         keys_existing = list(models.Thread.objects.values_list('key', flat=True))
