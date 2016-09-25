@@ -31,7 +31,11 @@ Within the text of a thread you can reference documents *inline* by surrounding 
 
 When you save the thread to render it as a webpage, "[[Shannon1948]]" becomes a hyperlink that when clicked expands into a small inline box containing the metadata for the article (such as its publication and abstract) and a link to the primary source (such as a local pdf or an external website). 
 
+![document linking](https://github.com/rkp8000/hypothesize_resources/blob/master/tutorial/rec3.gif?raw=true)
+
 Threads can also reference other threads using double parentheses e.g., "...information theory and ((dynamical systems theory)) became major players in theoretical neuroscience...". When you edit a thread and start typing out the key for a document or thread reference, *hypothesize* will try to guess which key you're thinking of so you don't have to remember the exact spelling or phrasing. When a thread reference is saved and rendered it similarly becomes a hyperlink that when clicked opens up the referenced thread inline with the original one.
+
+![thread linking](https://github.com/rkp8000/hypothesize_resources/blob/master/tutorial/rec4.gif?raw=true)
 
 Inline navigation through your wiki-like network of threads and documents makes it so you never have to switch or reload tabs when moving among related objects, so you never lose track of where you are.
 
@@ -46,6 +50,8 @@ In addition to threads containing inline links to other documents and threads, d
 ### Document creation
 
 One nice thing about hypothesize is that when adding a new document you don't have to type in all the metadata yourself. If you instead just type in a guess at the title you can click "attempt to fill in article metadata using CrossRef" to fill in the rest of the form. Note, however, that this does not fill in the abstract (work on this is in progress) or the PDF file.
+
+![document adding](https://github.com/rkp8000/hypothesize_resources/blob/master/tutorial/rec5.gif?raw=true)
 
 Although this wasn't mentioned above, documents can also link to other documents. To create a link between two documents, simply edit the document that is doing the linking and type in a list of document keys that you want it to link to in the "downstream documents" text box. As before, you don't need to know the whole key; *hypothesize* will try to guess the rest you've entered. When you view a document, you will see the documents that that document links to, as well as all the documents that link to it.
 
