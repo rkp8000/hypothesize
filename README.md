@@ -17,6 +17,8 @@
 
 *hypothesize* uses two kinds of objects: *documents* and *threads*. Documents are typically published journal articles or reports, and threads are text files for your notes and organization that get rendered into simple webpages when you save them. You can search, browse, or add new documents on the *document search page* and you can search, browse, or add new threads on the *thread search page*.
 
+![Alt Text](https://github.com/rkp8000/hypothesize_resources/blob/master/tutorial/rec1.gif?raw=true)
+
 ### Keys
 
 So that they can be unambiguously referenced, each thread and each document must have its own key, or unique label. Thread keys are simply the title of the thread's text file and document keys are the last name of first author combined with the publication year (e.g., Shannon1948). 
