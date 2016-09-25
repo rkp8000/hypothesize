@@ -13,13 +13,19 @@
 
 ## Basic usage
 
-### Documents and threads
+The next two gifs show *hypothesize* in action.
 
-*hypothesize* uses two kinds of objects: *documents* and *threads*. Documents are typically published journal articles or reports, and threads are text files for your notes and organization that get rendered into simple webpages when you save them. You can search, browse, or add new documents on the *document search page* and you can search, browse, or add new threads on the *thread search page*.
+### Navigation
 
 ![basic navigation](https://github.com/rkp8000/hypothesize_resources/blob/master/tutorial/rec1.gif?raw=true)
 
+### Editing
+
 ![basic editing](https://github.com/rkp8000/hypothesize_resources/blob/master/tutorial/rec2.gif?raw=true)
+
+### Documents and threads
+
+*hypothesize* uses two kinds of objects: *documents* and *threads*. Documents are typically published journal articles or reports, and threads are text files for your notes and organization that get rendered into simple webpages when you save them. You can search, browse, or add new documents on the *document search page* and you can search, browse, or add new threads on the *thread search page*.
 
 ### Keys
 
