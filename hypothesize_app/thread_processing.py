@@ -54,6 +54,34 @@ def check_for_invalid_components(key):
     return False
 
 
+def key_is_invalid(key):
+    """
+    Check if thread key is invalid
+    :param key: thread key
+    :return: False if key is valid, otherwise invalid key error message
+    """
+
+    if not key:
+
+        return '(error: you must provide a key)'
+
+    # make sure key is valid
+
+    invalid_chars = ['"' + char + '"' for char in get_invalid_key_characters(key)]
+
+    if invalid_chars:
+
+        invalid_str = ', '.join(invalid_chars)
+
+        return '(error: the characters {} cannot be used in a key)'.format(invalid_str)
+
+    # make all components of thread key have minimum required characters
+
+    if check_for_invalid_components(key):
+
+        return '(error: that key not valid)'
+
+
 def update_text_file(thread):
     """
     Update the text file corresponding to an updated thread.

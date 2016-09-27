@@ -276,7 +276,13 @@ class AjaxThreadSaver(generic.View):
 
     def post(self, request):
 
-        # make sure thread has key
+        # validate key
+
+        key_invalid = thread_processing.key_is_invalid(self.request.POST['key'])
+
+        if key_invalid:
+
+            return JsonResponse({'thread_save_message': key_invalid})
 
         key = self.request.POST['key']
 
@@ -289,33 +295,6 @@ class AjaxThreadSaver(generic.View):
             quoted_key = key
 
         json_response = {'key': key, 'quoted_key': quoted_key}
-
-        if not key:
-
-            return JsonResponse(
-                {'thread_save_message': '(error: you must provide a key)'}
-            )
-
-        # make sure key is valid
-
-        invalid_chars = ['"' + char + '"' for char in thread_processing.get_invalid_key_characters(key)]
-
-        if invalid_chars:
-
-            invalid_str = ', '.join(invalid_chars)
-
-            thread_save_message = '(error: the characters {} cannot be used in a key)'.format(invalid_str)
-
-            return JsonResponse(
-                {'thread_save_message': thread_save_message})
-
-        # make all components of thread key have minimum required characters
-
-        if thread_processing.check_for_invalid_components(key):
-
-            return JsonResponse(
-                {'thread_save_message': '(error: that key not valid)'},
-            )
 
         # get list of existing keys
 
