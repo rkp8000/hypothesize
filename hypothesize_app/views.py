@@ -241,6 +241,7 @@ class AjaxLinkFetcher(generic.View):
                 obj = models.Document.objects.get(key=key)
 
                 context['document'] = obj
+                context['is_internal_link'] = True
 
                 html = render_to_string('hypothesize_app/document_detail_content_only.html', context)
 
@@ -249,6 +250,7 @@ class AjaxLinkFetcher(generic.View):
                 obj = models.Thread.objects.get(key=key)
 
                 context['thread'] = obj
+                context['is_internal_link'] = True
 
                 html = render_to_string('hypothesize_app/thread_detail_content_only.html', context)
 

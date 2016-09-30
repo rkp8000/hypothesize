@@ -19,5 +19,8 @@
       {{us_thread.key}}</a>
    {% endfor %}
 {% endif %}
+   {% if is_internal_link %}
+   (<a href="#" class="internal-link-close-button">close</a>)
+   {% endif %}
    </div>
 </div>

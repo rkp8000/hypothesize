@@ -46,8 +46,13 @@
                 else {
                     fetch_link_detail($(this));
                 }
-
             });
+
+            $(document).on('click', '.internal-link-close-button', function() {
+                event.preventDefault();
+                $(this).parent().parent().parent().hide("fast");
+            });
+
         });
     </script>
 
