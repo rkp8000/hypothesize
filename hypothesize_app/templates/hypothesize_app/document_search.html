@@ -7,21 +7,22 @@
 
 <body>
 
+<div id="container">
     <h3>
         <a href="{% url 'hypothesize_app:document_search' %}" style="color: black;">search documents</a>
+        &nbsp; &nbsp; &nbsp;
         (<a href="{% url 'hypothesize_app:thread_search' %}">search threads</a>)
+        &nbsp; &nbsp; &nbsp;
+        (<a href="{% url 'hypothesize_app:document_create' %}">add new document</a>)
+        &nbsp; &nbsp; &nbsp;
+        (<a href="{% url 'hypothesize_app:database_backup' %}">back up database</a>)
     </h3>
 
     <form action="{% url 'hypothesize_app:document_search' %}" method="get">
         {{ document_search_form.query }}
+        (show top {{ document_search_form.max_hits }} results)
         <input type="submit" value="search" />
-        <br />
-        Show top {{ document_search_form.max_hits }} results.
     </form>
-
-    <a href="{% url 'hypothesize_app:document_create' %}">add new document</a>
-    &nbsp;&nbsp;&nbsp;
-    <a href="{% url 'hypothesize_app:database_backup' %}">back up database</a><br /><br />
 
     {% if documents %}
         {% for document in documents %}
@@ -47,4 +48,5 @@
             </div>
         {% endfor %}
     {% endif %}
+</div>
 </body>

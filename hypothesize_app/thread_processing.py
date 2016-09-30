@@ -81,6 +81,8 @@ def key_is_invalid(key):
 
         return '(error: that key not valid)'
 
+    return False
+
 
 def update_text_file(thread):
     """
@@ -127,8 +129,28 @@ def extract_linked_objects(text, document_model, thread_model):
     thread_links = re.findall(THREAD_LINK_PATTERN, text)
     thread_keys = [link.split('|')[0].strip() for link in thread_links]
 
-    threads = [thread_model.objects.filter(key=thread_key).first() for thread_key in thread_keys]
-    threads = [thread for thread in threads if thread is not None]
+    # get all linked threads, creating them first if they don't exist
+
+    threads = []
+
+    for thread_key in thread_keys:
+
+        # skip if key invalid
+
+        if key_is_invalid(thread_key):
+
+            continue
+
+        # otherwise...
+
+        thread = thread_model.objects.filter(key=thread_key).first()
+
+        if not thread:
+
+            thread = thread_model(key=thread_key)
+            thread.save()
+
+        threads.append(thread)
 
     return documents, threads
 
@@ -148,6 +170,7 @@ def bind_linked_objects(thread, document_model, thread_model):
     thread.documents.add(*documents)
 
     thread.threads.clear()
+
     thread.threads.add(*threads)
 
 

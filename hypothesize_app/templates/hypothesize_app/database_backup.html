@@ -1,8 +1,11 @@
 <head>
     {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/skin.css" %}"/>
     <title>database backup</title>
 </head>
 
+<body>
+<div id="container">
 Back up your document and thread database?
 <a href="{% url 'hypothesize_app:database_backup' %}?backup=TRUE">Go!</a>
 <br /><br />
@@ -18,3 +21,5 @@ To restore the database from a backup simply copy your desired backup file (loca
 
 <a href="{% url 'hypothesize_app:document_search' %}">return to document search</a><br />
 <a href="{% url 'hypothesize_app:thread_search' %}">return to thread search</a>
+</div>
+</body>

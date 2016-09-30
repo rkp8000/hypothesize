@@ -1,3 +1,5 @@
+<div class="thread-content">
+<span class="thread-title">
 <strong>{{ thread.title }}
    {% if thread.directory %}
       (in: {{ thread.directory }})
@@ -5,8 +7,9 @@
    (<a href="{% url 'hypothesize_app:thread_detail' thread.key %}">open as new page</a>)
    (<a href="{% url 'hypothesize_app:thread_change' thread.key %}">edit</a>)
 </strong>
-<hr />
+</span>
 
+<div class="thread-text">
 {{ thread.html | safe }}
 {% if thread.thread_set.all %}
    <br />
@@ -16,3 +19,5 @@
       {{us_thread.key}}</a>
    {% endfor %}
 {% endif %}
+   </div>
+</div>

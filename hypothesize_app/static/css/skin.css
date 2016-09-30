@@ -8,9 +8,6 @@
 
 .expanded-link {
     margin: 5px;
-    padding: 5px;
-    border-style: groove;
-    border-width: 4px;
 }
 
 input {
@@ -24,4 +21,46 @@ textarea {
 #id_text {
     width: 50em;
     height: 50em;
+}
+
+#container {
+    width: 80%;
+    margin: auto;
+    border: 12px solid #000000;
+    border-radius: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 10px;
+}
+
+.thread-content {
+    padding: 5px;
+}
+
+.thread-title {
+    border: 1px solid #000000;
+    padding: 4px;
+}
+
+.thread-text {
+    border: 1px solid #000000;
+    padding: 4px;
+    padding-top: 0px;
+    margin-top: 10px;
+}
+
+.document-content {
+    padding: 5px;
+}
+
+.document-key {
+    border: 1px solid #000000;
+    padding: 4px;
+}
+
+.document-text {
+    border: 1px solid #000000;
+    padding: 4px;
+    padding-top: 0px;
+    margin-top: 10px;
 }

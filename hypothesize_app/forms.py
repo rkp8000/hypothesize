@@ -49,7 +49,8 @@ class DocumentSearchForm(forms.Form):
     Form for searching documents database.
     """
 
-    query = forms.CharField(label='document_query', max_length=500)
+    query = forms.CharField(
+        label='document_query', max_length=500, widget=forms.TextInput(attrs={'size': 50}))
     max_hits = forms.ChoiceField(label='max_hits', choices=MAX_HIT_OPTIONS)
 
 
@@ -58,5 +59,6 @@ class ThreadSearchForm(forms.Form):
     Form for searching thread database.
     """
 
-    query = forms.CharField(label='thread_query', max_length=500)
+    query = forms.CharField(
+        label='thread_query', max_length=500, widget=forms.TextInput(attrs={'size': 50}))
     max_hits = forms.ChoiceField(label='max_hits', choices=MAX_HIT_OPTIONS)

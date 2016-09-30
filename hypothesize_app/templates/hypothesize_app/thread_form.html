@@ -89,25 +89,29 @@
     </title>
 </head>
 
-<a href="#" onclick="save_thread()">save</a>&nbsp;
-{% if thread.key %}
-    <a id="detail-link" href="{% url 'hypothesize_app:thread_detail' thread.key %}">view</a>&nbsp;
-{% else %}
-    <a id="detail-link" href="#">view</a>&nbsp;
-{% endif %}
-<a href="{% url 'hypothesize_app:thread_search' %}">return to search</a><br />
+<body>
+<div id="container">
+    <a href="#" onclick="save_thread()">save</a>&nbsp;
+    {% if thread.key %}
+        <a id="detail-link" href="{% url 'hypothesize_app:thread_detail' thread.key %}">view</a>&nbsp;
+    {% else %}
+        <a id="detail-link" href="#">view</a>&nbsp;
+    {% endif %}
+    <a href="{% url 'hypothesize_app:thread_search' %}">return to search</a><br />
 
-<form action="" method="post">
-    {% csrf_token %}
-    <br />
-    key<br /> {{ form.key }} <br /><br />
-    content <span id="thread_save_status"></span><br /> {{ form.text }}
-    <input id="id_id" type="hidden" value="{{ thread.id }}" />
-    <input id="id_saved" type="hidden" value="saved" />
-</form>
+    <form action="" method="post">
+        {% csrf_token %}
+        <br />
+        key<br /> {{ form.key }} <br /><br />
+        content <span id="thread_save_status"></span><br /> {{ form.text }}
+        <input id="id_id" type="hidden" value="{{ thread.id }}" />
+        <input id="id_saved" type="hidden" value="saved" />
+    </form>
 
-{% if thread.key %}
-    <a id="delete-link" href="{% url 'hypothesize_app:thread_delete' thread.id %}">delete this thread</a>
-{% else %}
-    <a id="delete-link">delete this thread</a>
-{% endif %}
+    {% if thread.key %}
+        <a id="delete-link" href="{% url 'hypothesize_app:thread_delete' thread.id %}">delete this thread</a>
+    {% else %}
+        <a id="delete-link">delete this thread</a>
+    {% endif %}
+</div>
+</body>

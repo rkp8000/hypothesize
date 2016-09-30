@@ -1,3 +1,5 @@
+<div class="document-content">
+<span class="document-key">
 <strong>
     {% if document.file %}
         {% if file_server_address %}
@@ -17,7 +19,9 @@
     (<a href="{% url 'hypothesize_app:document_detail' document.key %}">open as new page</a>)
     (<a href="{% url 'hypothesize_app:document_change' document.key %}">edit</a>)
 </strong>
+</span>
 <br />
+<div class="document-text">
 "{{ document.title }}"<br />
 <em>{{ document.publication }}</em> {{ document.year }}<br />
 
@@ -55,3 +59,5 @@
        {{us_thread.key}}</a>
     {% endfor %}
 {% endif %}
+</div>
+</div>

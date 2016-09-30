@@ -8,22 +8,23 @@
 </head>
 
 <body>
+<div id="container">
 
     <h3>
         <a href="{% url 'hypothesize_app:thread_search' %}" style="color: black;">search threads</a>
+        &nbsp; &nbsp; &nbsp;
         (<a href="{% url 'hypothesize_app:document_search' %}">search documents</a>)
+        &nbsp; &nbsp; &nbsp;
+        (<a href="{% url 'hypothesize_app:document_create' %}">add new document</a>)
+        &nbsp; &nbsp; &nbsp;
+        (<a href="{% url 'hypothesize_app:database_backup' %}">back up database</a>)
     </h3>
 
     <form action="{% url 'hypothesize_app:thread_search' %}" method="get">
         {{ thread_search_form.query }}
+        (show top {{ thread_search_form.max_hits }} results)
         <input type="submit" value="search" />
-        <br />
-        Show top {{ thread_search_form.max_hits }} results.
     </form>
-
-    <a href="{% url 'hypothesize_app:thread_create' %}">add new thread</a>
-    &nbsp;&nbsp;&nbsp;
-    <a href="{% url 'hypothesize_app:database_backup' %}">back up database</a><br /><br />
 
 {% if threads %}
     {% for thread in threads %}
@@ -42,7 +43,7 @@
     </div>
     {% endfor %}
 {% endif %}
-
+</div>
 </body>
 
 </html>

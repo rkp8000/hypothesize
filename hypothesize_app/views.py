@@ -173,7 +173,7 @@ class ThreadChange(generic.UpdateView):
 
         thread = models.Thread.objects.get(key=self.kwargs['key'])
 
-        thread.save()
+        # thread.save()
 
         return thread
 

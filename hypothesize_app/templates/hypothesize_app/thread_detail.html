@@ -56,10 +56,12 @@
 </head>
 
 <body>
-<h3>
-    <a href="{% url 'hypothesize_app:thread_search' %}" style="color: black;">search threads</a>
-    (<a href="{% url 'hypothesize_app:document_search' %}">search documents</a>)
-</h3>
-<hr />
-{% include 'hypothesize_app/thread_detail_content_only.html' %}
+<div id="container">
+    <h3>
+        <a href="{% url 'hypothesize_app:thread_search' %}" style="color: black;">search threads</a>
+        &nbsp; &nbsp; &nbsp;
+        (<a href="{% url 'hypothesize_app:document_search' %}">search documents</a>)
+    </h3>
+    {% include 'hypothesize_app/thread_detail_content_only.html' %}
+</div>
 </body>
