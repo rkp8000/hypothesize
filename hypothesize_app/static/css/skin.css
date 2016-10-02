@@ -16,6 +16,7 @@ input {
 
 textarea {
     font-size: 18px;
+    padding: 10px;
 }
 
 #id_text {
