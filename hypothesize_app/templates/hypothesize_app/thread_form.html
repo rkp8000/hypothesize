@@ -4,6 +4,7 @@
     <script src="{% static "js/jquery-2.1.4.js" %}"></script>
     <script src="{% static "js/jquery.a-tools-1.4.1.js" %}"></script>
     <script src="{% static "js/jquery.asuggest.js" %}"></script>
+    <script src="{% static "js/autosize.js" %}"></script>
     <script>
         $(document).ready(function(){
             //var suggests = ['elephant', 'rhino', 'elephino'];
@@ -27,6 +28,8 @@
                     return null;
                 }
             };
+
+            autosize(document.querySelectorAll('textarea'));
         });
     </script>
 
