@@ -4,7 +4,9 @@
    {% if thread.directory %}
       (in: {{ thread.directory }})
    {% endif %}
+   {% if is_internal_link %}
    (<a href="{% url 'hypothesize_app:thread_detail' thread.key %}">open as new page</a>)
+   {% endif %}
    (<a href="{% url 'hypothesize_app:thread_change' thread.key %}">edit</a>)
 </strong>
 </span>
