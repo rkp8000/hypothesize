@@ -39,9 +39,6 @@ class ThreadForm(ModelForm):
 
         model = Thread
         fields = ['key', 'text']
-        widgets = {
-            'key': forms.TextInput(attrs={'size': 80}),
-        }
 
 
 class DocumentSearchForm(forms.Form):

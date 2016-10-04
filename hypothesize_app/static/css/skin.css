@@ -15,12 +15,17 @@ input {
 }
 
 textarea {
+    width: 100%;
     font-size: 18px;
     padding: 10px;
 }
 
+#id_key {
+    width: 100%;
+}
+
 #id_text {
-    width: 50em;
+    width: 100%;
     height: 50em;
 }
 
