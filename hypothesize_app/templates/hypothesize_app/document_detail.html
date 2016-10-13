@@ -1,19 +1,24 @@
 <head>
     {% load staticfiles %}
-    <script type="text/x-mathjax-config">
+    <link rel="stylesheet" type="text/css" href="{% static "css/skin.css" %}"/>
+     <script type="text/x-mathjax-config">
         MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
     </script>
     <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
     <script src="{% static "js/jquery-2.1.4.js" %}"></script>
 
-    <title>{{document.title}}</title>
-
+    <title>{{ document.title }}</title>
 </head>
+
 <body>
+<div id="container">
 <h3>
-    <a href="{% url 'hypothesize_app:document_search' %}" style="color: black;">search documents</a>
-    (<a href="{% url 'hypothesize_app:thread_search' %}">search threads</a>)
+    (<a href="{% url 'hypothesize_app:thread_search' %}">search threads</a>)&nbsp; &nbsp; &nbsp;
+    (<a href="{% url 'hypothesize_app:document_search' %}">search documents</a>)&nbsp; &nbsp; &nbsp;
+    (<a href="{% url 'hypothesize_app:thread_create' %}">add new thread</a>)&nbsp; &nbsp; &nbsp;
+    (<a href="{% url 'hypothesize_app:document_create' %}">add new document</a>)&nbsp; &nbsp; &nbsp;
+    (<a href="{% url 'hypothesize_app:database_backup' %}">back up database</a>)&nbsp; &nbsp; &nbsp;
 </h3>
-<hr />
 {% include 'hypothesize_app/document_detail_content_only.html' %}
+</div>
 </body>

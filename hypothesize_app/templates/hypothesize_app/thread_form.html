@@ -96,13 +96,19 @@
 
 <body>
 <div id="container">
+    <h3>
+        (<a href="{% url 'hypothesize_app:thread_search' %}">search threads</a>)&nbsp; &nbsp; &nbsp;
+        (<a href="{% url 'hypothesize_app:document_search' %}">search documents</a>)&nbsp; &nbsp; &nbsp;
+        (<a href="{% url 'hypothesize_app:thread_create' %}">add new thread</a>)&nbsp; &nbsp; &nbsp;
+        (<a href="{% url 'hypothesize_app:document_create' %}">add new document</a>)&nbsp; &nbsp; &nbsp;
+        (<a href="{% url 'hypothesize_app:database_backup' %}">back up database</a>)&nbsp; &nbsp; &nbsp;
+    </h3>
     <a href="#" onclick="save_thread()">save</a>&nbsp;
     {% if thread.key %}
         <a id="detail-link" href="{% url 'hypothesize_app:thread_detail' thread.key %}">view</a>&nbsp;
     {% else %}
         <a id="detail-link" href="#">view</a>&nbsp;
     {% endif %}
-    <a href="{% url 'hypothesize_app:thread_search' %}">return to search</a><br />
 
     <form action="" method="post">
         {% csrf_token %}

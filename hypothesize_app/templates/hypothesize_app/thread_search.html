@@ -11,13 +11,11 @@
 <div id="container">
 
     <h3>
-        <a href="{% url 'hypothesize_app:thread_search' %}" style="color: black;">search threads</a>
-        &nbsp; &nbsp; &nbsp;
-        (<a href="{% url 'hypothesize_app:document_search' %}">search documents</a>)
-        &nbsp; &nbsp; &nbsp;
-        (<a href="{% url 'hypothesize_app:thread_create' %}">add new thread</a>)
-        &nbsp; &nbsp; &nbsp;
-        (<a href="{% url 'hypothesize_app:database_backup' %}">back up database</a>)
+        <a href="{% url 'hypothesize_app:thread_search' %}" style="color: black;">search threads</a>&nbsp; &nbsp; &nbsp;
+        (<a href="{% url 'hypothesize_app:document_search' %}">search documents</a>)&nbsp; &nbsp; &nbsp;
+        (<a href="{% url 'hypothesize_app:thread_create' %}">add new thread</a>)&nbsp; &nbsp; &nbsp;
+        (<a href="{% url 'hypothesize_app:document_create' %}">add new document</a>)&nbsp; &nbsp; &nbsp;
+        (<a href="{% url 'hypothesize_app:database_backup' %}">back up database</a>)&nbsp; &nbsp; &nbsp;
     </h3>
 
     <form action="{% url 'hypothesize_app:thread_search' %}" method="get">
