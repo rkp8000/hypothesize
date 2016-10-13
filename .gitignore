@@ -16,3 +16,5 @@ threads
 
 .ipynb_checkpoints
 *.ipynb
+
+nohup.out
