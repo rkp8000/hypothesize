@@ -77,6 +77,8 @@
             var evtobj = window.event? event : e
             if (evtobj.keyCode == 83 && evtobj.ctrlKey) {
                 save_thread();
+            } else if (evtobj.keyCode == 27) {
+                $('textarea').blur();
             }
         }
 
