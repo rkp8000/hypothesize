@@ -4,7 +4,7 @@
 
 ## To download and start hypothesize on your local computer
 
-1. Clone the repository onto your local computer (`git clone https://github.com/rkp8000/hypothesize2`) and cd into it (`cd hypothesize2`).
+1. Clone the repository onto your local computer (`git clone https://github.com/rkp8000/hypothesize`) and cd into it (`cd hypothesize2`).
 2. Create a virtual environment: `virtualenv env`. (Note that this may give you problems if you have the current version of [conda](http://conda.pydata.org/docs/) installed, in which case you should make a virtual environment using conda itself.)
 3. Activate the virtual environment (`source env/bin/activate`) and install the relevant requirements: `pip install -r requirements.txt`.
 4. Start the server: `python manage.py runserver`. 
