@@ -5,6 +5,11 @@
     <script src="{% static "js/jquery.a-tools-1.4.1.js" %}"></script>
     <script src="{% static "js/jquery.asuggest.js" %}"></script>
     <script>
+
+    function save_document() {
+        alert('saving!');
+        $('#document_form').submit();
+    }
     function fetch_document_metadata(document_title) {
         $.ajax({
             url: "{% url 'hypothesize_app:ajax_document_autofiller' %}",
@@ -83,10 +88,9 @@
         (<a href="{% url 'hypothesize_app:document_create' %}">add new document</a>)&nbsp; &nbsp; &nbsp;
         (<a href="{% url 'hypothesize_app:database_backup' %}">back up database</a>)&nbsp; &nbsp; &nbsp;
     </h3>
-    <form action="" method="post" enctype="multipart/form-data">
+    <a href="#" onclick="save_document()">save</a>
+    <form id="document_form" action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <input type="submit" value="Save" />
-        <br /><br />
         title <br />{{ form.title }} <br />
         (<a id="autofill_button" href="#">attempt to autofill from title using CrossRef</a>)
         <span id="autofill_message"></span><br /><br />
