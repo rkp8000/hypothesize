@@ -102,7 +102,13 @@ class DocumentChange(generic.UpdateView):
 
             print('Extracting title and binding it to document...')
 
-            f = request.FILES.get('file', self.get_object().file)
+            try:
+
+                f = request.FILES.get('file', self.get_object().file)
+
+            except:
+
+                f = None
 
             request.POST['title'] = document_processing.extract_title_from_pdf(f)
 
@@ -146,6 +152,37 @@ class DocumentCreate(generic.CreateView):
         ]
 
         return context
+
+    def post(self, request, **kwargs):
+
+        if self.get_form_kwargs()['data']['extract_title_from_pdf']:
+
+            print('Extracting title and binding it to document...')
+
+            try:
+
+                f = request.FILES['file']
+
+            except:
+
+                f = None
+
+            request.POST['title'] = document_processing.extract_title_from_pdf(f)
+
+        return super(DocumentCreate, self).post(request, **kwargs)
+
+    def get_success_url(self):
+
+        success_url = super(DocumentCreate, self).get_success_url()
+
+        if self.get_form_kwargs()['data']['extract_title_from_pdf']:
+
+            # swap "detail" for "change"
+            # note: this is kind of a hack
+
+            success_url = success_url.rsplit('/detail/', 1)[0] + '/change/'
+
+        return success_url
 
 
 class DocumentDelete(generic.DeleteView):
