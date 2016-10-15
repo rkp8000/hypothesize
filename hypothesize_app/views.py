@@ -12,6 +12,7 @@ from django.views import generic
 
 import backup
 import crossref_search
+import document_processing
 import forms
 import models
 import thread_processing
@@ -97,7 +98,13 @@ class DocumentChange(generic.UpdateView):
 
     def post(self, request, **kwargs):
 
-        print(self.get_form_kwargs()['data']['extract_title_from_pdf'])
+        if self.get_form_kwargs()['data']['extract_title_from_pdf']:
+
+            print('Extracting title and binding it to document...')
+
+            f = request.FILES.get('file', self.get_object().file)
+
+            request.POST['title'] = document_processing.extract_title_from_pdf(f)
 
         return super(DocumentChange, self).post(request, **kwargs)
 
