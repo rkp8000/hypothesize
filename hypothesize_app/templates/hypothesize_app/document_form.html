@@ -35,7 +35,7 @@
                     $('#autofill_message').html(json['error_message']);
                 }
                 else {
-                    $('#autofill_message').html('search completed (note: abstract and file not autofilled)');
+                    $('#autofill_message').html('search completed');
 
                     // fill in results
 
@@ -47,9 +47,6 @@
                     $('#id_abstract').val(json['abstract']);
                     $('#id_crossref').val(json['crossref']);
                 }
-
-
-
             },
 
             failure: function(json){
