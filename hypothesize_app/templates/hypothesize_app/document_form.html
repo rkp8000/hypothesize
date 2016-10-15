@@ -7,9 +7,20 @@
     <script>
 
     function save_document() {
-        alert('saving!');
+        if (!$('#id_title').val()) {
+            $('#id_title').val('unknown');
+        }
         $('#document_form').submit();
     }
+
+    function extract_title() {
+        $('#id_extract_title_from_pdf').val('true');
+        if (!$('#id_title').val()) {
+            $('#id_title').val('unknown');
+        }
+        $('#document_form').submit();
+    }
+
     function fetch_document_metadata(document_title) {
         $.ajax({
             url: "{% url 'hypothesize_app:ajax_document_autofiller' %}",
@@ -88,21 +99,23 @@
         (<a href="{% url 'hypothesize_app:document_create' %}">add new document</a>)&nbsp; &nbsp; &nbsp;
         (<a href="{% url 'hypothesize_app:database_backup' %}">back up database</a>)&nbsp; &nbsp; &nbsp;
     </h3>
-    <a href="#" onclick="save_document()">save</a>
+    <a href="#" onclick="save_document()">save</a><br /><br />
     <form id="document_form" action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        title <br />{{ form.title }} <br />
+        file: {{ form.file }}
+        <br /><br />
+        title (<a href="#" onclick="extract_title()">extract from pdf</a>)<br />{{ form.title }} <br />
         (<a id="autofill_button" href="#">attempt to autofill from title using CrossRef</a>)
         <span id="autofill_message"></span><br /><br />
         webpage <br />{{ form.web_link }} <br /><br />
         publication <br />{{ form.publication }} <br /><br />
         year <br />{{ form.year }} <br /><br />
-        file <br />{{ form.file }} <br /><br />
         authors (family name first, multiple authors separated by semicolon, e.g., "Smith, John; Lee, R.G.")<br /> {{ form.author_text }}
         <br /><br />
         abstract <br /> {{ form.abstract }} <br /><br />
         CrossRef metadata string <br /> {{ form.crossref }} <br /><br />
         downstream documents (separated by commas) <br /> {{ form.linked_document_text }}
+        <input id="id_extract_title_from_pdf" name="extract_title_from_pdf" type="hidden" value="" />
     </form>
 
     {% if include_delete %}

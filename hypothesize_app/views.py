@@ -95,6 +95,25 @@ class DocumentChange(generic.UpdateView):
 
         return context
 
+    def post(self, request, **kwargs):
+
+        print(self.get_form_kwargs()['data']['extract_title_from_pdf'])
+
+        return super(DocumentChange, self).post(request, **kwargs)
+
+    def get_success_url(self):
+
+        success_url = super(DocumentChange, self).get_success_url()
+
+        if self.get_form_kwargs()['data']['extract_title_from_pdf']:
+
+            # swap "detail" for "change"
+            # note: this is kind of a hack
+
+            success_url = success_url.rsplit('/detail/', 1)[0] + '/change/'
+
+        return success_url
+
 
 class DocumentCreate(generic.CreateView):
     """
@@ -269,6 +288,20 @@ class AjaxLinkFetcher(generic.View):
             }
 
         return JsonResponse(data)
+
+
+class AjaxDocumentSaver(generic.View):
+    """
+    View for saving documents without reloading page.
+    """
+
+    def post(self, request):
+
+        message = 'AjaxDocumentSaver contacted, data = {}'.format(self.request.POST)
+
+        print(message)
+
+        return JsonResponse({'document_save_message': message})
 
 
 class AjaxThreadSaver(generic.View):
