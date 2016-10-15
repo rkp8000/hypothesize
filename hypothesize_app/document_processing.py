@@ -3,6 +3,8 @@ import re
 import string
 import urllib
 
+from pdfminer.pdfparser import PDFParser
+from pdfminer.pdfdocument import PDFDocument
 import unidecode
 
 ALPHABET = string.ascii_uppercase
@@ -135,6 +137,26 @@ def make_key(document, document_model):
             if next_key not in conflicting_keys:
 
                 return next_key
+
+
+def extract_title_from_pdf(f):
+    """
+    Attempt to extract title from pdf file metadata.
+    :param f: file
+    :return: title of file
+    """
+
+    fail_message = 'The title could not be extracted. Please enter it manually.'
+
+    try:
+
+        parser = PDFParser(f)
+        doc = PDFDocument(parser)
+        return doc.info[0].get('Title', fail_message)
+
+    except:
+
+        return fail_message
 
 
 def google_scholar_search_url(document):

@@ -19,6 +19,7 @@ urlpatterns = [
 
     url(r'^ajax/link_fetcher', views.AjaxLinkFetcher.as_view(), name='ajax_link_fetcher'),
     url(r'^ajax/thread_saver', views.AjaxThreadSaver.as_view(), name='ajax_thread_saver'),
+    url(r'^ajax/document_saver', views.AjaxDocumentSaver.as_view(), name='ajax_document_saver'),
     url(r'^ajax/document_autofiller', views.AjaxDocumentAutofiller.as_view(), name='ajax_document_autofiller'),
 
     url(r'^database_backup/$', views.DatabaseBackup.as_view(), name='database_backup'),
