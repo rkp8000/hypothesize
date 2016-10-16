@@ -21,6 +21,7 @@
                     inside_div = json.html;
                     html = '<div class="expanded-link">' + inside_div + '</div>';
                     $(html).insertAfter(el).hide().show("fast");
+                    MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
                 },
 
                 failure: function(json){
@@ -41,6 +42,7 @@
                     }
                     else {
                         $(this).next().show("fast");
+                        MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
                     }
                 }
                 else {
