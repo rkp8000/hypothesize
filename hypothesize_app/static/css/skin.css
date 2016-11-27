@@ -1,3 +1,7 @@
+body {
+    font-family: Sans-Serif;
+}
+
 .search_result {
     background-color: #EEE;
     margin: 5px;
