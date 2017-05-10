@@ -1,3 +1,4 @@
+biopython==1.69
 Django==1.9.2
 habanero==0.2.6
 Markdown==2.6.5
