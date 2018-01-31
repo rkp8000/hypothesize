@@ -1,6 +1,6 @@
 # README
 
-*hypothesize* is a combined note-taking and reference-management app designed for the efficient synthesis of new ideas informed by scholarly literature. Its wiki-like structure enables you to flexibly organize and cross-reference your notes and journal articles and to nimbly navigate among them without ever losing track of where you came from. *hypothesize* is free to all to download and welcomes contributions from those interested in developing it further.
+Hypothesize is a combined note-taking and reference-management app designed for the efficient synthesis of new ideas informed by scholarly literature. Its wiki-like structure enables you to flexibly organize and cross-reference your notes and journal articles and to nimbly navigate among them without ever losing track of where you came from. Designed to minimize interruptions of your attention span, Hypothesize opens links in place instead of in new tabs and requires as few clicks and keystrokes as possible to navigate your idea network. Hypothesize is free to all to download and welcomes contributions from those interested in developing it further.
 
 ## To download and start hypothesize on your local computer
 
